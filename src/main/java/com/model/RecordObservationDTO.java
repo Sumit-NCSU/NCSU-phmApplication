@@ -10,6 +10,25 @@ public class RecordObservationDTO {
 	private Timestamp observationTime;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param observationId
+	 *            the observation ID
+	 * @param personId
+	 *            the person ID
+	 * @param recordTime
+	 *            the record time
+	 * @param observationTime
+	 *            the observation time
+	 */
+	public RecordObservationDTO(int observationId, int personId, Timestamp recordTime, Timestamp observationTime) {
+		this.observationId = observationId;
+		this.personId = personId;
+		this.recordTime = recordTime;
+		this.observationTime = observationTime;
+	}
+
+	/**
 	 * @return the observationId
 	 */
 	public int getObservationId() {

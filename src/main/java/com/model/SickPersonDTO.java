@@ -7,6 +7,22 @@ public class SickPersonDTO {
 	private int healthSupporter2Id;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param personId
+	 *            the person ID
+	 * @param healthSupporter1Id
+	 *            the health supporter 1 ID
+	 * @param healthSupporter2Id
+	 *            the health supporter 2 ID
+	 */
+	public SickPersonDTO(int personId, int healthSupporter1Id, int healthSupporter2Id) {
+		this.personId = personId;
+		this.healthSupporter1Id = healthSupporter1Id;
+		this.healthSupporter2Id = healthSupporter2Id;
+	}
+
+	/**
 	 * @return the personId
 	 */
 	public int getPersonId() {

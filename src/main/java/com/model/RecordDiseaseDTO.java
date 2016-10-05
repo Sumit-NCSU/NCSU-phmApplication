@@ -9,6 +9,22 @@ public class RecordDiseaseDTO {
 	private Timestamp recordTime;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param personId
+	 *            the person ID
+	 * @param diseaseId
+	 *            the disease ID
+	 * @param recordTime
+	 *            the record Time
+	 */
+	public RecordDiseaseDTO(int personId, int diseaseId, Timestamp recordTime) {
+		this.personId = personId;
+		this.diseaseId = diseaseId;
+		this.recordTime = recordTime;
+	}
+
+	/**
 	 * @return the personId
 	 */
 	public int getPersonId() {

@@ -6,6 +6,19 @@ public class DiseaseObservationDTO {
 	private String observationType;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param diseaseId
+	 *            the disease ID
+	 * @param observationType
+	 *            the observation type
+	 */
+	public DiseaseObservationDTO(int diseaseId, String observationType) {
+		this.diseaseId = diseaseId;
+		this.observationType = observationType;
+	}
+
+	/**
 	 * @return the diseaseId
 	 */
 	public int getDiseaseId() {

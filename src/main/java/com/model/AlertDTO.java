@@ -7,6 +7,22 @@ public class AlertDTO {
 	private String description;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param alertId
+	 *            the alert ID
+	 * @param personId
+	 *            the person ID
+	 * @param description
+	 *            the description
+	 */
+	public AlertDTO(int alertId, int personId, String description) {
+		this.alertId = alertId;
+		this.personId = personId;
+		this.description = description;
+	}
+
+	/**
 	 * @return the alertId
 	 */
 	public int getAlertId() {

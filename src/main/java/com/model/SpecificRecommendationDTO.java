@@ -9,6 +9,22 @@ public class SpecificRecommendationDTO {
 	private Timestamp recordTime;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param diseaseId
+	 *            the disease ID
+	 * @param recommendationId
+	 *            the recommendation ID
+	 * @param recordTime
+	 *            the record time
+	 */
+	public SpecificRecommendationDTO(int diseaseId, int recommendationId, Timestamp recordTime) {
+		this.diseaseId = diseaseId;
+		this.recommendationId = recommendationId;
+		this.recordTime = recordTime;
+	}
+
+	/**
 	 * @return the diseaseId
 	 */
 	public int getDiseaseId() {

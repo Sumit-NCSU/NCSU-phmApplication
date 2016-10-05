@@ -1,6 +1,6 @@
 package com.model;
 
-public class OservationTypeDTO {
+public class ObservationTypeDTO {
 
 	private String observationType;
 	private String frequency;
@@ -9,6 +9,35 @@ public class OservationTypeDTO {
 	private String metric;
 	private String lowerBound;
 	private String upperBound;
+
+	/**
+	 * Parameterized constructor
+	 * 
+	 * @param observationType
+	 *            the observation type
+	 * @param frequency
+	 *            the frequency
+	 * @param description
+	 *            the description
+	 * @param measure
+	 *            the measure
+	 * @param metric
+	 *            the metric
+	 * @param lowerBound
+	 *            the lower bound
+	 * @param upperBound
+	 *            the upper bound
+	 */
+	public ObservationTypeDTO(String observationType, String frequency, String description, String measure,
+			String metric, String lowerBound, String upperBound) {
+		this.observationType = observationType;
+		this.frequency = frequency;
+		this.description = description;
+		this.measure = measure;
+		this.metric = metric;
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
+	}
 
 	/**
 	 * @return the observationType

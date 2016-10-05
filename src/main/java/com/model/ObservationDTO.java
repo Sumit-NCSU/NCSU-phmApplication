@@ -7,6 +7,22 @@ public class ObservationDTO {
 	private String observationValue;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param observationId
+	 *            the observation ID
+	 * @param observationType
+	 *            the observation type
+	 * @param observationValue
+	 *            the observation Value
+	 */
+	public ObservationDTO(int observationId, String observationType, String observationValue) {
+		this.observationId = observationId;
+		this.observationType = observationType;
+		this.observationValue = observationValue;
+	}
+
+	/**
 	 * @return the observationId
 	 */
 	public int getObservationId() {

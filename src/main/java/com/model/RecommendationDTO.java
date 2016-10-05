@@ -9,6 +9,29 @@ public class RecommendationDTO {
 	private String upperLimit;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param recommendationId
+	 *            the recommendation ID
+	 * @param description
+	 *            the description
+	 * @param frequency
+	 *            the frequency
+	 * @param lowerLimit
+	 *            the lower limit
+	 * @param upperLimit
+	 *            the upper limit
+	 */
+	public RecommendationDTO(int recommendationId, String description, String frequency, String lowerLimit,
+			String upperLimit) {
+		this.recommendationId = recommendationId;
+		this.description = description;
+		this.frequency = frequency;
+		this.lowerLimit = lowerLimit;
+		this.upperLimit = upperLimit;
+	}
+
+	/**
 	 * @return the recommendationId
 	 */
 	public int getRecommendationId() {

@@ -17,6 +17,7 @@ public class SqlConfig {
 		try {
 			PROPERTIES.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("sqlconfig.properties"));
 		} catch (Exception e) {
+			System.err.println("Failed to Load SQL Properties.");
 			System.out.println("Failed to Load SQL Properties.");
 		}
 	}

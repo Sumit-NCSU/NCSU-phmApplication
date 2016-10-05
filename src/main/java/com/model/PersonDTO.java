@@ -13,6 +13,35 @@ public class PersonDTO {
 	private String gender;
 
 	/**
+	 * Parameterized constructor
+	 * 
+	 * @param personId
+	 *            the person ID
+	 * @param personName
+	 *            the person name
+	 * @param username
+	 *            the user name
+	 * @param password
+	 *            the password
+	 * @param address
+	 *            the address
+	 * @param dob
+	 *            the date of birth
+	 * @param gender
+	 *            the gender
+	 */
+	public PersonDTO(int personId, String personName, String username, String password, String address, Date dob,
+			String gender) {
+		this.personId = personId;
+		this.personName = personName;
+		this.username = username;
+		this.password = password;
+		this.address = address;
+		this.dob = dob;
+		this.gender = gender;
+	}
+
+	/**
 	 * @return the personId
 	 */
 	public int getPersonId() {
