@@ -50,8 +50,8 @@ public class SelectQueries {
 				alertDTOs.add(alertDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Alerts." + e.getMessage());
+			throw new PhmException("Failed to fetch all Alerts." + e.getMessage());
 		}
 		return alertDTOs;
 	}
@@ -75,8 +75,8 @@ public class SelectQueries {
 				diseaseDTOs.add(diseaseDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Diseases." + e.getMessage());
+			throw new PhmException("Failed to fetch all Diseases." + e.getMessage());
 		}
 		return diseaseDTOs;
 	}
@@ -100,8 +100,8 @@ public class SelectQueries {
 				diseaseOservationDTOs.add(diseaseOservationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Disease Oservations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Disease Oservations." + e.getMessage());
 		}
 		return diseaseOservationDTOs;
 	}
@@ -125,8 +125,8 @@ public class SelectQueries {
 				observationDTOs.add(observationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Observations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Observations." + e.getMessage());
 		}
 		return observationDTOs;
 	}
@@ -152,8 +152,8 @@ public class SelectQueries {
 				observationTypeDTOs.add(observationTypeDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Observation Types." + e.getMessage());
+			throw new PhmException("Failed to fetch all Observation Types." + e.getMessage());
 		}
 		return observationTypeDTOs;
 	}
@@ -178,8 +178,8 @@ public class SelectQueries {
 				personDTOs.add(personDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return personDTOs;
 	}
@@ -204,8 +204,8 @@ public class SelectQueries {
 				recommendationDTOs.add(recommendationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
 		}
 		return recommendationDTOs;
 	}
@@ -229,8 +229,8 @@ public class SelectQueries {
 				recordDiseaseDTOs.add(recordDiseaseDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Record Diseases." + e.getMessage());
+			throw new PhmException("Failed to fetch all Record Diseases." + e.getMessage());
 		}
 		return recordDiseaseDTOs;
 	}
@@ -255,8 +255,8 @@ public class SelectQueries {
 				recordObservationDTOs.add(recordOservationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Record Oservations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Record Oservations." + e.getMessage());
 		}
 		return recordObservationDTOs;
 	}
@@ -280,8 +280,8 @@ public class SelectQueries {
 				sickPersonDTOs.add(sickPersonDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Alerts.");
-			throw new PhmException("Failed to fetch all Alerts.");
+			System.out.println("Failed to fetch all Sick Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Sick Persons." + e.getMessage());
 		}
 		return sickPersonDTOs;
 	}
@@ -306,8 +306,8 @@ public class SelectQueries {
 				specificRecommendationDTOs.add(specificRecommendationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Specific Recommendations.");
-			throw new PhmException("Failed to fetch all Specific Recommendations.");
+			System.out.println("Failed to fetch all Specific Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Specific Recommendations." + e.getMessage());
 		}
 		return specificRecommendationDTOs;
 	}
@@ -332,8 +332,8 @@ public class SelectQueries {
 				standardRecommendationDTOs.add(standardRecommendationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Standard Recommendations.");
-			throw new PhmException("Failed to fetch all Standard Recommendations.");
+			System.out.println("Failed to fetch all Standard Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Standard Recommendations." + e.getMessage());
 		}
 		return standardRecommendationDTOs;
 	}
@@ -357,8 +357,8 @@ public class SelectQueries {
 				wellPersonDTOs.add(wellPersonDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Well Person.");
-			throw new PhmException("Failed to fetch all Well Person.");
+			System.out.println("Failed to fetch all Well Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Well Persons." + e.getMessage());
 		}
 		return wellPersonDTOs;
 	}
