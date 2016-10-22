@@ -4,6 +4,7 @@
 package com.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +33,38 @@ import com.util.StringsUtil;
 public class SelectQueries {
 
 	/**
+	 * Method to fetch the record of Login User from database.
+	 * 
+	 * @param username
+	 *            the user name
+	 * @param password
+	 *            the password
+	 * @param connection
+	 *            the database connection
+	 * @return the object of Person DTO if login successful or null if user does
+	 *         not exist.
+	 */
+	public static PersonDTO getLoginPerson(String username, String password, Connection connection)
+			throws PhmException {
+		PersonDTO person = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.LOGIN_QUERY);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				person = new PersonDTO(resultSet.getInt("personId"), resultSet.getString("personName"),
+						resultSet.getString("username"), resultSet.getString("password"),
+						resultSet.getString("address"), resultSet.getString("dob"), resultSet.getString("gender"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch Person While Login. " + e.getMessage());
+			throw new PhmException("Failed to fetch Person While Login. " + e.getMessage());
+		}
+		return person;
+	}
+
+	/**
 	 * Method to fetch all rows from ALERT table in database.
 	 * 
 	 * @param connection
@@ -40,7 +73,7 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<AlertDTO> getAllAlerts(Connection connection) throws PhmException {
+	public static List<AlertDTO> getAllAlerts(Connection connection) throws PhmException {
 		List<AlertDTO> alertDTOs = new ArrayList<AlertDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.ALERT_QUERY);
@@ -65,7 +98,7 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<DiseaseDTO> getAllDiseases(Connection connection) throws PhmException {
+	public static List<DiseaseDTO> getAllDiseases(Connection connection) throws PhmException {
 		List<DiseaseDTO> diseaseDTOs = new ArrayList<DiseaseDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.DISEASE_QUERY);
@@ -90,7 +123,7 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<DiseaseObservationDTO> getAllDiseaseObservations(Connection connection) throws PhmException {
+	public static List<DiseaseObservationDTO> getAllDiseaseObservations(Connection connection) throws PhmException {
 		List<DiseaseObservationDTO> diseaseOservationDTOs = new ArrayList<DiseaseObservationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.DISEASE_OBSERVATION_QUERY);
@@ -115,13 +148,13 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<ObservationDTO> getAllObservations(Connection connection) throws PhmException {
+	public static List<ObservationDTO> getAllObservations(Connection connection) throws PhmException {
 		List<ObservationDTO> observationDTOs = new ArrayList<ObservationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.OBSERVATION_QUERY);
 			while (resultSet.next()) {
 				ObservationDTO observationDTO = new ObservationDTO(resultSet.getInt("observationId"),
-						resultSet.getString("observationType"), resultSet.getString("observationValue"));
+						resultSet.getInt("recommendationId"), resultSet.getString("observationValue"));
 				observationDTOs.add(observationDTO);
 			}
 		} catch (SQLException e) {
@@ -140,15 +173,13 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<ObservationTypeDTO> getAllObservationTypes(Connection connection) throws PhmException {
+	public static List<ObservationTypeDTO> getAllObservationTypes(Connection connection) throws PhmException {
 		List<ObservationTypeDTO> observationTypeDTOs = new ArrayList<ObservationTypeDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.OBSERVATION_TYPE_QUERY);
 			while (resultSet.next()) {
 				ObservationTypeDTO observationTypeDTO = new ObservationTypeDTO(resultSet.getString("observationType"),
-						resultSet.getString("frequency"), resultSet.getString("description"),
-						resultSet.getString("measure"), resultSet.getString("metric"),
-						resultSet.getString("lowerBound"), resultSet.getString("upperBound"));
+						resultSet.getInt("recommendationId"));
 				observationTypeDTOs.add(observationTypeDTO);
 			}
 		} catch (SQLException e) {
@@ -167,14 +198,14 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<PersonDTO> getAllPersons(Connection connection) throws PhmException {
+	public static List<PersonDTO> getAllPersons(Connection connection) throws PhmException {
 		List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.PERSON_QUERY);
 			while (resultSet.next()) {
 				PersonDTO personDTO = new PersonDTO(resultSet.getInt("personId"), resultSet.getString("personName"),
 						resultSet.getString("username"), resultSet.getString("password"),
-						resultSet.getString("address"), resultSet.getDate("dob"), resultSet.getString("gender"));
+						resultSet.getString("address"), resultSet.getString("dob"), resultSet.getString("gender"));
 				personDTOs.add(personDTO);
 			}
 		} catch (SQLException e) {
@@ -193,14 +224,15 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<RecommendationDTO> getAllRecommendations(Connection connection) throws PhmException {
+	public static List<RecommendationDTO> getAllRecommendations(Connection connection) throws PhmException {
 		List<RecommendationDTO> recommendationDTOs = new ArrayList<RecommendationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.RECOMMENDATION_QUERY);
 			while (resultSet.next()) {
 				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
 						resultSet.getString("description"), resultSet.getString("frequency"),
-						resultSet.getString("lowerLimit"), resultSet.getString("upperLimit"));
+						resultSet.getString("lowerLimit"), resultSet.getString("upperLimit"),
+						resultSet.getString("metric"), resultSet.getString("value"));
 				recommendationDTOs.add(recommendationDTO);
 			}
 		} catch (SQLException e) {
@@ -219,7 +251,7 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<RecordDiseaseDTO> getAllRecordDiseases(Connection connection) throws PhmException {
+	public static List<RecordDiseaseDTO> getAllRecordDiseases(Connection connection) throws PhmException {
 		List<RecordDiseaseDTO> recordDiseaseDTOs = new ArrayList<RecordDiseaseDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.RECRD_DISEASE_QUERY);
@@ -244,7 +276,7 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<RecordObservationDTO> getAllRecordObservations(Connection connection) throws PhmException {
+	public static List<RecordObservationDTO> getAllRecordObservations(Connection connection) throws PhmException {
 		List<RecordObservationDTO> recordObservationDTOs = new ArrayList<RecordObservationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.RECORD_OBSERVATION_QUERY);
@@ -270,13 +302,14 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<SickPersonDTO> getAllSickPersons(Connection connection) throws PhmException {
+	public static List<SickPersonDTO> getAllSickPersons(Connection connection) throws PhmException {
 		List<SickPersonDTO> sickPersonDTOs = new ArrayList<SickPersonDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.SICK_PERSON_QUERY);
 			while (resultSet.next()) {
 				SickPersonDTO sickPersonDTO = new SickPersonDTO(resultSet.getInt("personId"),
-						resultSet.getInt("healthSupporter1Id"), resultSet.getInt("healthSupporter2Id"));
+						resultSet.getInt("healthSupporter1Id"), resultSet.getInt("healthSupporter2Id"),
+						resultSet.getDate("hs1AuthDate"), resultSet.getDate("hs2AuthDate"));
 				sickPersonDTOs.add(sickPersonDTO);
 			}
 		} catch (SQLException e) {
@@ -295,14 +328,14 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<SpecificRecommendationDTO> getAllSpecificRecommendations(Connection connection) throws PhmException {
+	public static List<SpecificRecommendationDTO> getAllSpecificRecommendations(Connection connection)
+			throws PhmException {
 		List<SpecificRecommendationDTO> specificRecommendationDTOs = new ArrayList<SpecificRecommendationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.SPE_RECOMMENDATION_QUERY);
 			while (resultSet.next()) {
 				SpecificRecommendationDTO specificRecommendationDTO = new SpecificRecommendationDTO(
-						resultSet.getInt("diseaseId"), resultSet.getInt("recommendationId"),
-						resultSet.getTimestamp("recordTime"));
+						resultSet.getInt("recommendationId"), resultSet.getTimestamp("recordTime"));
 				specificRecommendationDTOs.add(specificRecommendationDTO);
 			}
 		} catch (SQLException e) {
@@ -321,14 +354,14 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<StandardRecommendationDTO> getAllStandardRecommendations(Connection connection) throws PhmException {
+	public static List<StandardRecommendationDTO> getAllStandardRecommendations(Connection connection)
+			throws PhmException {
 		List<StandardRecommendationDTO> standardRecommendationDTOs = new ArrayList<StandardRecommendationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.STD_RECOMMENDATION_QUERY);
 			while (resultSet.next()) {
 				StandardRecommendationDTO standardRecommendationDTO = new StandardRecommendationDTO(
-						resultSet.getInt("diseaseId"), resultSet.getInt("recommendationId"),
-						resultSet.getTimestamp("recordTime"));
+						resultSet.getInt("diseaseId"), resultSet.getInt("recommendationId"));
 				standardRecommendationDTOs.add(standardRecommendationDTO);
 			}
 		} catch (SQLException e) {
@@ -347,13 +380,14 @@ public class SelectQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public List<WellPersonDTO> getAllWellPersons(Connection connection) throws PhmException {
+	public static List<WellPersonDTO> getAllWellPersons(Connection connection) throws PhmException {
 		List<WellPersonDTO> wellPersonDTOs = new ArrayList<WellPersonDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.WELL_PERSON_QUERY);
 			while (resultSet.next()) {
 				WellPersonDTO wellPersonDTO = new WellPersonDTO(resultSet.getInt("personId"),
-						resultSet.getInt("healthSupporter1Id"), resultSet.getInt("healthSupporter2Id"));
+						resultSet.getInt("healthSupporter1Id"), resultSet.getInt("healthSupporter2Id"),
+						resultSet.getDate("hs1AuthDate"), resultSet.getDate("hs2AuthDate"));
 				wellPersonDTOs.add(wellPersonDTO);
 			}
 		} catch (SQLException e) {

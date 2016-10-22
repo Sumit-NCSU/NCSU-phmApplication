@@ -1,12 +1,10 @@
 package com.model;
 
-import java.sql.Timestamp;
-
 public class StandardRecommendationDTO {
 
 	private int diseaseId;
 	private int recommendationId;
-	private Timestamp recordTime;
+	// private Timestamp recordTime; //modified as per changes from  dev_Nikhil branch
 
 	/**
 	 * Parameterized constructor
@@ -18,10 +16,10 @@ public class StandardRecommendationDTO {
 	 * @param recordTime
 	 *            the record time
 	 */
-	public StandardRecommendationDTO(int diseaseId, int recommendationId, Timestamp recordTime) {
+	public StandardRecommendationDTO(int diseaseId, int recommendationId) {
 		this.diseaseId = diseaseId;
 		this.recommendationId = recommendationId;
-		this.recordTime = recordTime;
+		// this.recordTime = recordTime;
 	}
 
 	/**
@@ -54,18 +52,18 @@ public class StandardRecommendationDTO {
 		this.recommendationId = recommendationId;
 	}
 
-	/**
-	 * @return the recordTime
-	 */
-	public Timestamp getRecordTime() {
-		return recordTime;
-	}
-
-	/**
-	 * @param recordTime
-	 *            the recordTime to set
-	 */
-	public void setRecordTime(Timestamp recordTime) {
-		this.recordTime = recordTime;
-	}
+	// /**
+	// * @return the recordTime
+	// */
+	// public Timestamp getRecordTime() {
+	// return recordTime;
+	// }
+	//
+	// /**
+	// * @param recordTime
+	// * the recordTime to set
+	// */
+	// public void setRecordTime(Timestamp recordTime) {
+	// this.recordTime = recordTime;
+	// }
 }

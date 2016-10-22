@@ -7,6 +7,8 @@ public class RecommendationDTO {
 	private String frequency;
 	private String lowerLimit;
 	private String upperLimit;
+	private String metric; //modified as per changes from  dev_Nikhil branch
+	private String value; //modified as per changes from  dev_Nikhil branch
 
 	/**
 	 * Parameterized constructor
@@ -23,12 +25,14 @@ public class RecommendationDTO {
 	 *            the upper limit
 	 */
 	public RecommendationDTO(int recommendationId, String description, String frequency, String lowerLimit,
-			String upperLimit) {
+			String upperLimit, String metric, String value) {
 		this.recommendationId = recommendationId;
 		this.description = description;
 		this.frequency = frequency;
 		this.lowerLimit = lowerLimit;
 		this.upperLimit = upperLimit;
+		this.metric = metric;
+		this.value = value;
 	}
 
 	/**
@@ -104,6 +108,34 @@ public class RecommendationDTO {
 	 */
 	public void setUpperLimit(String upperLimit) {
 		this.upperLimit = upperLimit;
+	}
+
+	/**
+	 * @return the metric
+	 */
+	public String getMetric() {
+		return metric;
+	}
+
+	/**
+	 * @param metric the metric to set
+	 */
+	public void setMetric(String metric) {
+		this.metric = metric;
+	}
+
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }
