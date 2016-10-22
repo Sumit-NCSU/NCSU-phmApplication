@@ -1,11 +1,15 @@
 package com.model;
 
-public class WellPersonDTO {
+public class WellPersonDTO extends PersonDTO {
 
 	private int personId;
 	private int healthSupporter1Id;
 	private int healthSupporter2Id;
 
+	public WellPersonDTO() {
+		super();
+	}
+	
 	/**
 	 * Parameterized constructor
 	 * 

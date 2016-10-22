@@ -1,10 +1,17 @@
 package com.model;
 
-public class SickPersonDTO {
+public class SickPersonDTO extends PersonDTO {
 
 	private int personId;
 	private int healthSupporter1Id;
 	private int healthSupporter2Id;
+
+	/**
+	 * default constructor
+	 */
+	public SickPersonDTO() {
+		super();
+	}
 
 	/**
 	 * Parameterized constructor

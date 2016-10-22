@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class SpecificRecommendationDTO {
 
+	private int personId;
 	private int diseaseId;
 	private int recommendationId;
 	private Timestamp recordTime;
@@ -22,6 +23,21 @@ public class SpecificRecommendationDTO {
 		this.diseaseId = diseaseId;
 		this.recommendationId = recommendationId;
 		this.recordTime = recordTime;
+	}
+
+	/**
+	 * @return the personId
+	 */
+	public int getPersonId() {
+		return personId;
+	}
+
+	/**
+	 * @param personId
+	 *            the personId to set
+	 */
+	public void setPersonId(int personId) {
+		this.personId = personId;
 	}
 
 	/**

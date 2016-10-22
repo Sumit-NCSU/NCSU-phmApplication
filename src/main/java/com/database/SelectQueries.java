@@ -4,6 +4,7 @@
 package com.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,6 +31,35 @@ import com.util.StringsUtil;
  *
  */
 public class SelectQueries {
+
+	/**
+	 * Method to fetch the record of Login User from database.
+	 * 
+	 * @param username
+	 *            the user name
+	 * @param password
+	 *            the password
+	 * @param connection
+	 *            the database connection
+	 * @return the object of Person DTO if login successful or null if user does
+	 *         not exist.
+	 */
+	public PersonDTO getLoginPerson(String username, String password, Connection connection) throws PhmException {
+		PersonDTO person = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.LOGIN_QUERY);
+			ps.setString(1, username);
+			ps.setString(1, password);
+			ResultSet resultSet = ps.executeQuery();
+			person = new PersonDTO(resultSet.getInt("personId"), resultSet.getString("personName"),
+					resultSet.getString("username"), resultSet.getString("password"), resultSet.getString("address"),
+					resultSet.getDate("dob"), resultSet.getString("gender"));
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch Person While Login." + e.getMessage());
+			throw new PhmException("Failed to fetch Person While Login." + e.getMessage());
+		}
+		return person;
+	}
 
 	/**
 	 * Method to fetch all rows from ALERT table in database.

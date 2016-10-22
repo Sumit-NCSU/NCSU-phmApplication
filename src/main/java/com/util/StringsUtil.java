@@ -9,6 +9,7 @@ package com.util;
  */
 public class StringsUtil {
 
+	/** Static Queries **/
 	public static final String ALERT_QUERY = "SELECT A_ID as alertId, P_ID as PersonId, DESCRIPTION as description FROM ALERT";
 	public static final String DISEASE_QUERY = "SELECT D_ID as diseaseId, DNAME as diseaseName FROM DISEASE";
 	public static final String DISEASE_OBSERVATION_QUERY = "SELECT D_ID as diseaseId, OB_TYPE as observationType FROM DISEASE_OBSERVATION";
@@ -22,4 +23,10 @@ public class StringsUtil {
 	public static final String SPE_RECOMMENDATION_QUERY = "SELECT P_ID as PersonId, R_ID, RECO_TIME as recordTime FROM SPECIFIC_RECOMMENDATION";
 	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID, RECO_TIME as recordTime FROM STANDARD_RECOMMENDATION";
 	public static final String WELL_PERSON_QUERY = "SELECT P_ID as PersonId, HS1_ID as HealthSupporter1Id, HS2_ID as HealthSupporter2Id FROM WELL_PERSON";
+
+	/** Prepared Statements **/
+	public static final String LOGIN_QUERY = PERSON_QUERY.concat("WHERE USERNAME = ? AND PASSWORD = ?");
+
+	/** Messages **/
+	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
 }

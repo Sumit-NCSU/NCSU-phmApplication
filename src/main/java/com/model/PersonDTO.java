@@ -13,6 +13,13 @@ public class PersonDTO {
 	private String gender;
 
 	/**
+	 * default constructor
+	 */
+	public PersonDTO() {
+
+	}
+
+	/**
 	 * Parameterized constructor
 	 * 
 	 * @param personId
