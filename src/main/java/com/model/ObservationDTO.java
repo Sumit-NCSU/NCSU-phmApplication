@@ -3,7 +3,8 @@ package com.model;
 public class ObservationDTO {
 
 	private int observationId;
-	private String observationType;
+	// private String observationType;
+	private int recommendationId;  //modified as per changes from  dev_Nikhil branch
 	private String observationValue;
 
 	/**
@@ -16,9 +17,9 @@ public class ObservationDTO {
 	 * @param observationValue
 	 *            the observation Value
 	 */
-	public ObservationDTO(int observationId, String observationType, String observationValue) {
+	public ObservationDTO(int observationId, int recommendationId, String observationValue) {
 		this.observationId = observationId;
-		this.observationType = observationType;
+		this.recommendationId = recommendationId;
 		this.observationValue = observationValue;
 	}
 
@@ -37,20 +38,20 @@ public class ObservationDTO {
 		this.observationId = observationId;
 	}
 
-	/**
-	 * @return the observationType
-	 */
-	public String getObservationType() {
-		return observationType;
-	}
-
-	/**
-	 * @param observationType
-	 *            the observationType to set
-	 */
-	public void setObservationType(String observationType) {
-		this.observationType = observationType;
-	}
+	// /**
+	// * @return the observationType
+	// */
+	// public String getObservationType() {
+	// return observationType;
+	// }
+	//
+	// /**
+	// * @param observationType
+	// * the observationType to set
+	// */
+	// public void setObservationType(String observationType) {
+	// this.observationType = observationType;
+	// }
 
 	/**
 	 * @return the observationValue
@@ -65,6 +66,21 @@ public class ObservationDTO {
 	 */
 	public void setObservationValue(String observationValue) {
 		this.observationValue = observationValue;
+	}
+
+	/**
+	 * @return the recommendationId
+	 */
+	public int getRecommendationId() {
+		return recommendationId;
+	}
+
+	/**
+	 * @param recommendationId
+	 *            the recommendationId to set
+	 */
+	public void setRecommendationId(int recommendationId) {
+		this.recommendationId = recommendationId;
 	}
 
 }

@@ -5,22 +5,22 @@ import java.sql.Timestamp;
 public class SpecificRecommendationDTO {
 
 	private int personId;
-	private int diseaseId;
+	// private int diseaseId; //modified as per changes from  dev_Nikhil branch
 	private int recommendationId;
 	private Timestamp recordTime;
 
 	/**
 	 * Parameterized constructor
 	 * 
-	 * @param diseaseId
-	 *            the disease ID
 	 * @param recommendationId
 	 *            the recommendation ID
 	 * @param recordTime
 	 *            the record time
 	 */
-	public SpecificRecommendationDTO(int diseaseId, int recommendationId, Timestamp recordTime) {
-		this.diseaseId = diseaseId;
+	public SpecificRecommendationDTO(int recommendationId, Timestamp recordTime) {
+		// public SpecificRecommendationDTO(int diseaseId, int recommendationId,
+		// Timestamp recordTime) {
+		// this.diseaseId = diseaseId;
 		this.recommendationId = recommendationId;
 		this.recordTime = recordTime;
 	}
@@ -40,20 +40,20 @@ public class SpecificRecommendationDTO {
 		this.personId = personId;
 	}
 
-	/**
-	 * @return the diseaseId
-	 */
-	public int getDiseaseId() {
-		return diseaseId;
-	}
-
-	/**
-	 * @param diseaseId
-	 *            the diseaseId to set
-	 */
-	public void setDiseaseId(int diseaseId) {
-		this.diseaseId = diseaseId;
-	}
+	// /**
+	// * @return the diseaseId
+	// */
+	// public int getDiseaseId() {
+	// return diseaseId;
+	// }
+	//
+	// /**
+	// * @param diseaseId
+	// * the diseaseId to set
+	// */
+	// public void setDiseaseId(int diseaseId) {
+	// this.diseaseId = diseaseId;
+	// }
 
 	/**
 	 * @return the recommendationId

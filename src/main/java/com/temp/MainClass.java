@@ -20,13 +20,12 @@ public class MainClass {
 	/**
 	 * @param args
 	 * @throws PhmException
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws PhmException, SQLException {
 		ConnectionManager conM = new ConnectionManager();
 		Connection con = conM.getConnection();
-		SelectQueries sq = new SelectQueries();
-		List<AlertDTO> a = sq.getAllAlerts(con);
+		List<AlertDTO> a = SelectQueries.getAllAlerts(con);
 		for (AlertDTO alertDTO : a) {
 			System.out.println("AlertID: " + alertDTO.getAlertId());
 			System.out.println("PersonID: " + alertDTO.getPersonId());

@@ -18,6 +18,10 @@ public class MainUI {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		showScreen();
+	}
+
+	public static void showScreen() {
 		try {
 			Scanner sc = new Scanner(System.in);
 			boolean flag = true;
@@ -39,8 +43,10 @@ public class MainUI {
 					newUser.showScreen();
 					break;
 				case 3:
+					flag = false;
 					break;
 				default:
+					flag = false;
 					break;
 				}
 			}

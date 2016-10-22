@@ -1,7 +1,5 @@
 package com.model;
 
-import java.sql.Date;
-
 public class PersonDTO {
 
 	private int personId;
@@ -9,7 +7,7 @@ public class PersonDTO {
 	private String username;
 	private String password;
 	private String address;
-	private Date dob;
+	private String dob;
 	private String gender;
 
 	/**
@@ -37,7 +35,7 @@ public class PersonDTO {
 	 * @param gender
 	 *            the gender
 	 */
-	public PersonDTO(int personId, String personName, String username, String password, String address, Date dob,
+	public PersonDTO(int personId, String personName, String username, String password, String address, String dob,
 			String gender) {
 		this.personId = personId;
 		this.personName = personName;
@@ -126,7 +124,7 @@ public class PersonDTO {
 	/**
 	 * @return the dob
 	 */
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
@@ -134,7 +132,7 @@ public class PersonDTO {
 	 * @param dob
 	 *            the dob to set
 	 */
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 

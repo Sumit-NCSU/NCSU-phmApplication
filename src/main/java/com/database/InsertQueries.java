@@ -15,7 +15,7 @@ import com.model.PersonDTO;
  */
 public class InsertQueries {
 
-	public boolean insertPerson(Connection connection, PersonDTO personDTO) throws PhmException {
+	public static boolean insertPerson(Connection connection, PersonDTO personDTO) throws PhmException {
 		String insertQuery = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES ("
 				+ personDTO.getPersonId() + ", '" + personDTO.getPersonName() + "', '" + personDTO.getUsername()
 				+ "', '" + personDTO.getPassword() + "', '" + personDTO.getAddress() + "', '" + personDTO.getDob()

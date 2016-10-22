@@ -4,8 +4,6 @@
 package com.ui;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.database.ConnectionManager;
@@ -34,8 +32,7 @@ public class PhmLogin {
 	public PersonDTO doLogin(String username, String password) throws PhmException {
 		// TODO: password encryption
 		Connection con = new ConnectionManager().getConnection();
-		SelectQueries sq = new SelectQueries();
-		PersonDTO person = sq.getLoginPerson(username, password, con);
+		PersonDTO person = SelectQueries.getLoginPerson(username, password, con);
 		if (person == null) {
 			System.out.println("Failed to Login!");
 		}
@@ -60,13 +57,15 @@ public class PhmLogin {
 				System.out.println("2. Back");
 				int option = sc.nextInt();
 				if (option == 2) {
-					
+					flag = false;
+					break;
 				}
 			} else {
 				System.out.println("Login Succesfull");
 				flag = false;
 			}
 		}
+		MainUI.showScreen();
 		sc.close();
 	}
 

@@ -13,3 +13,5 @@ drop table OBSERVATION_TYPE;
 drop table RECOMMENDATION;
 
 COMMIT;
+
+purge recyclebin;
