@@ -57,11 +57,13 @@ insert into SPECIFIC_RECOMMENDATION values(2, 10, localtimestamp);
 insert into SPECIFIC_RECOMMENDATION values(2, 5, localtimestamp);
 insert into SPECIFIC_RECOMMENDATION values(2, 6, localtimestamp);
 insert into SPECIFIC_RECOMMENDATION values(2, 7, localtimestamp);
+insert into SPECIFIC_RECOMMENDATION values(3, 1, localtimestamp); -- For well patient
+insert into SPECIFIC_RECOMMENDATION values(4, 1, localtimestamp); -- For well patient
 
 
 --Observation Type
 insert into OBSERVATION_TYPE values('weight', 10); --For P2
-insert into OBSERVATION_TYPE values('weight', 1); --For P1, assumed
+insert into OBSERVATION_TYPE values('weight', 1); --For P1, assumed. For well patient too.
 insert into OBSERVATION_TYPE values('Systolic Blood Pressure', 2); -- For P1, assumed
 insert into OBSERVATION_TYPE values('Diastolic Blood Pressure', 3); -- For P1, assumed
 insert into OBSERVATION_TYPE values('Mood', 4); -- For P1, assumed
@@ -90,6 +92,8 @@ insert into OBSERVATION values(6, 4, 'Neutral'); -- For P1, assumed
 insert into OBSERVATION values(7, 5, '148'); -- For P2, assumed
 insert into OBSERVATION values(8, 6, '98'); -- For P2, assumed
 insert into OBSERVATION values(9, 7, '6'); -- For P2, assumed
+insert into OBSERVATION values(10, 1, '190'); -- For P3.  -- For well patient.
+insert into OBSERVATION values(11, 1, '210'); -- For P4.  -- For well patient.
 
 
 --Record Observation
@@ -102,7 +106,9 @@ insert into RECORD_OBSERVATION values(6, 1, '22-OCT-16','22-OCT-16'); -- For P1,
 insert into RECORD_OBSERVATION values(7, 2, '21-OCT-16','21-OCT-16'); -- For P2, assumed
 insert into RECORD_OBSERVATION values(8, 2, '22-OCT-16','20-OCT-16'); -- For P2, assumed
 insert into RECORD_OBSERVATION values(9, 2, '16-OCT-16', '16-OCT-16'); -- For P2, assumed. Less frequent than one per day
-
+insert into RECORD_OBSERVATION values(10, 3, '22-OCT-16', '10-OCT-16');
+insert into RECORD_OBSERVATION values(11, 4, '21-OCT-16', '14-OCT-16');
+insert into RECORD_OBSERVATION values(12, 4, '21-OCT-16', '19-OCT-16');
 
  
 commit;
