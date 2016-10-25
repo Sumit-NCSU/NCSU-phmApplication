@@ -1,6 +1,6 @@
 CREATE OR REPLACE PROCEDURE check_freq (
     pt_id      IN VARCHAR2,
-    date_now   IN VARCHAR2
+    date_now   IN TIMESTAMP
 ) AS
     alert_count   NUMBER;
 BEGIN
@@ -40,7 +40,9 @@ BEGIN
             AND
                 o1.r_id = r1.r_id
             AND
-                ( to_number(TO_CHAR(o1.ob_time,'DD') ) + to_number(r1.frequency) ) <= date_now
+            
+            o1.ob_time + to_number(r1.frequency) <= date_now
+                --( to_number(TO_CHAR(o1.ob_time,'DD') ) + to_number(r1.frequency) ) <= date_now
             AND
                 ( to_number(TO_CHAR(o1.ob_time,'DD') ) + to_number(r1.frequency) ) > ALL (
                     SELECT
@@ -73,7 +75,7 @@ END;
 
 --SET SERVEROUTPUT ON;
 
---BEGIN
---    check_freq('P1','23');
---END;
---/
+BEGIN
+    check_freq('P1',sysdate);
+END;
+/
