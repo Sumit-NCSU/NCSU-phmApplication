@@ -15,6 +15,7 @@ BEGIN
         NULL,
         NULL
     );
+    INSERT INTO specific_recommendation values(:new.p_id, 1);
 
 END;
 /
