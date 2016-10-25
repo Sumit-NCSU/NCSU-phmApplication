@@ -5,8 +5,6 @@ package com.ui;
 
 import java.sql.Connection;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import com.database.ConnectionManager;

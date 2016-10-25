@@ -56,4 +56,6 @@ public class StringsUtil {
 
 	/** Messages **/
 	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
+	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
 }
