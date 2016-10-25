@@ -1,8 +1,22 @@
 package com.model;
 
+/**
+ * TABLE PERSON
+  (
+    P_ID     VARCHAR2(5) PRIMARY KEY,
+    PNAME    VARCHAR2(100),
+    USERNAME VARCHAR2(20) UNIQUE,
+    PASSWORD VARCHAR2(20),
+    ADDRESS  VARCHAR2(250),
+    DOB      DATE,
+    GENDER   CHAR(1)
+  );
+ * @author Sumit
+ *
+ */
 public class PersonDTO {
 
-	private int personId;
+	private String personId;
 	private String personName;
 	private String username;
 	private String password;
@@ -35,7 +49,7 @@ public class PersonDTO {
 	 * @param gender
 	 *            the gender
 	 */
-	public PersonDTO(int personId, String personName, String username, String password, String address, String dob,
+	public PersonDTO(String personId, String personName, String username, String password, String address, String dob,
 			String gender) {
 		this.personId = personId;
 		this.personName = personName;
@@ -49,7 +63,7 @@ public class PersonDTO {
 	/**
 	 * @return the personId
 	 */
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 
@@ -57,7 +71,7 @@ public class PersonDTO {
 	 * @param personId
 	 *            the personId to set
 	 */
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 

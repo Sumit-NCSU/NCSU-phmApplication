@@ -1,5 +1,11 @@
 package com.model;
 
+/**
+ * D_ID DNAME
+ * 
+ * @author Sumit
+ *
+ */
 public class DiseaseDTO {
 
 	private int diseaseId;
