@@ -31,7 +31,7 @@ public class MainUI {
 			while (flag) {
 				sc = new Scanner(System.in);
 				System.out.println(StringsUtil.LOGIN_MESSAGE);
-				System.out.println("Select an option:");
+				System.out.println("Select an option");
 				System.out.println("1. Login");
 				System.out.println("2. Create User");
 				System.out.println("3. Exit");

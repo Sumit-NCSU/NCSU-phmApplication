@@ -42,6 +42,7 @@ public class PhmLogin {
 
 	public void showLoginScreen() throws PhmException, ParseException {
 		Scanner sc = new Scanner(System.in);
+		PersonDTO person = null;
 		boolean flag = true;
 		while (flag) {
 			System.out.println(StringsUtil.LOGIN_MESSAGE);
@@ -50,7 +51,7 @@ public class PhmLogin {
 			String userName = sc.nextLine();
 			System.out.println("Password: ");
 			String password = sc.nextLine();
-			PersonDTO person = doLogin(userName, password);
+			person = doLogin(userName, password);
 			if (person == null) {
 				System.out.println("Incorrect Login Credentials");
 				System.out.println("Choose Option: ");
@@ -66,9 +67,12 @@ public class PhmLogin {
 				flag = false;
 			}
 		}
-		
-		MainUI.showScreen();
-		sc.close();
+		if(null != person)
+		{
+			UserScreen user = new UserScreen();
+			user.showUserScreen(person);
+		}
+		//sc.close();
 	}
 
 }

@@ -39,7 +39,7 @@ public class NewPhmUser {
 		boolean flag = true;
 		while (flag) {
 			System.out.println(StringsUtil.LOGIN_MESSAGE);
-			System.out.println("Create New User:");
+			System.out.println("Create New User");
 			System.out.println("Enter full name: ");
 			String name = sc.nextLine();
 			System.out.println("Enter a Username: ");
