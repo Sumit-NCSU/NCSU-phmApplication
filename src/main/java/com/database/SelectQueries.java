@@ -59,6 +59,37 @@ public class SelectQueries {
 	}
 
 	/**
+	 * Method to fetch all rows for a given personId from ALERT table in
+	 * database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @param personId
+	 *            the personId
+	 * @return List of AlertDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<AlertDTO> getPatientAlerts(Connection connection, String personId) throws PhmException {
+		List<AlertDTO> alertDTOs = new ArrayList<AlertDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.VIEW_ALERTS);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				AlertDTO alertDTO = new AlertDTO(resultSet.getInt("alertId"), resultSet.getString("personId"),
+						resultSet.getString("description"), resultSet.getString("isMandatory"),
+						resultSet.getString("isViewed"));
+				alertDTOs.add(alertDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Alerts." + e.getMessage());
+			throw new PhmException("Failed to fetch all Alerts." + e.getMessage());
+		}
+		return alertDTOs;
+	}
+
+	/**
 	 * Method to fetch all rows from ALERT table in database.
 	 * 
 	 * @param connection
