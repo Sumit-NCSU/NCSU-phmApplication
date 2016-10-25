@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.database.ConnectionManager;
 import com.database.SelectQueries;
+import com.database.UpdateQueries;
 import com.exception.PhmException;
 import com.model.AlertDTO;
 import com.util.StringsUtil;
@@ -37,12 +38,18 @@ public class AlertScreen {
 		// TODO: list all alerts
 		// give option to clear some or all non-mandatory alerts
 		// back option.
+		boolean isNotHs = true;
+		if (null == patientId) {
+			isNotHs = true;
+		} else {
+			isNotHs = false;
+		}
 		boolean flag = true;
 		Scanner sc = new Scanner(System.in);
 		while (flag) {
 			System.out.println(StringsUtil.LOGIN_MESSAGE);
 			List<AlertDTO> alerts = null;
-			if (null == patientId) { // case when self viewing
+			if (isNotHs) { // case when self viewing
 				alerts = listAlerts(personId);
 				System.out.println("You have the following Alerts: ");
 			} else { // case when viewing for patient
@@ -56,14 +63,30 @@ public class AlertScreen {
 				for (AlertDTO alert : alerts) {
 					System.out.println(i++ + ") " + alert.getDescription());
 				}
-				System.out.println(i++ + ") Clear alerts.");
+				System.out.println("c) Clear alerts.");
 			}
-			System.out.println(i + ") Back.");
+			System.out.println("b) Back.");
 			System.out.println("Enter Choice: ");
-			int choice = Integer.valueOf(sc.nextLine());
-			if (3 == choice) {
+			String choice = sc.nextLine();
+			if ("b".equalsIgnoreCase(choice)) {
 				flag = false;
 				break;
+			} else if ("c".equalsIgnoreCase(choice)) {
+				boolean status = false;
+				if (isNotHs) {
+					// if patient is clearing for himself, then he cannot clear
+					// mandatory alerts. -> mark all non mandatory alerts as
+					// viewed.
+					// -> for all mandatory alerts show a message that he needs
+					// to
+					// enter observation to clear that alert.
+					status = UpdateQueries.clearAlerts(false);
+				} else {
+					// if HS is clearing for patient, then he can clear all
+					// without
+					// checking mandatory.
+					status = UpdateQueries.clearAlerts(true);
+				}
 			}
 		}
 	}
