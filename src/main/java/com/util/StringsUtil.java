@@ -58,7 +58,7 @@ public class StringsUtil {
 
 	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
 
-	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (concat('P',phmseq.nextval), ?, ?, ?, ?, ?, ?)";
 
 	public static final String VIEW_EXISTING_HEALTH_SUPPORTERS = "SELECT HS1_ID AND HS2_ID FROM SICK_PERSON WHERE P_ID = ?"
 			+ "UNION" + "SELECT HS1_ID AND HS2_ID FROM WELL_PERSON WHERE P_ID = ?";
