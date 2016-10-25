@@ -19,6 +19,11 @@ import com.util.StringsUtil;
  */
 
 public class Disease {
+	
+	public static void showScreen(PersonDTO person) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public void viewDiseases(PersonDTO person) throws PhmException {
 		// TODO Auto-generated method stub
@@ -88,7 +93,5 @@ public class Disease {
 			}*/
 		}
 	}
-	
-	
 
 }
