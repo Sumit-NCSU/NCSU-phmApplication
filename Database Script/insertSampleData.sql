@@ -11,7 +11,7 @@ insert into SICK_PERSON values('P2', 'P3', null, to_date('20161009','YYYYMMDD'),
 
 
 --Well Person
-update  WELL_PERSON set HS1_id = 'P4' and HS1_auth_date = to_date('20161021','YYYYMMDD') where p_id = 'P3'; 
+update  WELL_PERSON set HS1_id = 'P4', HS1_auth_date = to_date('20161021','YYYYMMDD') where p_id = 'P3'; 
 --insert into WELL_PERSON values('P4', null, null, null, null); 
 
 
