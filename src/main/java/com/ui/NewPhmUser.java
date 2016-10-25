@@ -53,7 +53,7 @@ public class NewPhmUser {
 			System.out.println("Enter Gender: ");
 			String gender = sc.nextLine();
 			// TODO: auto-generate person ID?
-			PersonDTO person = new PersonDTO("phmseq.nextval", name, username, password, address, dob, gender);
+			PersonDTO person = new PersonDTO(null, name, username, password, address, dob, gender);
 			boolean status = insertPerson(person);
 			if (status) {
 				System.out.println("Account Created Successfully");
