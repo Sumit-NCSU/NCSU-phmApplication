@@ -6,13 +6,13 @@ insert into Person values('P4', 'Amy Farrahfowler', null, 'password', ' 2500 Sac
 
 
 --Sick Person
-insert into SICK_PERSON values('P1', 2, 4, to_date('20161021','YYYYMMDD'), to_date('20161021','YYYYMMDD'));
-insert into SICK_PERSON values('P2', 3, null, to_date('20161009','YYYYMMDD'), null);
+insert into SICK_PERSON values('P1', 'P2', 'P4', to_date('20161021','YYYYMMDD'), to_date('20161021','YYYYMMDD'));
+insert into SICK_PERSON values('P2', 'P3', null, to_date('20161009','YYYYMMDD'), null);
 
 
 --Well Person
-insert into WELL_PERSON values('P3', 4, null, to_date('20161021','YYYYMMDD'), null); 
-insert into WELL_PERSON values('P4', null, null, null, null); 
+update  WELL_PERSON set HS1_id = 'P4' and HS1_auth_date = to_date('20161021','YYYYMMDD') where p_id = 'P3'; 
+--insert into WELL_PERSON values('P4', null, null, null, null); 
 
 
 --Disease
@@ -53,7 +53,7 @@ insert into STANDARD_RECOMMENDATION values(3, 9);
 
 
 --Specific Recommendation
-insert into SPECIFIC_RECOMMENDATION values'P2', 10);
+insert into SPECIFIC_RECOMMENDATION values('P2', 10);
 insert into SPECIFIC_RECOMMENDATION values('P2', 5);
 insert into SPECIFIC_RECOMMENDATION values('P2', 6);
 insert into SPECIFIC_RECOMMENDATION values('P2', 7);
