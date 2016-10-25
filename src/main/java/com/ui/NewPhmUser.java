@@ -1,59 +1,74 @@
 /**
  * 
  */
-package com.util;
+package com.ui;
+
+import java.sql.Connection;
+import java.util.Scanner;
+
+import com.database.ConnectionManager;
+import com.database.InsertQueries;
+import com.exception.PhmException;
+import com.model.PersonDTO;
+import com.util.StringsUtil;
 
 /**
  * @author Sumit
  *
  */
-public class StringsUtil {
+public class NewPhmUser {
 
-	/** Static Queries **/
 	/**
-	 * query for alert table
+	 * Method to sign up a new user
+	 * 
+	 * @param name
+	 *            the name of user
+	 * @param username
+	 *            the userName of user
+	 * @param password
+	 *            the encrypted password of user.
+	 * @return
 	 */
-	public static final String ALERT_QUERY = "SELECT A_ID as alertId, P_ID as personId, DESCRIPTION as description, IS_MANDATORY as isMandatory, IS_VIEWED as isViewed FROM ALERT";
-	/**
-	 * query for disease table
-	 */
-	public static final String DISEASE_QUERY = "SELECT D_ID as diseaseId, DNAME as diseaseName FROM DISEASE";
-	/**
-	 * query for observation table
-	 */
-	public static final String OBSERVATION_QUERY = "SELECT OB_ID as observationId, P_ID as personId, R_ID as recommendationId, OB_VALUE as observationValue, RECORD_TIME as recordTime, OB_TIME as observationTime FROM OBSERVATION";
-	/**
-	 * query for person table
-	 */
-	public static final String PERSON_QUERY = "SELECT P_ID as PersonId, PNAME as personName, USERNAME as username, PASSWORD as password, ADDRESS as address, DOB as dob, GENDER as gender FROM PERSON";
-	/**
-	 * query for recommendation table
-	 */
-	public static final String RECOMMENDATION_QUERY = "SELECT R_ID as recommendationId, DESCRIPTION as description, FREQUENCY as frequency, LOWER_LIMIT as lowerLimit, UPPER_LIMIT as upperLimit, METRIC as metric, STRING_VALUE as value FROM RECOMMENDATION";
-	/**
-	 * query for record disease table
-	 */
-	public static final String RECRD_DISEASE_QUERY = "SELECT P_ID as PersonId, D_ID as diseaseId, RECORD_TIME as recordTime FROM RECORD_DISEASE";
-	/**
-	 * query for sick person table
-	 */
-	public static final String SICK_PERSON_QUERY = "SELECT P_ID as PersonId, HS1_ID as HealthSupporter1Id, HS2_ID as HealthSupporter2Id, HS1_AUTH_DATE as hs1AuthDate, HS2_AUTH_DATE as hs2AuthDate FROM SICK_PERSON";
-	/**
-	 * query for specific recommendation table
-	 */
-	public static final String SPE_RECOMMENDATION_QUERY = "SELECT P_ID as PersonId, R_ID as recommendationId FROM SPECIFIC_RECOMMENDATION";
-	/**
-	 * query for standard recommendation table
-	 */
-	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID as recommendationId FROM STANDARD_RECOMMENDATION";
-	/**
-	 * query for well person table
-	 */
-	public static final String WELL_PERSON_QUERY = "SELECT P_ID as PersonId, HS1_ID as HealthSupporter1Id, HS2_ID as HealthSupporter2Id, HS1_AUTH_DATE as hs1AuthDate, HS2_AUTH_DATE as hs2AuthDate FROM WELL_PERSON";
+	public boolean signUp(String name, String username, String password) {
+		return true;
+	}
 
-	/** Prepared Statements **/
-	public static final String LOGIN_QUERY = PERSON_QUERY.concat(" WHERE USERNAME = ? AND PASSWORD = ?");
+	public void showScreen() throws PhmException {
+		Scanner sc = new Scanner(System.in);
+		boolean flag = true;
+		while (flag) {
+			System.out.println(StringsUtil.LOGIN_MESSAGE);
+			System.out.println("Create New User:");
+			System.out.println("Enter full name: ");
+			String name = sc.nextLine();
+			System.out.println("Enter a Username: ");
+			String username = sc.nextLine();
+			System.out.println("Enter a Password: ");
+			String password = sc.nextLine();
+			System.out.println("Enter Address: ");
+			String address = sc.nextLine();
+			System.out.println("Enter DOB(MMDDYYYY): ");
+			String dob = sc.nextLine();
+			System.out.println("Enter Gender: ");
+			String gender = sc.nextLine();
+			// TODO: auto-generate person ID?
+			PersonDTO person = new PersonDTO("phmseq.nextval", name, username, password, address, dob, gender);
+			boolean status = insertPerson(person);
+			if (status) {
+				System.out.println("Account Created Successfully");
+				flag = false;
+				break;
+			} else {
+				// TODO: implement error handling logic here.
+				System.out.println("Failed to create account");
+			}
+		}
+		sc.close();
+	}
 
-	/** Messages **/
-	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
+	private boolean insertPerson(PersonDTO person) throws PhmException {
+		Connection con = new ConnectionManager().getConnection();
+		return InsertQueries.insertPerson(con, person);
+	}
+
 }

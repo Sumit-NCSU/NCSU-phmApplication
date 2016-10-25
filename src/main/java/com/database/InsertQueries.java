@@ -4,17 +4,10 @@
 package com.database;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import com.exception.PhmException;
 import com.model.PersonDTO;
-import com.util.StringsUtil;
 
 /**
  * @author Sumit
@@ -22,26 +15,18 @@ import com.util.StringsUtil;
  */
 public class InsertQueries {
 
-	public static boolean insertPerson(Connection connection, PersonDTO personDTO) throws PhmException, ParseException {
-		
-		 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		 
+	public static boolean insertPerson(Connection connection, PersonDTO personDTO) throws PhmException {
+		String insertQuery = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES ("
+				+ personDTO.getPersonId() + ", '" + personDTO.getPersonName() + "', '" + personDTO.getUsername()
+				+ "', '" + personDTO.getPassword() + "', '" + personDTO.getAddress() + "', '" + personDTO.getDob()
+				+ "', '" + personDTO.getGender() + "')";
 		try {
-			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_PERSON);
-			ps.setInt(1, personDTO.getPersonId());
-			ps.setString(2, personDTO.getPersonName());
-			ps.setString(3, personDTO.getUsername());
-			ps.setString(4, personDTO.getPassword());
-			ps.setString(5, personDTO.getAddress());
-			java.util.Date utilDate = new java.util.Date();
-			java.sql.Date dob_date =  new java.sql.Date(utilDate.getTime());
-			ps.setDate(6, dob_date);
-			ps.setString(7, personDTO.getGender());
-			
-			ps.executeUpdate();
-			System.out.println("User has been added.!");
+			int count = connection.createStatement().executeUpdate(insertQuery);
+			if (count == 0) {
+				throw new PhmException("Inserting Person failed. Insert Count = 0");
+			}
 		} catch (SQLException e) {
-			throw new PhmException("Errror While inserting Person " + e.getMessage());
+			throw new PhmException("Errror While inserting Person" + e.getMessage());
 		}
 		return true;
 	}
