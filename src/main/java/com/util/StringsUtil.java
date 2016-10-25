@@ -57,6 +57,11 @@ public class StringsUtil {
 	/** Messages **/
 
 	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
+<<<<<<< HEAD
+	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+}
+=======
 
 	/** Queries for User Homepage **/
 
@@ -95,3 +100,4 @@ public class StringsUtil {
 		public static final String ADD_DISEASE = "INSERT INTO RECORD_DISEASE VALUES (P_ID?, D_ID?, SYSTIMESTAMP);";
 
 		public static final String ADD_OBSERVATION = "INSERT INTO OBSERVATION VALUES (PHMSQL.NEXTVAL, P_ID?, R_ID?, OB_VALUE?, SYSTIMESTAMP);";
+>>>>>>> origin/master
