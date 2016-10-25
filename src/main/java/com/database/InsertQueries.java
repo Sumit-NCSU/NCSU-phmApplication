@@ -24,15 +24,14 @@ public class InsertQueries {
 		 
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_PERSON);
-			ps.setString(1, personDTO.getPersonId());
-			ps.setString(2, personDTO.getPersonName());
-			ps.setString(3, personDTO.getUsername());
-			ps.setString(4, personDTO.getPassword());
-			ps.setString(5, personDTO.getAddress());
+			ps.setString(1, personDTO.getPersonName());
+			ps.setString(2, personDTO.getUsername());
+			ps.setString(3, personDTO.getPassword());
+			ps.setString(4, personDTO.getAddress());
 			java.util.Date utilDate = formatter.parse(personDTO.getDob());
 			java.sql.Date dob_date =  new java.sql.Date(utilDate.getTime());
-			ps.setDate(6, dob_date);
-			ps.setString(7, personDTO.getGender());
+			ps.setDate(5, dob_date);
+			ps.setString(6, personDTO.getGender());
 			
 			ps.executeUpdate();
 			System.out.println("User has been added.!");
