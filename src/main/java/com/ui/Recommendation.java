@@ -2,12 +2,7 @@ package com.ui;
 
 import com.model.PersonDTO;
 
-/*
- * @author Animesh
- * 
- */
-
-public class HealthSupporter {
+public class Recommendation {
 
 	public static void showScreen(PersonDTO person) {
 		// TODO Auto-generated method stub
