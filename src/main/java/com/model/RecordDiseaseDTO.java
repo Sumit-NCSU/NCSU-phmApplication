@@ -2,9 +2,15 @@ package com.model;
 
 import java.sql.Timestamp;
 
+/**
+ * P_ID D_ID RECORD_TIME
+ * 
+ * @author Sumit
+ *
+ */
 public class RecordDiseaseDTO {
 
-	private int personId;
+	private String personId;
 	private int diseaseId;
 	private Timestamp recordTime;
 
@@ -18,7 +24,7 @@ public class RecordDiseaseDTO {
 	 * @param recordTime
 	 *            the record Time
 	 */
-	public RecordDiseaseDTO(int personId, int diseaseId, Timestamp recordTime) {
+	public RecordDiseaseDTO(String personId, int diseaseId, Timestamp recordTime) {
 		this.personId = personId;
 		this.diseaseId = diseaseId;
 		this.recordTime = recordTime;
@@ -27,7 +33,7 @@ public class RecordDiseaseDTO {
 	/**
 	 * @return the personId
 	 */
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 
@@ -35,7 +41,7 @@ public class RecordDiseaseDTO {
 	 * @param personId
 	 *            the personId to set
 	 */
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 

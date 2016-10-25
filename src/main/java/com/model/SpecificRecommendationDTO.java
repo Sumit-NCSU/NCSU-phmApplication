@@ -1,13 +1,15 @@
 package com.model;
 
-import java.sql.Timestamp;
-
+/**
+ * P_ID R_ID
+ * 
+ * @author Sumit
+ *
+ */
 public class SpecificRecommendationDTO {
 
-	private int personId;
-	// private int diseaseId; //modified as per changes from  dev_Nikhil branch
+	private String personId;
 	private int recommendationId;
-	private Timestamp recordTime;
 
 	/**
 	 * Parameterized constructor
@@ -17,18 +19,15 @@ public class SpecificRecommendationDTO {
 	 * @param recordTime
 	 *            the record time
 	 */
-	public SpecificRecommendationDTO(int recommendationId, Timestamp recordTime) {
-		// public SpecificRecommendationDTO(int diseaseId, int recommendationId,
-		// Timestamp recordTime) {
-		// this.diseaseId = diseaseId;
+	public SpecificRecommendationDTO(int recommendationId, String personId) {
 		this.recommendationId = recommendationId;
-		this.recordTime = recordTime;
+		this.personId = personId;
 	}
 
 	/**
 	 * @return the personId
 	 */
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 
@@ -36,7 +35,7 @@ public class SpecificRecommendationDTO {
 	 * @param personId
 	 *            the personId to set
 	 */
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 
@@ -70,18 +69,4 @@ public class SpecificRecommendationDTO {
 		this.recommendationId = recommendationId;
 	}
 
-	/**
-	 * @return the recordTime
-	 */
-	public Timestamp getRecordTime() {
-		return recordTime;
-	}
-
-	/**
-	 * @param recordTime
-	 *            the recordTime to set
-	 */
-	public void setRecordTime(Timestamp recordTime) {
-		this.recordTime = recordTime;
-	}
 }

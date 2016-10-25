@@ -2,11 +2,23 @@ package com.model;
 
 import java.sql.Date;
 
+/**
+ * TABLE SICK_PERSON
+  (
+    P_ID   VARCHAR2(5) PRIMARY KEY,
+    HS1_ID VARCHAR2(5),
+    HS2_ID VARCHAR2(5),
+    HS1_AUTH_DATE DATE,
+    HS2_AUTH_DATE DATE
+  );
+ * @author Sumit
+ *
+ */
 public class SickPersonDTO extends PersonDTO {
 
-	private int personId;
-	private int healthSupporter1Id;
-	private int healthSupporter2Id;
+	private String personId;
+	private String healthSupporter1Id;
+	private String healthSupporter2Id;
 	private Date hs1AuthDate; //modified as per changes from  dev_Nikhil branch
 	private Date hs2AuthDate; //modified as per changes from  dev_Nikhil branch
 
@@ -27,7 +39,7 @@ public class SickPersonDTO extends PersonDTO {
 	 * @param healthSupporter2Id
 	 *            the health supporter 2 ID
 	 */
-	public SickPersonDTO(int personId, int healthSupporter1Id, int healthSupporter2Id, Date hs1AuthDate, Date hs2AuthDate) {
+	public SickPersonDTO(String personId, String healthSupporter1Id, String healthSupporter2Id, Date hs1AuthDate, Date hs2AuthDate) {
 		this.personId = personId;
 		this.healthSupporter1Id = healthSupporter1Id;
 		this.healthSupporter2Id = healthSupporter2Id;
@@ -38,7 +50,7 @@ public class SickPersonDTO extends PersonDTO {
 	/**
 	 * @return the personId
 	 */
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 
@@ -46,14 +58,14 @@ public class SickPersonDTO extends PersonDTO {
 	 * @param personId
 	 *            the personId to set
 	 */
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 
 	/**
 	 * @return the healthSupporter1Id
 	 */
-	public int getHealthSupporter1Id() {
+	public String getHealthSupporter1Id() {
 		return healthSupporter1Id;
 	}
 
@@ -61,14 +73,14 @@ public class SickPersonDTO extends PersonDTO {
 	 * @param healthSupporter1Id
 	 *            the healthSupporter1Id to set
 	 */
-	public void setHealthSupporter1Id(int healthSupporter1Id) {
+	public void setHealthSupporter1Id(String healthSupporter1Id) {
 		this.healthSupporter1Id = healthSupporter1Id;
 	}
 
 	/**
 	 * @return the healthSupporter2Id
 	 */
-	public int getHealthSupporter2Id() {
+	public String getHealthSupporter2Id() {
 		return healthSupporter2Id;
 	}
 
@@ -76,7 +88,7 @@ public class SickPersonDTO extends PersonDTO {
 	 * @param healthSupporter2Id
 	 *            the healthSupporter2Id to set
 	 */
-	public void setHealthSupporter2Id(int healthSupporter2Id) {
+	public void setHealthSupporter2Id(String healthSupporter2Id) {
 		this.healthSupporter2Id = healthSupporter2Id;
 	}
 

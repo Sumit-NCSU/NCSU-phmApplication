@@ -1,11 +1,21 @@
 package com.model;
 
+import java.sql.Date;
+
+/**
+ * OB_ID P_ID R_ID OB_VALUE RECORD_TIME OB_TIME
+ * 
+ * @author Sumit
+ *
+ */
 public class ObservationDTO {
 
 	private int observationId;
-	// private String observationType;
-	private int recommendationId;  //modified as per changes from  dev_Nikhil branch
+	private String personId;
+	private int recommendationId;
 	private String observationValue;
+	private Date recordTime;
+	private Date observationTime;
 
 	/**
 	 * Parameterized constructor
@@ -17,10 +27,14 @@ public class ObservationDTO {
 	 * @param observationValue
 	 *            the observation Value
 	 */
-	public ObservationDTO(int observationId, int recommendationId, String observationValue) {
+	public ObservationDTO(int observationId, String personId, int recommendationId, String observationValue,
+			Date recordTime, Date observationTime) {
 		this.observationId = observationId;
+		this.personId = personId;
 		this.recommendationId = recommendationId;
 		this.observationValue = observationValue;
+		this.recordTime = recordTime;
+		this.observationTime = observationTime;
 	}
 
 	/**
@@ -81,6 +95,51 @@ public class ObservationDTO {
 	 */
 	public void setRecommendationId(int recommendationId) {
 		this.recommendationId = recommendationId;
+	}
+
+	/**
+	 * @return the personId
+	 */
+	public String getPersonId() {
+		return personId;
+	}
+
+	/**
+	 * @param personId
+	 *            the personId to set
+	 */
+	public void setPersonId(String personId) {
+		this.personId = personId;
+	}
+
+	/**
+	 * @return the recordTime
+	 */
+	public Date getRecordTime() {
+		return recordTime;
+	}
+
+	/**
+	 * @param recordTime
+	 *            the recordTime to set
+	 */
+	public void setRecordTime(Date recordTime) {
+		this.recordTime = recordTime;
+	}
+
+	/**
+	 * @return the observationTime
+	 */
+	public Date getObservationTime() {
+		return observationTime;
+	}
+
+	/**
+	 * @param observationTime
+	 *            the observationTime to set
+	 */
+	public void setObservationTime(Date observationTime) {
+		this.observationTime = observationTime;
 	}
 
 }

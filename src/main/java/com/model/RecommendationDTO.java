@@ -1,5 +1,11 @@
 package com.model;
 
+/**
+ * R_ID FREQUENCY DESCRIPTION METRIC LOWER_BOUND UPPER_BOUND STRING_VALUE
+ * 
+ * @author Sumit
+ *
+ */
 public class RecommendationDTO {
 
 	private int recommendationId;
@@ -7,8 +13,8 @@ public class RecommendationDTO {
 	private String frequency;
 	private String lowerLimit;
 	private String upperLimit;
-	private String metric; //modified as per changes from  dev_Nikhil branch
-	private String value; //modified as per changes from  dev_Nikhil branch
+	private String metric; // modified as per changes from dev_Nikhil branch
+	private String value; // modified as per changes from dev_Nikhil branch
 
 	/**
 	 * Parameterized constructor
@@ -118,7 +124,8 @@ public class RecommendationDTO {
 	}
 
 	/**
-	 * @param metric the metric to set
+	 * @param metric
+	 *            the metric to set
 	 */
 	public void setMetric(String metric) {
 		this.metric = metric;
@@ -132,7 +139,8 @@ public class RecommendationDTO {
 	}
 
 	/**
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
 	public void setValue(String value) {
 		this.value = value;

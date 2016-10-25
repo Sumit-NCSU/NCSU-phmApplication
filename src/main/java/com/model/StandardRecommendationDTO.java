@@ -1,10 +1,15 @@
 package com.model;
 
+/**
+ * D_ID R_ID
+ * 
+ * @author Sumit
+ *
+ */
 public class StandardRecommendationDTO {
 
 	private int diseaseId;
 	private int recommendationId;
-	// private Timestamp recordTime; //modified as per changes from  dev_Nikhil branch
 
 	/**
 	 * Parameterized constructor
@@ -19,7 +24,6 @@ public class StandardRecommendationDTO {
 	public StandardRecommendationDTO(int diseaseId, int recommendationId) {
 		this.diseaseId = diseaseId;
 		this.recommendationId = recommendationId;
-		// this.recordTime = recordTime;
 	}
 
 	/**
