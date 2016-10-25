@@ -1,6 +1,0 @@
-CreateTables.sql
-TRIGGER_OBSV_BOUND.sql
-TRIGGER_DELETE_WELL_PERSON.sql
-TRIGGER_RECORD_WELL_PERSON.sql
-insertSampleData.sql
-
