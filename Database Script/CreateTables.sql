@@ -8,7 +8,6 @@ drop table PERSON;
 drop table DISEASE;
 drop table OBSERVATION;
 drop table RECOMMENDATION;
-
 purge recyclebin;
 
 CREATE
@@ -84,7 +83,6 @@ CREATE
   (
     P_ID      VARCHAR2(5),
     R_ID      NUMBER,
-    RECO_TIME TIMESTAMP,
     PRIMARY KEY(P_ID, R_ID)
   );
 
@@ -105,7 +103,7 @@ CREATE
     P_ID	VARCHAR2(5),
     R_ID NUMBER,
     OB_VALUE VARCHAR2(20),
-	RECORD_TIME TIMESTAMP,
+    RECORD_TIME TIMESTAMP,
     OB_TIME     TIMESTAMP
   );
   
