@@ -2,18 +2,24 @@ package com.model;
 
 import java.sql.Date;
 
+/**
+ * P_ID HS1_ID HS2_ID HS1_AUTH_DATE HS2_AUTH_DATE
+ * 
+ * @author Sumit
+ *
+ */
 public class WellPersonDTO extends PersonDTO {
 
-	private int personId;
-	private int healthSupporter1Id;
-	private int healthSupporter2Id;
-	private Date hs1AuthDate; //modified as per changes from  dev_Nikhil branch
-	private Date hs2AuthDate; //modified as per changes from  dev_Nikhil branch
+	private String personId;
+	private String healthSupporter1Id;
+	private String healthSupporter2Id;
+	private Date hs1AuthDate; // modified as per changes from dev_Nikhil branch
+	private Date hs2AuthDate; // modified as per changes from dev_Nikhil branch
 
 	public WellPersonDTO() {
 		super();
 	}
-	
+
 	/**
 	 * Parameterized constructor
 	 * 
@@ -24,7 +30,8 @@ public class WellPersonDTO extends PersonDTO {
 	 * @param healthSupporter2Id
 	 *            the health supporter 2 ID
 	 */
-	public WellPersonDTO(int personId, int healthSupporter1Id, int healthSupporter2Id, Date hs1AuthDate, Date hs2AuthDate) {
+	public WellPersonDTO(String personId, String healthSupporter1Id, String healthSupporter2Id, Date hs1AuthDate,
+			Date hs2AuthDate) {
 		this.personId = personId;
 		this.healthSupporter1Id = healthSupporter1Id;
 		this.healthSupporter2Id = healthSupporter2Id;
@@ -35,7 +42,7 @@ public class WellPersonDTO extends PersonDTO {
 	/**
 	 * @return the personId
 	 */
-	public int getPersonId() {
+	public String getPersonId() {
 		return personId;
 	}
 
@@ -43,14 +50,14 @@ public class WellPersonDTO extends PersonDTO {
 	 * @param personId
 	 *            the personId to set
 	 */
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 
 	/**
 	 * @return the healthSupporter1Id
 	 */
-	public int getHealthSupporter1Id() {
+	public String getHealthSupporter1Id() {
 		return healthSupporter1Id;
 	}
 
@@ -58,14 +65,14 @@ public class WellPersonDTO extends PersonDTO {
 	 * @param healthSupporter1Id
 	 *            the healthSupporter1Id to set
 	 */
-	public void setHealthSupporter1Id(int healthSupporter1Id) {
+	public void setHealthSupporter1Id(String healthSupporter1Id) {
 		this.healthSupporter1Id = healthSupporter1Id;
 	}
 
 	/**
 	 * @return the healthSupporter2Id
 	 */
-	public int getHealthSupporter2Id() {
+	public String getHealthSupporter2Id() {
 		return healthSupporter2Id;
 	}
 
@@ -73,7 +80,7 @@ public class WellPersonDTO extends PersonDTO {
 	 * @param healthSupporter2Id
 	 *            the healthSupporter2Id to set
 	 */
-	public void setHealthSupporter2Id(int healthSupporter2Id) {
+	public void setHealthSupporter2Id(String healthSupporter2Id) {
 		this.healthSupporter2Id = healthSupporter2Id;
 	}
 
@@ -85,7 +92,8 @@ public class WellPersonDTO extends PersonDTO {
 	}
 
 	/**
-	 * @param hs1AuthDate the hs1AuthDate to set
+	 * @param hs1AuthDate
+	 *            the hs1AuthDate to set
 	 */
 	public void setHs1AuthDate(Date hs1AuthDate) {
 		this.hs1AuthDate = hs1AuthDate;
@@ -99,7 +107,8 @@ public class WellPersonDTO extends PersonDTO {
 	}
 
 	/**
-	 * @param hs2AuthDate the hs2AuthDate to set
+	 * @param hs2AuthDate
+	 *            the hs2AuthDate to set
 	 */
 	public void setHs2AuthDate(Date hs2AuthDate) {
 		this.hs2AuthDate = hs2AuthDate;
