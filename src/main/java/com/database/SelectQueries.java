@@ -273,6 +273,40 @@ public class SelectQueries {
 		return personDTOs;
 	}
 
+	
+	/**
+	 * Method to fetch patient type from Sick table in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of PersonDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static String getPatientType(Connection connection, String personId) throws PhmException {
+		String status = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.IS_PERSON_SICK_PATIENT);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				int value = resultSet.getInt("VALUE");
+				if(value>0)
+					status = "SICK";
+				else
+					status = "WELL";	
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+		}
+		return status;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Method to fetch all rows from RECOMMENDATION table in database.
 	 * 
