@@ -75,7 +75,7 @@ END;
 
 --SET SERVEROUTPUT ON;
 
-BEGIN
-    check_freq('P1',sysdate);
-END;
-/
+--BEGIN
+--    check_freq('P1',sysdate);
+--END;
+--/
