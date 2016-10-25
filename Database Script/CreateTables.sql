@@ -8,7 +8,6 @@ drop table PERSON;
 drop table DISEASE;
 drop table OBSERVATION;
 drop table RECOMMENDATION;
-drop table OBSERVATION_TYPE;
 purge recyclebin;
 
 CREATE
