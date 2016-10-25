@@ -1,3 +1,37 @@
+
+Table SICK_PERSON dropped.
+
+
+Table WELL_PERSON dropped.
+
+
+Table RECORD_DISEASE dropped.
+
+
+Table STANDARD_RECOMMENDATION dropped.
+
+
+Table SPECIFIC_RECOMMENDATION dropped.
+
+
+Table ALERT dropped.
+
+
+Table PERSON dropped.
+
+
+Table DISEASE dropped.
+
+
+Table OBSERVATION dropped.
+
+
+Table RECOMMENDATION dropped.
+
+
+Recyclebin purged.
+
+
 Table PERSON created.
 
 
@@ -13,8 +47,6 @@ Table DISEASE created.
 Table RECORD_DISEASE created.
 
 
-Table DISEASE_OBSERVATION created.
-
 Table RECOMMENDATION created.
 
 
@@ -26,14 +58,10 @@ Table SPECIFIC_RECOMMENDATION created.
 
 Table ALERT created.
 
+
 Table OBSERVATION created.
 
 
-Table OBSERVATION_TYPE created.
-
-
-Table RECORD_OBSERVATION created.
-
 Table SICK_PERSON altered.
 
 
@@ -44,6 +72,7 @@ Table SICK_PERSON altered.
 
 
 Table WELL_PERSON altered.
+
 
 Table WELL_PERSON altered.
 
@@ -55,15 +84,10 @@ Table RECORD_DISEASE altered.
 
 
 Table RECORD_DISEASE altered.
-
-
-Table DISEASE_OBSERVATION altered.
-
-
-Table DISEASE_OBSERVATION altered.
 
 
 Table STANDARD_RECOMMENDATION altered.
+
 
 Table STANDARD_RECOMMENDATION altered.
 
@@ -75,16 +99,4 @@ Table SPECIFIC_RECOMMENDATION altered.
 
 
 Table ALERT altered.
-
-
-Table OBSERVATION altered.
-
-
-Table RECORD_OBSERVATION altered.
-
-
-Table RECORD_OBSERVATION altered.
-
-
-Commit complete.
 
