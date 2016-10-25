@@ -4,6 +4,9 @@
 package com.ui;
 
 import java.sql.Connection;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import com.database.ConnectionManager;
@@ -33,7 +36,7 @@ public class NewPhmUser {
 		return true;
 	}
 
-	public void showScreen() throws PhmException {
+	public void showScreen() throws PhmException, ParseException {
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 		while (flag) {
@@ -47,7 +50,7 @@ public class NewPhmUser {
 			String password = sc.nextLine();
 			System.out.println("Enter Address: ");
 			String address = sc.nextLine();
-			System.out.println("Enter DOB(MMDDYYYY): ");
+			System.out.println("Enter DOB (MM/dd/yyyy): ");
 			String dob = sc.nextLine();
 			System.out.println("Enter Gender: ");
 			String gender = sc.nextLine();
@@ -63,10 +66,10 @@ public class NewPhmUser {
 				System.out.println("Failed to create account");
 			}
 		}
-		sc.close();
+		//sc.close();
 	}
 
-	private boolean insertPerson(PersonDTO person) throws PhmException {
+	private boolean insertPerson(PersonDTO person) throws PhmException, ParseException {
 		Connection con = new ConnectionManager().getConnection();
 		return InsertQueries.insertPerson(con, person);
 	}

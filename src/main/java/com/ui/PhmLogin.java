@@ -4,6 +4,7 @@
 package com.ui;
 
 import java.sql.Connection;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import com.database.ConnectionManager;
@@ -39,7 +40,7 @@ public class PhmLogin {
 		return person;
 	}
 
-	public void showScreen() throws PhmException {
+	public void showLoginScreen() throws PhmException, ParseException {
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 		while (flag) {
@@ -65,6 +66,7 @@ public class PhmLogin {
 				flag = false;
 			}
 		}
+		
 		MainUI.showScreen();
 		sc.close();
 	}
