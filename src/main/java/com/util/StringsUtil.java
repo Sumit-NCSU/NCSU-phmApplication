@@ -89,7 +89,7 @@ public class StringsUtil {
 
 	public static final String SHOW_DISEASES = "SELECT * FROM DISEASE";
 
-	public static final String ADD_DISEASE = "INSERT INTO RECORD_DISEASE VALUES (P_ID?, D_ID?, SYSTIMESTAMP)";
+	public static final String RECORD_DISEASE = "INSERT INTO RECORD_DISEASE (P_ID, D_ID, RECORD_TIME) VALUES (?, ?, SYSTIMESTAMP)";
 
 	public static final String ADD_OBSERVATION = "INSERT INTO OBSERVATION VALUES (PHMSQL.NEXTVAL, P_ID?, R_ID?, OB_VALUE?, SYSTIMESTAMP)";
 
@@ -109,5 +109,9 @@ public class StringsUtil {
 	public static final String RECOMMENDATION_DESCRIPTION_FROM_OBSERVATION_ID = "SELECT R.DESCRIPTION AS Description FROM RECOMMENDATION R, OBSERVATION O WHERE O.R_ID = R.R_ID AND O.OB_ID=?";
 
 	public static final String GET_DISEASE_NAME = "SELECT DNAME as diseaseName FROM DISEASE WHERE D_ID = ?";
+	
+	public static final String GET_RECORD_DISEASE_ID = RECRD_DISEASE_QUERY.concat(" WHERE P_ID = ?");
+	
+	public static final String DELETE_RECORD_DISEASE = "DELETE FROM RECORD_DISEASE WHERE P_ID = ? AND D_ID = ?";
 
 }

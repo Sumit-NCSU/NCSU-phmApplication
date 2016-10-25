@@ -166,6 +166,35 @@ public class SelectQueries {
 		}
 		return disease_name;
 	}
+	
+	/**
+	 * Method to fetch the disease id from Record table and delete from Record Disease in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of DiseaseDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<RecordDiseaseDTO> getPatientDiseases(Connection connection, String personId) throws PhmException {
+		List<RecordDiseaseDTO> record_diseaseDTOs = new ArrayList<RecordDiseaseDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_RECORD_DISEASE_ID);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecordDiseaseDTO record_diseaseDTO = new RecordDiseaseDTO(resultSet.getString("PersonId"),
+					resultSet.getInt("diseaseId"), resultSet.getTimestamp("recordTime"));
+			record_diseaseDTOs.add(record_diseaseDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Observations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Observations." + e.getMessage());
+		}
+		return record_diseaseDTOs;
+	}
+	
+	
 	/**
 	 * Method to fetch all rows from OBSERVATION table in database.
 	 * 

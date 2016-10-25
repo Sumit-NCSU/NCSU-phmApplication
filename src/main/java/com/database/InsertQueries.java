@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 
 import com.exception.PhmException;
 import com.model.PersonDTO;
+import com.model.RecordDiseaseDTO;
 import com.util.StringsUtil;
 
 /**
@@ -39,5 +40,23 @@ public class InsertQueries {
 			throw new PhmException("Errror While inserting Person " + e.getMessage());
 		}
 		return true;
+	}
+	
+	public static boolean recordDisease(Connection connection, RecordDiseaseDTO record_diseaseDTO) throws PhmException, java.text.ParseException {
+		
+		 boolean status=false;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.RECORD_DISEASE);
+			ps.setString(1, record_diseaseDTO.getPersonId());
+			ps.setInt(2, record_diseaseDTO.getDiseaseId());
+			int value = ps.executeUpdate();
+			if(value>0)
+				status = true;
+			else
+				status = false;
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting Person " + e.getMessage());
+		}
+		return status;
 	}
 }

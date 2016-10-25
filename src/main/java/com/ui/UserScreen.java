@@ -105,13 +105,7 @@ public class UserScreen {
 					Observation add_observation = new Observation();
 					add_observation.enterObservations(person.getPersonId(), null);
 					break;
-				case 3:
-					Disease list_diseases = new Disease();
-					list_diseases.viewDiseases(person);
-					break;
-				case 4:
-					Disease add_disease = new Disease();
-					add_disease.enterDiseases(person);
+			
 				case 5:
 					//AlertScreen alert = new AlertScreen();
 					//alert.showScreen(person.getPersonId(),null);
