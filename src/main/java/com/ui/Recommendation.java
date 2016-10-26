@@ -62,7 +62,82 @@ public class Recommendation {
 		
 	}
 
+	public static void showScreenforHP(PersonDTO health_supporter) {
+		// TODO Auto-generated method stub
+		try{
+			
+			Scanner sc = new Scanner(System.in);
+			boolean flag = true;
+			int input=-1;
+			
+			while (flag) {
+				sc = new Scanner(System.in);
+				System.out.println(StringsUtil.LOGIN_MESSAGE);
+				System.out.println("Select an option ");
+				System.out.println("1. View All Recommendation");
+				System.out.println("2. Add New Recommendation");
+				System.out.println("4. Go Back");
+			
+				input = Integer.valueOf(sc.nextLine());	
+				
+				switch (input) 
+				{
+					case 1:
+						viewAllRecommendation();
+						break;
+					case 2:
+						addNewRecommendation();
+						break;
+					case 3:
+						flag = false;
+						break;
+					default:
+						System.out.println("Invalid option. Try again.!");			
+						break;
+					}
+				}
+			}catch (Exception pe){
+				System.out.println("ERROR" + pe.getMessage());
+				pe.printStackTrace();
+		}
+	}
 	
+	private static void addNewRecommendation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void viewAllRecommendation() throws PhmException, SQLException {
+		// TODO Auto-generated method stub
+		Connection con = new ConnectionManager().getConnection();
+		List<RecommendationDTO> recommendations= SelectQueries.getAllRecommendations(con);
+		
+		for(RecommendationDTO list: recommendations)
+		{
+			System.out.println(list.getRecommendationId() + "Observation Type: " + list.getDescription() + "\n");
+			if(null != list.getLowerLimit())
+			{
+				System.out.print("Lower Bound: " + list.getLowerLimit() + "\t");
+			}
+			if(null != list.getUpperLimit())
+			{
+				System.out.print("Upper Bound: " + list.getUpperLimit() + "\t");
+			}
+			if(null != list.getValue())
+			{
+				System.out.println();
+				System.out.print("Measured in " + list.getMetric() + "\tHaving value: " + list.getValue());
+				System.out.print("\t" + "To be checked in frequency of " + list.getFrequency() + " Day(s)");
+			}
+			else
+			{
+				System.out.print("Measured in " + list.getMetric());
+				System.out.print("\t" + "To be checked in frequency of " + list.getFrequency() + " Day(s)");
+			}	
+		}
+		con.close();
+	}
+
 	private static void viewStandardRecommendation(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);

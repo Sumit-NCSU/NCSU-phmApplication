@@ -79,11 +79,9 @@ try{
 		if(status.equals("SICK"))
 		{
 			Connection con = new ConnectionManager().getConnection();
-			
 			SickPersonDTO sickPatient = SelectQueries.getSickPersonHealthSupporter(con, patient.getPersonId());
 		
 			String h_sup_name = null;
-			
 			if(null != sickPatient.getHealthSupporter1Id())
 			{
 				System.out.println("Health Supporter 1 - ");
@@ -93,7 +91,7 @@ try{
 				if(null != sickPatient.getHealthSupporter2Id())
 				{
 					System.out.println();
-					System.out.println("Health Supporter 2: ");
+					System.out.println("Health Supporter 2 - ");
 					h_sup_name = SelectQueries.getPersonName(con, sickPatient.getHealthSupporter2Id());
 					System.out.print("\nFullName: " + h_sup_name + "\t");
 					System.out.print("Authorized on: " + sickPatient.getHs2AuthDate());
