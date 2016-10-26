@@ -73,24 +73,21 @@ public class Disease {
 		// TODO Auto-generated method stub
 		Connection con = new ConnectionManager().getConnection();
 		List<RecordDiseaseDTO> recordDiseaseDTOs = SelectQueries.getPersonDiseases(con, person.getPersonId());
-		con.close();
-		
-		int count = 0, input;
+		int count = 0;
 		String disease_name = null;
-		Scanner sc = new Scanner(System.in);
-		boolean flag = true;
+		
 		if (null != recordDiseaseDTOs) {
 			for (RecordDiseaseDTO rec : recordDiseaseDTOs) {
 				System.out.println("\nDisease No. " + ++count);
 				disease_name = SelectQueries.getDiseaseName(con, rec.getDiseaseId());
 				System.out.print("Disease Name: " + disease_name + "\t");
 				System.out.print("Recorded Time: " + rec.getRecordTime());
-				System.out.println();
+				System.out.println("\n");
 			}
 		} else {
 			System.out.println("No Disease found.");
 		}
-
+		con.close();
 	}
 
 	private static void enterDiseases(PersonDTO person) throws PhmException, SQLException, ParseException {
@@ -124,10 +121,11 @@ public class Disease {
 				System.out.println("Disease couldn't get recorded.");
 			}
 		}
+		con.close();
 	}
 	
 	
-	private static void deleteDisease(PersonDTO person) throws PhmException {
+	private static void deleteDisease(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		Connection con = new ConnectionManager().getConnection();
@@ -157,5 +155,6 @@ public class Disease {
 			return;
 		else
 			System.out.println("Input invalid, Try again.");
+		con.close();
 	}
 }

@@ -29,7 +29,7 @@ public class StringsUtil {
 	/**
 	 * query for recommendation table
 	 */
-	public static final String RECOMMENDATION_QUERY = "SELECT R_ID as recommendationId, DESCRIPTION as description, FREQUENCY as frequency, LOWER_LIMIT as lowerLimit, UPPER_LIMIT as upperLimit, METRIC as metric, STRING_VALUE as value FROM RECOMMENDATION";
+	public static final String RECOMMENDATION_QUERY = "SELECT R_ID as recommendationId, DESCRIPTION as description, FREQUENCY as frequency, LOWER_BOUND as lowerBound, UPPER_BOUND as upperBound, METRIC as metric, STRING_VALUE as value FROM RECOMMENDATION";
 	/**
 	 * query for record disease table
 	 */
@@ -113,5 +113,11 @@ public class StringsUtil {
 	public static final String GET_RECORD_DISEASE_ID = RECRD_DISEASE_QUERY.concat(" WHERE P_ID = ?");
 	
 	public static final String DELETE_RECORD_DISEASE = "DELETE FROM RECORD_DISEASE WHERE P_ID = ? AND D_ID = ?";
+	
+	public static final String PATIENT_STANDARD_RECOMENDATIONS = STD_RECOMMENDATION_QUERY.concat(" WHERE D_ID = ?");
+	
+	public static final String PATIENT_SPECIFIC_RECOMMENDATIONS = SPE_RECOMMENDATION_QUERY.concat(" WHERE P_ID = ?");
+	
+	public static final String GET_RECOMMENDATIONS_BY_RID = RECOMMENDATION_QUERY.concat(" WHERE R_ID = ?");
 
 }
