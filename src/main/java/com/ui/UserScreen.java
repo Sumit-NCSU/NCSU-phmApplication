@@ -19,6 +19,8 @@ import com.util.StringsUtil;
  *
  */
 public class UserScreen {
+	
+	int count = 0;
 
 	public void showUserScreen(PersonDTO person) throws PhmException {
 		try{
@@ -39,10 +41,12 @@ public class UserScreen {
 				System.out.println("4. Alerts");
 				System.out.println("5. Health Supporters");
 				
+			
 				if(checkHealthSup)
 				{
-					System.out.println("\n\nYou are a Health Supporter");
-					System.out.println("7. View Patient(s)");
+					System.out.println("\nHealth Supporter Option");
+					System.out.print("6. View Patient(s): \t");
+					System.out.print("You have "+ count + " Patient(s) under you.\n");
 				}
 				
 				System.out.println("0. Log Out");
@@ -52,6 +56,7 @@ public class UserScreen {
 				switch (input) {
 				case 0:
 					System.out.println("Bye " + person.getPersonName());
+					System.out.println();
 					flag = false;
 					break;
 				case 1:
@@ -69,10 +74,10 @@ public class UserScreen {
 				case 5:
 					HealthSupporter.showScreen(person);
 					break;
-				case 7:
+				case 6:
 					if(checkHealthSup)
 					{
-						Patient.showScreen(person);
+						HealthSupporterScreen.showScreen(person);
 					}
 					else
 					{
@@ -86,12 +91,9 @@ public class UserScreen {
 				/*
 				System.out.println("1. View Observation");
 				System.out.println("2. Enter Observation");
-				System.out.println("3. View Disease(s)");
-				System.out.println("4. Enter New Disease");
-				System.out.println("5. View Alerts");
+				
+				
 				System.out.println("6. Add/Update Health Supporters");
-				System.out.println("7. View Standard Recommendation");
-				System.out.println("8. View Specific Recommendation");
 				
 				case 0:
 					System.out.println("Bye " + person.getPersonName());
@@ -105,13 +107,7 @@ public class UserScreen {
 					Observation add_observation = new Observation();
 					add_observation.enterObservations(person.getPersonId(), null);
 					break;
-				case 3:
-					Disease list_diseases = new Disease();
-					list_diseases.viewDiseases(person);
-					break;
-				case 4:
-					Disease add_disease = new Disease();
-					add_disease.enterDiseases(person);
+			
 				case 5:
 					//AlertScreen alert = new AlertScreen();
 					//alert.showScreen(person.getPersonId(),null);
@@ -120,28 +116,7 @@ public class UserScreen {
 					HealthSupporter edit_HP = new HealthSupporter();
 					edit_HP.showScreen(person);
 					break;
-				case 7:
-					StandardRecommendation standard = new StandardRecommendation();
-					standard.viewStandRecommedations(person);
-					break;
-				case 8:
-					SpecificRecommendation specific = new SpecificRecommendation();
-					specific.viewSpeciRecommendations(person);
-					break;
-				case 9:
-					if(checkHealthSup)
-					{
-						Patient patient = new Patient();
-						patient.showScreen(person);
-					}
-					else
-					{
-						System.out.println("Invalid option. Try again.!");
-					}
-					break;
-				default:
-					System.out.println("Invalid option. Try again.!");			
-					break;*/
+				*/
 				}
 			}
 		} catch (Exception pe) {
@@ -199,13 +174,14 @@ public class UserScreen {
 	{
 		System.out.println("Your Profile");
 		System.out.println("Name: \t\t" + person.getPersonName());
-		System.out.println("Username: \t\t" + person.getUsername());
+		System.out.println("Username: \t" + person.getUsername());
 		System.out.println("Date of Birth: \t" + person.getDob());
-		System.out.println("Address: \t\t" + person.getAddress());
-		System.out.println("Gender: t\t" + person.getGender());
+		System.out.println("Address: \t" + person.getAddress());
+		System.out.println("Gender: \t" + person.getGender());
 		Connection con = new ConnectionManager().getConnection();
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
 		System.out.println("You are in a " + status + " Patient category.");
+		System.out.println();
 		con.close();
 	}
 	
@@ -228,11 +204,16 @@ public class UserScreen {
 		con.close();
 	}
 
-	private boolean checkHealthSupporter(PersonDTO person) {
+	private boolean checkHealthSupporter(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		boolean status = false;
+		Connection con = new ConnectionManager().getConnection();
+		count = SelectQueries.getStatusHealthSupporter(con, person.getPersonId());
+		con.close();
+		if(count>0)
+			status = true;
+		else
+			status = false;
+		return status;
 	}
-
-	
-
 }

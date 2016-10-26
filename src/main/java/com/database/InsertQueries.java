@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import com.exception.PhmException;
+import com.model.ObservationDTO;
 import com.model.PersonDTO;
+import com.model.RecommendationDTO;
+import com.model.RecordDiseaseDTO;
 import com.util.StringsUtil;
 
 /**
@@ -37,6 +40,58 @@ public class InsertQueries {
 			System.out.println("User has been added.!");
 		} catch (SQLException e) {
 			throw new PhmException("Errror While inserting Person " + e.getMessage());
+		}
+		return true;
+	}
+	
+	public static boolean recordDisease(Connection connection, RecordDiseaseDTO record_diseaseDTO) throws PhmException, java.text.ParseException {
+		
+		 boolean status=false;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.RECORD_DISEASE);
+			ps.setString(1, record_diseaseDTO.getPersonId());
+			ps.setInt(2, record_diseaseDTO.getDiseaseId());
+			int value = ps.executeUpdate();
+			if(value>0)
+				status = true;
+			else
+				status = false;
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting record " + e.getMessage());
+		}
+		return status;
+	}
+	
+	public static boolean insertObservation(Connection connection, ObservationDTO observationDTO) throws PhmException, java.text.ParseException {
+		 
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_OBSERVATION);
+			ps.setString(1, observationDTO.getPersonId());
+			ps.setInt(2, observationDTO.getRecommendationId());
+			ps.setString(3, observationDTO.getObservationValue());
+			ps.setTimestamp(4, observationDTO.getObservationTime());
+			ps.executeUpdate();
+			System.out.println("Observation has been added.!");
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting observation " + e.getMessage());
+		}
+		return true;
+	}
+	
+	public static boolean insertRecommendation(Connection connection, RecommendationDTO recommendationDTO) throws PhmException, java.text.ParseException {
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_RECOMMENDATION);
+			ps.setString(1, recommendationDTO.getFrequency());
+			ps.setString(2, recommendationDTO.getDescription());
+			ps.setString(3, recommendationDTO.getMetric());
+			ps.setString(4, recommendationDTO.getLowerLimit());
+			ps.setString(5, recommendationDTO.getUpperLimit());
+			ps.setString(6, recommendationDTO.getValue());
+			ps.executeUpdate();
+			System.out.println("Observation has been added.!");
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting observation " + e.getMessage());
 		}
 		return true;
 	}
