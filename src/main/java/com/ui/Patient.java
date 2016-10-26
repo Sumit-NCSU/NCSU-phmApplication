@@ -3,6 +3,7 @@ package com.ui;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 import com.database.ConnectionManager;
 import com.database.SelectQueries;
@@ -18,12 +19,47 @@ public class Patient {
 
 	public static void showScreen(PersonDTO health_supporter) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("List of Your Patients");
-		Connection con = new ConnectionManager().getConnection();
-		List<PersonDTO> patient_list = SelectQueries.getMyPatients(con, health_supporter.getPersonId());
+		Scanner sc = new Scanner(System.in);
 		
+		int input = -1;
+		String input1;
+		boolean flag = true;
+		int count = 1;
+		Connection con = new ConnectionManager().getConnection();
+		List<PersonDTO> patients_list = SelectQueries.getMyPatients(con, health_supporter.getPersonId());
+		while(flag)
+		{
+			System.out.println("List of Your Patients");
+			for(PersonDTO patient: patients_list)
+			{
+				System.out.println(count++ + "Patient Id: " + patient.getPersonId() + "\t Patient Name: " + patient.getPersonName());
+			}
+			
+			System.out.println("1. Patient's Account");
+			System.out.println("2. Recommendations");
+			System.out.println("2. Go Back");
+			System.out.println("Choose Option.");
+			input = Integer.valueOf(sc.nextLine());
+			
+			switch(input)
+			{
+			case 1:
+				System.out.println("Enter Patient ID: ");
+				input1 = sc.nextLine();
+				PatientAccount.showScreen(input1, health_supporter.getPersonId());
+				break;
+			case 2:
+				Recommendation.showScreenforHP(health_supporter);
+				break;
+			case 3:
+				flag = false;
+				break;
+			default:
+				System.out.println("Invalid input. Try again.");
+				break;
+			}
+		
+		}
 		con.close();
 	}
-
-
 }

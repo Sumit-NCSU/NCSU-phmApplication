@@ -68,6 +68,7 @@ public class AlertScreen {
 					alertindexMap.put(index, alert.getAlertId());
 					System.out.println(index + ") " + alert.getDescription());
 				}
+				System.out.println("\nSelect Choice by Character");
 				System.out.println("c) Clear alerts.");
 			}
 			System.out.println("b) Back.");
@@ -113,10 +114,6 @@ public class AlertScreen {
 				}
 			}
 		}
-	}
-
-	public static void main(String[] args) throws PhmException, SQLException {
-		showScreen("P5", "P2");
 	}
 
 	/**
