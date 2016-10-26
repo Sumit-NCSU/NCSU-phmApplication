@@ -2,6 +2,7 @@ package com.ui;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ import com.model.PersonDTO;
 
 public class HealthSupporterScreen {
 
-	public static void showScreen(PersonDTO health_supporter) throws PhmException, SQLException {
+	public static void showScreen(PersonDTO health_supporter) throws PhmException, SQLException, ParseException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		
@@ -58,7 +59,6 @@ public class HealthSupporterScreen {
 				System.out.println("Invalid input. Try again.");
 				break;
 			}
-		
 		}
 		con.close();
 	}

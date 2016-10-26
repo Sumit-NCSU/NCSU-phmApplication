@@ -170,7 +170,7 @@ public class UserScreen {
 		
 	}
 	
-	private void viewProfile(PersonDTO person) throws PhmException, SQLException
+	public static void viewProfile(PersonDTO person) throws PhmException, SQLException
 	{
 		System.out.println("Your Profile");
 		System.out.println("Name: \t\t" + person.getPersonName());
@@ -185,7 +185,7 @@ public class UserScreen {
 		con.close();
 	}
 	
-	private void editProfile(PersonDTO person) throws PhmException, SQLException
+	private static void editProfile(PersonDTO person) throws PhmException, SQLException
 	{
 		System.out.println("Edit Exisiting Profile");
 		Scanner sc = new Scanner(System.in);

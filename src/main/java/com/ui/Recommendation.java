@@ -174,7 +174,7 @@ public class Recommendation {
 		con.close();
 	}
 
-	private static void viewStandardRecommendation(PersonDTO person) throws PhmException, SQLException {
+	public static void viewStandardRecommendation(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int count=1;
@@ -192,7 +192,7 @@ public class Recommendation {
 			
 				for(RecommendationDTO recommendation: recommendations)
 				{
-					System.out.println(count++ + ". " + "You are suppose to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
+					System.out.println(count++ + ". " + person.getPersonName() + " is suppose to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
 				}
 				
 			}
@@ -201,7 +201,7 @@ public class Recommendation {
 		con.close();
 	}
 	
-	private static void viewSpecificRecommendation(PersonDTO person) throws PhmException, SQLException {
+	public static void viewSpecificRecommendation(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int count=1;
@@ -217,12 +217,24 @@ public class Recommendation {
 			
 			for(RecommendationDTO recommendation: recommendations)
 			{
-				System.out.println(count++ + ". " + "You are specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
+				System.out.println(count++ + ". " + person.getPersonName() + " is specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
 			}	
 		}
 		System.out.println("\n");	
 			
 		con.close();
+		
+	}
+
+	public static void addSpecificRecommendation(PersonDTO patientName) throws PhmException {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int count=0;
+		
+		Connection con = new ConnectionManager().getConnection();
+	
+		System.out.println("You can add a Specfic Recommendation from the below List.");
+		List<RecommendationDTO> recom_lists = SelectQueries.getRecommendations(con, patientName.getPersonId());
 		
 	}
 

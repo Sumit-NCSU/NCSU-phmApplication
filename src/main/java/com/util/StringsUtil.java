@@ -51,6 +51,8 @@ public class StringsUtil {
 	public static final String GET_RECOMMENDATION_BY_PID = "SELECT R.R_ID as recommendationId, R.DESCRIPTION as description, R.FREQUENCY as frequency, R.LOWER_BOUND as lowerBound, R.UPPER_BOUND as upperBound, R.METRIC as metric, R.STRING_VALUE as value FROM RECOMMENDATION R, SPECIFIC_RECOMMENDATION P WHERE R.R_ID = P.R_ID AND P.P_ID = ?";
 	
 	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID as recommendationId FROM STANDARD_RECOMMENDATION";
+	
+	public static final String GET_SUG_RECOMMENDATIONS = RECOMMENDATION_QUERY.concat(" WHERE R_ID IN (SELECT R_ID FROM SPECIFIC_RECOMMENDATION) AND P_ID <> ?");
 	/**
 	 * query for well person table
 	 */
@@ -122,6 +124,8 @@ public class StringsUtil {
 	public static final String GET_PERSON_NAME = "SELECT PNAME as personName FROM PERSON WHERE P_ID = ?";
 	
 	public static final String GET_PERSON_ID = "SELECT P_ID as personId FROM PERSON WHERE USERNAME = ?";
+	
+	public static final String GET_PERSON_BY_ID = PERSON_QUERY.concat(" WHERE P_ID = ?");
 	
 	public static final String GET_RECORD_DISEASE_ID = RECRD_DISEASE_QUERY.concat(" WHERE P_ID = ?");
 	
