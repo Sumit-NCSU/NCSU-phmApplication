@@ -2,7 +2,6 @@ package com.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.exception.PhmException;
@@ -23,12 +22,31 @@ public class UpdateQueries {
 	 *            if mandatory alerts need to be cleared as well.
 	 * @return boolean value indicating that alerts were cleared successfully
 	 */
-	public static boolean clearAlerts(boolean clearMandatory) {
-		// TODO Auto-generated method stub
-		return false;
+	public static boolean clearAlerts(Connection con, int alertId, String personId, boolean clearMandatory)
+			throws PhmException {
+		boolean status = false;
+		try {
+			PreparedStatement ps = null;
+			if (clearMandatory) {
+				ps = con.prepareStatement(StringsUtil.CLEAR_ALERT_BY_HS);
+			} else {
+				ps = con.prepareStatement(StringsUtil.CLEAR_ALERT_BY_PATIENT);
+			}
+			ps.setString(1, personId);
+			ps.setInt(2, alertId);
+			int rows = ps.executeUpdate();
+			if (rows > 0)
+				status = true;
+			else
+				status = false;
+
+		} catch (SQLException e) {
+			System.out.println("Failed to Clear Alerts." + e.getMessage());
+			throw new PhmException("Failed to Clear Alerts." + e.getMessage());
+		}
+		return status;
 	}
 
-	
 	/**
 	 * Method to update Person table database.
 	 * 
@@ -38,28 +56,29 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean updatePersonProfile(Connection connection, String personId, String fullname, String password, String address) throws PhmException {
+	public static boolean updatePersonProfile(Connection connection, String personId, String fullname, String password,
+			String address) throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_PERSON_PROFILE);
 			ps.setString(1, fullname);
 			ps.setString(2, password);
 			ps.setString(3, address);
-			ps.setString(4, personId);			
+			ps.setString(4, personId);
 			int rows = ps.executeUpdate();
-			
-			if(rows > 0)
+
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Method to delete Disease from Record Disease.
 	 * 
@@ -69,25 +88,26 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean deletePatientDisease(Connection connection, String personId, int diseaseId) throws PhmException {
+	public static boolean deletePatientDisease(Connection connection, String personId, int diseaseId)
+			throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.DELETE_RECORD_DISEASE);
 			ps.setString(1, personId);
-			ps.setInt(2,diseaseId);			
+			ps.setInt(2, diseaseId);
 			int rows = ps.executeUpdate();
-			if(rows > 0)
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Method to Sick Person update health Supporter 1
 	 * 
@@ -97,25 +117,26 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean updateSickPersonHealthSupporter1(Connection connection, String personId, String hp1) throws PhmException {
+	public static boolean updateSickPersonHealthSupporter1(Connection connection, String personId, String hp1)
+			throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER);
 			ps.setString(1, hp1);
-			ps.setString(2, personId);			
+			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
-			if(rows > 0)
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Method to Well Person update health Supporter 1
 	 * 
@@ -125,25 +146,26 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean updateWellPersonHealthSupporter1(Connection connection, String personId, String hp1) throws PhmException {
+	public static boolean updateWellPersonHealthSupporter1(Connection connection, String personId, String hp1)
+			throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER);
 			ps.setString(1, hp1);
-			ps.setString(2, personId);			
+			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
-			if(rows > 0)
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Method to Sick Person update health Supporter 2
 	 * 
@@ -153,25 +175,26 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean updateSickPersonHealthSupporter2(Connection connection, String personId, String hp2) throws PhmException {
+	public static boolean updateSickPersonHealthSupporter2(Connection connection, String personId, String hp2)
+			throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER);
 			ps.setString(1, hp2);
-			ps.setString(2, personId);			
+			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
-			if(rows > 0)
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Method to Well Person update health Supporter 2
 	 * 
@@ -181,18 +204,19 @@ public class UpdateQueries {
 	 * @throws PhmException
 	 *             if some error occurs
 	 */
-	public static boolean updateWellPersonHealthSupporter2(Connection connection, String personId, String hp2) throws PhmException {
+	public static boolean updateWellPersonHealthSupporter2(Connection connection, String personId, String hp2)
+			throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER);
 			ps.setString(1, hp2);
-			ps.setString(2, personId);			
+			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
-			if(rows > 0)
+			if (rows > 0)
 				status = true;
 			else
 				status = false;
-			
+
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch all Persons." + e.getMessage());
 			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
