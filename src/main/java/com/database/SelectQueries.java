@@ -166,6 +166,35 @@ public class SelectQueries {
 		}
 		return disease_name;
 	}
+	
+	/**
+	 * Method to fetch the disease id from Record table and delete from Record Disease in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of DiseaseDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<RecordDiseaseDTO> getPatientDiseases(Connection connection, String personId) throws PhmException {
+		List<RecordDiseaseDTO> record_diseaseDTOs = new ArrayList<RecordDiseaseDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_RECORD_DISEASE_ID);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecordDiseaseDTO record_diseaseDTO = new RecordDiseaseDTO(resultSet.getString("PersonId"),
+					resultSet.getInt("diseaseId"), resultSet.getTimestamp("recordTime"));
+			record_diseaseDTOs.add(record_diseaseDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Observations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Observations." + e.getMessage());
+		}
+		return record_diseaseDTOs;
+	}
+	
+	
 	/**
 	 * Method to fetch all rows from OBSERVATION table in database.
 	 * 
@@ -323,7 +352,30 @@ public class SelectQueries {
 			while (resultSet.next()) {
 				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
 						resultSet.getString("description"), resultSet.getString("frequency"),
-						resultSet.getString("lowerLimit"), resultSet.getString("upperLimit"),
+						resultSet.getString("lowerBound"), resultSet.getString("upperBound"),
+						resultSet.getString("metric"), resultSet.getString("value"));
+				recommendationDTOs.add(recommendationDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
+		}
+		return recommendationDTOs;
+	}
+	
+	/**
+	 * 
+	 */
+	public static List<RecommendationDTO> getPatientRecommendations(Connection connection, int recom_ID) throws PhmException {
+		List<RecommendationDTO> recommendationDTOs = new ArrayList<RecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_RECOMMENDATIONS_BY_RID);
+			ps.setInt(1, recom_ID);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
+						resultSet.getString("description"), resultSet.getString("frequency"),
+						resultSet.getString("lowerBound"), resultSet.getString("upperBound"),
 						resultSet.getString("metric"), resultSet.getString("value"));
 				recommendationDTOs.add(recommendationDTO);
 			}
@@ -438,7 +490,30 @@ public class SelectQueries {
 		}
 		return specificRecommendationDTOs;
 	}
+	
 
+	/**
+	 * 
+	 */
+	public static List<SpecificRecommendationDTO> getPatientSpecificRecommendations(Connection connection, String personId)
+			throws PhmException {
+		List<SpecificRecommendationDTO> specificRecommendationDTOs = new ArrayList<SpecificRecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.PATIENT_SPECIFIC_RECOMMENDATIONS);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				SpecificRecommendationDTO specificRecommendationDTO = new SpecificRecommendationDTO(
+						resultSet.getInt("recommendationId"), resultSet.getString("personId"));
+				specificRecommendationDTOs.add(specificRecommendationDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Specific Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Specific Recommendations." + e.getMessage());
+		}
+		return specificRecommendationDTOs;
+	}
+	
 	/**
 	 * Method to fetch all rows from STANDARD_RECOMMENDATION table in database.
 	 * 
@@ -453,6 +528,34 @@ public class SelectQueries {
 		List<StandardRecommendationDTO> standardRecommendationDTOs = new ArrayList<StandardRecommendationDTO>();
 		try {
 			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.STD_RECOMMENDATION_QUERY);
+			while (resultSet.next()) {
+				StandardRecommendationDTO standardRecommendationDTO = new StandardRecommendationDTO(
+						resultSet.getInt("diseaseId"), resultSet.getInt("recommendationId"));
+				standardRecommendationDTOs.add(standardRecommendationDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Standard Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Standard Recommendations." + e.getMessage());
+		}
+		return standardRecommendationDTOs;
+	}
+	
+	/**
+	 * Method to fetch all rows from STANDARD_RECOMMENDATION table in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of StandardRecommendationDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<StandardRecommendationDTO> getPatientStandardRecommendations(Connection connection, int diseaseId)
+			throws PhmException {
+		List<StandardRecommendationDTO> standardRecommendationDTOs = new ArrayList<StandardRecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.PATIENT_STANDARD_RECOMENDATIONS);
+			ps.setInt(1, diseaseId);
+			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				StandardRecommendationDTO standardRecommendationDTO = new StandardRecommendationDTO(
 						resultSet.getInt("diseaseId"), resultSet.getInt("recommendationId"));

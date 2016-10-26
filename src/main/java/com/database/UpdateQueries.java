@@ -59,4 +59,32 @@ public class UpdateQueries {
 		}
 		return status;
 	}
+	
+	/**
+	 * Method to delete Disease from Record Disease.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static boolean deletePatientDisease(Connection connection, String personId, int diseaseId) throws PhmException {
+		boolean status = false;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.DELETE_RECORD_DISEASE);
+			ps.setString(1, personId);
+			ps.setInt(2,diseaseId);			
+			int rows = ps.executeUpdate();
+			if(rows > 0)
+				status = true;
+			else
+				status = false;
+			
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+		}
+		return status;
+	}
 }
