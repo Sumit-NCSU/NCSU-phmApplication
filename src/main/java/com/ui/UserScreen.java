@@ -77,7 +77,7 @@ public class UserScreen {
 				case 6:
 					if(checkHealthSup)
 					{
-						Patient.showScreen(person);
+						HealthSupporterScreen.showScreen(person);
 					}
 					else
 					{

@@ -3,6 +3,7 @@
  */
 package com.ui;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -20,12 +21,13 @@ public class MainUI {
 	 * @param args
 	 * @throws ParseException 
 	 * @throws SQLException 
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws ParseException, SQLException {
+	public static void main(String[] args) throws ParseException, SQLException, IOException {
 		showScreen();
 	}
 
-	public static void showScreen() throws ParseException, SQLException {
+	public static void showScreen() throws ParseException, SQLException, IOException {
 		try {
 			Scanner sc = new Scanner(System.in);
 			int input=0;
