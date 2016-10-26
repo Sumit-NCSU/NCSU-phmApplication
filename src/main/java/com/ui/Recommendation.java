@@ -31,7 +31,8 @@ public class Recommendation {
 				System.out.println("Select an option ");
 				System.out.println("1. View Standard Recommendation");
 				System.out.println("2. View Specific Recommendation");
-				System.out.println("3. Go Back");
+				System.out.println("3. Observations");
+				System.out.println("4. Go Back");
 			
 				input = Integer.valueOf(sc.nextLine());	
 				
@@ -44,6 +45,9 @@ public class Recommendation {
 						viewSpecificRecommendation(person);
 						break;
 					case 3:
+						Observation.showScreen(person);
+						break;
+					case 4:
 						flag = false;
 						break;
 					default:

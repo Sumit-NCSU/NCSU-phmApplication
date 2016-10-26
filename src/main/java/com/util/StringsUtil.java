@@ -45,6 +45,11 @@ public class StringsUtil {
 	/**
 	 * query for standard recommendation table
 	 */
+	
+	public static final String GET_RECOMMENDATION_BY_DID = "SELECT R.R_ID as recommendationId, R.DESCRIPTION as description, R.FREQUENCY as frequency, R.LOWER_BOUND as lowerBound, R.UPPER_BOUND as upperBound, R.METRIC as metric, R.STRING_VALUE as value FROM RECOMMENDATION R, STANDARD_RECOMMENDATION S WHERE R.R_ID = S.R_ID AND S.D_ID = ?";
+	
+	public static final String GET_RECOMMENDATION_BY_PID = "SELECT R.R_ID as recommendationId, R.DESCRIPTION as description, R.FREQUENCY as frequency, R.LOWER_BOUND as lowerBound, R.UPPER_BOUND as upperBound, R.METRIC as metric, R.STRING_VALUE as value FROM RECOMMENDATION R, SPECIFIC_RECOMMENDATION P WHERE R.R_ID = P.R_ID AND P.P_ID = ?";
+	
 	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID as recommendationId FROM STANDARD_RECOMMENDATION";
 	/**
 	 * query for well person table
@@ -60,6 +65,7 @@ public class StringsUtil {
 
 	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (concat('P',phmseq.nextval), ?, ?, ?, ?, ?, ?)";
 
+	public static final String INSERT_OBSERVATION = "INSERT INTO OBSERVATION (OB_ID, P_ID, R_ID, OB_VALUE, RECORD_TIME, OB_TIME) VALUES (obvseq.nextval,?,?,?,SYSTIMESTAMP,?)";
 	public static final String VIEW_EXISTING_HEALTH_SUPPORTERS = "SELECT HS1_ID AND HS2_ID FROM SICK_PERSON WHERE P_ID = ?"
 			+ "UNION" + "SELECT HS1_ID AND HS2_ID FROM WELL_PERSON WHERE P_ID = ?";
 

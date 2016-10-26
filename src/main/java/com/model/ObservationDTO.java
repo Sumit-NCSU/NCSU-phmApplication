@@ -1,6 +1,7 @@
 package com.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * OB_ID P_ID R_ID OB_VALUE RECORD_TIME OB_TIME
@@ -14,8 +15,8 @@ public class ObservationDTO {
 	private String personId;
 	private int recommendationId;
 	private String observationValue;
-	private Date recordTime;
-	private Date observationTime;
+	private Timestamp recordTime;
+	private Timestamp observationTime;
 
 	/**
 	 * Parameterized constructor
@@ -28,7 +29,7 @@ public class ObservationDTO {
 	 *            the observation Value
 	 */
 	public ObservationDTO(int observationId, String personId, int recommendationId, String observationValue,
-			Date recordTime, Date observationTime) {
+			Timestamp recordTime, Timestamp observationTime) {
 		this.observationId = observationId;
 		this.personId = personId;
 		this.recommendationId = recommendationId;
@@ -115,7 +116,7 @@ public class ObservationDTO {
 	/**
 	 * @return the recordTime
 	 */
-	public Date getRecordTime() {
+	public Timestamp getRecordTime() {
 		return recordTime;
 	}
 
@@ -123,14 +124,14 @@ public class ObservationDTO {
 	 * @param recordTime
 	 *            the recordTime to set
 	 */
-	public void setRecordTime(Date recordTime) {
+	public void setRecordTime(Timestamp recordTime) {
 		this.recordTime = recordTime;
 	}
 
 	/**
 	 * @return the observationTime
 	 */
-	public Date getObservationTime() {
+	public Timestamp getObservationTime() {
 		return observationTime;
 	}
 
@@ -138,7 +139,7 @@ public class ObservationDTO {
 	 * @param observationTime
 	 *            the observationTime to set
 	 */
-	public void setObservationTime(Date observationTime) {
+	public void setObservationTime(Timestamp observationTime) {
 		this.observationTime = observationTime;
 	}
 
