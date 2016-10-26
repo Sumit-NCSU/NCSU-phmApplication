@@ -19,6 +19,8 @@ import com.util.StringsUtil;
  *
  */
 public class UserScreen {
+	
+	int count = 0;
 
 	public void showUserScreen(PersonDTO person) throws PhmException {
 		try{
@@ -39,10 +41,12 @@ public class UserScreen {
 				System.out.println("4. Alerts");
 				System.out.println("5. Health Supporters");
 				
+			
 				if(checkHealthSup)
 				{
-					System.out.println("\n\nYou are a Health Supporter");
-					System.out.println("7. View Patient(s)");
+					System.out.println("\nHealth Supporter Option");
+					System.out.print("6. View Patient(s): \t");
+					System.out.print("You have "+ count + " Patient(s) under you.\n");
 				}
 				
 				System.out.println("0. Log Out");
@@ -70,7 +74,7 @@ public class UserScreen {
 				case 5:
 					HealthSupporter.showScreen(person);
 					break;
-				case 7:
+				case 6:
 					if(checkHealthSup)
 					{
 						Patient.showScreen(person);
@@ -200,11 +204,16 @@ public class UserScreen {
 		con.close();
 	}
 
-	private boolean checkHealthSupporter(PersonDTO person) {
+	private boolean checkHealthSupporter(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		boolean status = false;
+		Connection con = new ConnectionManager().getConnection();
+		count = SelectQueries.getStatusHealthSupporter(con, person.getPersonId());
+		con.close();
+		if(count>0)
+			status = true;
+		else
+			status = false;
+		return status;
 	}
-
-	
-
 }

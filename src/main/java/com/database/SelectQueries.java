@@ -390,6 +390,36 @@ public class SelectQueries {
 	
 	
 	
+	/**
+	 * Method to fetch patient type from Sick table in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of PersonDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static int getStatusHealthSupporter(Connection connection, String personId) throws PhmException {
+		int count = 0;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.IS_PERSON_HEALTH_SUPPORTER);
+			ps.setString(1, personId);
+			ps.setString(2, personId);
+			ps.setString(3, personId);
+			ps.setString(4, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				int value = resultSet.getInt("VALUE");
+				if(value>0)
+					count = value;
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to count." + e.getMessage());
+			throw new PhmException("Failed to fetch count." + e.getMessage());
+		}
+		return count;
+	}
+	
 	
 	/**
 	 * Method to fetch all rows from RECOMMENDATION table in database.
