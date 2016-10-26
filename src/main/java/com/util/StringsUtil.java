@@ -110,6 +110,10 @@ public class StringsUtil {
 
 	public static final String GET_DISEASE_NAME = "SELECT DNAME as diseaseName FROM DISEASE WHERE D_ID = ?";
 	
+	public static final String GET_PERSON_NAME = "SELECT PNAME as personName FROM PERSON WHERE P_ID = ?";
+	
+	public static final String GET_PERSON_ID = "SELECT P_ID as personId FROM PERSON WHERE USERNAME = ?";
+	
 	public static final String GET_RECORD_DISEASE_ID = RECRD_DISEASE_QUERY.concat(" WHERE P_ID = ?");
 	
 	public static final String DELETE_RECORD_DISEASE = "DELETE FROM RECORD_DISEASE WHERE P_ID = ? AND D_ID = ?";
@@ -119,5 +123,9 @@ public class StringsUtil {
 	public static final String PATIENT_SPECIFIC_RECOMMENDATIONS = SPE_RECOMMENDATION_QUERY.concat(" WHERE P_ID = ?");
 	
 	public static final String GET_RECOMMENDATIONS_BY_RID = RECOMMENDATION_QUERY.concat(" WHERE R_ID = ?");
+	
+	public static final String HP_SICK_PERSON_QUERY = SICK_PERSON_QUERY.concat(" WHERE P_ID = ?");
+	
+	public static final String HP_WELL_PERSON_QUERY = WELL_PERSON_QUERY.concat(" WHERE P_ID = ?");
 
 }
