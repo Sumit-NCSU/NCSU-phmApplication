@@ -134,4 +134,7 @@ public class StringsUtil {
 	
 	public static final String HP_WELL_PERSON_QUERY = WELL_PERSON_QUERY.concat(" WHERE P_ID = ?");
 
+	public static final String CLEAR_ALERT_BY_HS = "update ALERT set IS_VIEWED = 'T' where P_ID = ? and A_ID = ?";
+	
+	public static final String CLEAR_ALERT_BY_PATIENT = "update ALERT set IS_VIEWED = 'T' where P_ID = ? and A_ID = ? and IS_MANDATORY != 'T'";
 }
