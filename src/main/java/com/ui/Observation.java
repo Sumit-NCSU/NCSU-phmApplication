@@ -85,7 +85,7 @@ public class Observation {
 				observation_type = SelectQueries.getObservationType(con, obs.getObservationId());
 				System.out.print("Observation Type: " + observation_type + "\t");
 				System.out.println();
-				System.out.print("Observation Time: " + obs.getObservationTime() + "\t");
+				System.out.print("Observation Time: (MM/dd/yyyy)" + obs.getObservationTime() + "\t");
 				System.out.print("Recorded Time: " + obs.getRecordTime());
 				System.out.println();
 			}
