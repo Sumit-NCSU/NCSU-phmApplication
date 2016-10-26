@@ -116,19 +116,38 @@ public class Observation {
 		List<RecordDiseaseDTO> recordDiseaseDTOs = SelectQueries.getPersonDiseases(con, patient.getPersonId());
 
 		List<RecommendationDTO> recommendation_list = new ArrayList<RecommendationDTO>();
+		HashSet<Integer> hs = new HashSet<Integer>();
+		
 		for(RecordDiseaseDTO record: recordDiseaseDTOs)
 		{
 			List<RecommendationDTO>recomDTO1s = SelectQueries.getRecommendationByDId(con, record.getDiseaseId());
-			recommendation_list.addAll(recomDTO1s);
+			//recommendation_list.addAll(recomDTO1s);
+			
+			for(RecommendationDTO record1 :recomDTO1s){
+				if(!hs.add(record1.getRecommendationId())){
+					System.out.println("Duplicate" + record1.getValue());
+				}
+				else{
+					hs.add(record1.getRecommendationId());
+					recommendation_list.add(record1);
+				}
+			}
 		}
 		
 		List<RecommendationDTO>recomDTO2s = SelectQueries.getRecommendationByPId(con, patient.getPersonId());
-		recommendation_list.addAll(recomDTO2s);
+		//recommendation_list.addAll(recomDTO2s);
 		
-		Set<RecommendationDTO> hs = new HashSet<>();
-		hs.addAll(recommendation_list);
-		recommendation_list.clear();
-		recommendation_list.addAll(hs);
+		for(RecommendationDTO record:recomDTO2s){
+			if(!hs.add(record.getRecommendationId())){
+				
+			}
+			else{
+				hs.add(record.getRecommendationId());
+				recommendation_list.add(record);
+			}
+		}
+		
+		//recommendation_list.addAll(hs);
 		
 		System.out.println("Enter Observation Type, for entering a new Observation");
 		for(RecommendationDTO record: recommendation_list)
@@ -155,9 +174,4 @@ public class Observation {
 		}
 		con.close();
 	}
-
-	
-	
-	
-
 }

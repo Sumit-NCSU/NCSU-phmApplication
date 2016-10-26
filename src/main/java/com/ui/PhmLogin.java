@@ -4,6 +4,7 @@
 package com.ui;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -29,18 +30,21 @@ public class PhmLogin {
 	 *            the encrypted password
 	 * @throws PhmException
 	 *             If some error occurs
+	 * @throws SQLException 
 	 */
-	public PersonDTO doLogin(String username, String password) throws PhmException {
+	public PersonDTO doLogin(String username, String password) throws PhmException, SQLException {
 		// TODO: password encryption
 		Connection con = new ConnectionManager().getConnection();
 		PersonDTO person = SelectQueries.getLoginPerson(username, password, con);
-		if (person == null) {
+		if (person == null) 
+		{
 			System.out.println("Failed to Login!");
 		}
+		con.close();
 		return person;
 	}
 
-	public void showLoginScreen() throws PhmException, ParseException {
+	public void showLoginScreen() throws PhmException, ParseException, SQLException {
 		Scanner sc = new Scanner(System.in);
 		PersonDTO person = null;
 		boolean flag = true;
@@ -52,12 +56,13 @@ public class PhmLogin {
 			System.out.println("Password: ");
 			String password = sc.nextLine();
 			person = doLogin(userName, password);
-			if (person == null) {
+			if (person == null) 
+			{
 				System.out.println("Incorrect Login Credentials");
 				System.out.println("Choose Option: ");
 				System.out.println("1. Login Again");
 				System.out.println("2. Back");
-				int option = sc.nextInt();
+				int option = Integer.valueOf(sc.nextLine());
 				if (option == 2) {
 					flag = false;
 					break;
@@ -72,7 +77,6 @@ public class PhmLogin {
 			UserScreen user = new UserScreen();
 			user.showUserScreen(person);
 		}
-		//sc.close();
 	}
 
 }
