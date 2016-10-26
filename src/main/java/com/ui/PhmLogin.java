@@ -1,10 +1,9 @@
-/**
- * 
- */
 package com.ui;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -31,15 +30,21 @@ public class PhmLogin {
 	 *            the encrypted password
 	 * @throws PhmException
 	 *             If some error occurs
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public PersonDTO doLogin(String username, String password) throws PhmException, SQLException {
 		// TODO: password encryption
 		Connection con = new ConnectionManager().getConnection();
 		PersonDTO person = SelectQueries.getLoginPerson(username, password, con);
-		if (person == null) 
-		{
+		if (person == null) {
 			System.out.println("Failed to Login!");
+		} else {
+			// login is successful, call the stored proc.
+			CallableStatement cStmt = con.prepareCall("{call check_freq(?)}");
+			cStmt.setString(1, person.getPersonId());
+			cStmt.executeQuery();
+			ResultSet rs = cStmt.getResultSet();
+			cStmt.close();
 		}
 		con.close();
 		return person;
@@ -55,12 +60,11 @@ public class PhmLogin {
 			System.out.println("Username:");
 			String userName = sc.nextLine();
 			System.out.println("Password: ");
-			Process p = Runtime.getRuntime().exec("stty -echo");
+//			Process p = Runtime.getRuntime().exec("stty -echo");
 			String password = sc.nextLine();
-			p = Runtime.getRuntime().exec("stty echo");
+//			p = Runtime.getRuntime().exec("stty echo");
 			person = doLogin(userName, password);
-			if (person == null) 
-			{
+			if (person == null) {
 				System.out.println("Incorrect Login Credentials");
 				System.out.println("Choose Option: ");
 				System.out.println("1. Login Again");
@@ -75,8 +79,7 @@ public class PhmLogin {
 				flag = false;
 			}
 		}
-		if(null != person)
-		{
+		if (null != person) {
 			UserScreen user = new UserScreen();
 			user.showUserScreen(person);
 		}
