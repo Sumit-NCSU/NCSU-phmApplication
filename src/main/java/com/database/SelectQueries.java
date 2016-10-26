@@ -356,6 +356,28 @@ public class SelectQueries {
 		}
 		return personDTOs;
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public static List<PersonDTO> getMyPatients(Connection connection, String health_supporterId) throws PhmException {
+		List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
+		try {
+			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.GET_PATIENTS_OF_HEALTH_SUPPORTER);
+			while (resultSet.next()) {
+				PersonDTO personDTO = new PersonDTO(resultSet.getString("personId"), resultSet.getString("personName"),
+						resultSet.getString("username"), resultSet.getString("password"),
+						resultSet.getString("address"), resultSet.getString("dob"), resultSet.getString("gender"));
+				personDTOs.add(personDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+		}
+		return personDTOs;
+	}
+	
 
 	
 	/**
