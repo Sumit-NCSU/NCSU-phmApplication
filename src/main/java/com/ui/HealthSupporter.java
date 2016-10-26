@@ -96,6 +96,7 @@ try{
 					System.out.print("\nFullName: " + h_sup_name + "\t");
 					System.out.print("Authorized on: " + sickPatient.getHs2AuthDate());
 				}
+				System.out.println();
 			}
 				
 			con.close();
@@ -122,6 +123,7 @@ try{
 					System.out.print("\nFullName: " + h_sup_name + "\t");
 					System.out.print("Authorized on: " + wellPatient.getHs2AuthDate());
 				}
+				System.out.println();
 			}
 			con.close();
 		}

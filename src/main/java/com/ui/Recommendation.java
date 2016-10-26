@@ -2,10 +2,12 @@ package com.ui;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.database.ConnectionManager;
+import com.database.InsertQueries;
 import com.database.SelectQueries;
 import com.exception.PhmException;
 import com.model.PersonDTO;
@@ -102,9 +104,43 @@ public class Recommendation {
 		}
 	}
 	
-	private static void addNewRecommendation() {
+	private static void addNewRecommendation() throws PhmException, SQLException, ParseException {
 		// TODO Auto-generated method stub
-		
+		Scanner sc = new Scanner(System.in);
+		String input;
+		String obs_typ = null, freq = null, metric = null, lower_limit = null, upper_limit = null, ex_value = null;
+		System.out.println("Enter Observation Type: ");
+		obs_typ = sc.nextLine();
+		System.out.println("Enter Metric: (Measured in?)");
+		metric = sc.nextLine();
+		System.out.println("Enter Frequency: (No. of Days)");
+		freq = sc.nextLine();
+		System.out.println("Do you have Limits? \t 1.Yes 2.No");
+		if("1".equals(sc.nextLine()))
+		{
+			System.out.println("Enter Lower Limit: ");
+			lower_limit = sc.nextLine();
+			System.out.println("Enter Upper Limit: ");
+			upper_limit = sc.nextLine();
+		}
+		else if("2".equals(sc.nextLine()))
+		{
+			System.out.println("Enter any Expected Value: ");
+			ex_value = sc.nextLine();
+		}
+		else
+		{
+			System.out.println("Wrong Input. All value will be NULL stored as null.");
+		}	
+		RecommendationDTO newrecommendation = new RecommendationDTO(0,freq,obs_typ,metric,lower_limit,upper_limit,ex_value);
+		Connection con = new ConnectionManager().getConnection();
+		boolean status = InsertQueries.insertRecommendation(con, newrecommendation);
+		con.close();
+		if (status) {
+			System.out.println("New Recommendation added successfully.!");
+		} else {
+			System.out.println("Couldn't add recommendation.");
+		}
 	}
 
 	private static void viewAllRecommendation() throws PhmException, SQLException {

@@ -15,7 +15,7 @@ import com.model.PersonDTO;
  * 
  */
 
-public class Patient {
+public class HealthSupporterScreen {
 
 	public static void showScreen(PersonDTO health_supporter) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
