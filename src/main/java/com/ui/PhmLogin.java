@@ -3,6 +3,7 @@
  */
 package com.ui;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -44,7 +45,7 @@ public class PhmLogin {
 		return person;
 	}
 
-	public void showLoginScreen() throws PhmException, ParseException, SQLException {
+	public void showLoginScreen() throws PhmException, ParseException, SQLException, IOException {
 		Scanner sc = new Scanner(System.in);
 		PersonDTO person = null;
 		boolean flag = true;
@@ -54,7 +55,9 @@ public class PhmLogin {
 			System.out.println("Username:");
 			String userName = sc.nextLine();
 			System.out.println("Password: ");
+			Process p = Runtime.getRuntime().exec("stty -echo");
 			String password = sc.nextLine();
+			p = Runtime.getRuntime().exec("stty echo");
 			person = doLogin(userName, password);
 			if (person == null) 
 			{
