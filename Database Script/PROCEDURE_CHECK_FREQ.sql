@@ -1,8 +1,9 @@
 CREATE OR REPLACE PROCEDURE check_freq (
-    pt_id      IN VARCHAR2,
-    date_now   IN TIMESTAMP
+    pt_id      IN VARCHAR2
 ) AS
     alert_count   NUMBER;
+alert_exists number;
+
 BEGIN
     SELECT
         COUNT(*) 
@@ -20,7 +21,7 @@ BEGIN
                         r1.description,
                         concat(
                             '. Recommended is once in ',
-                            concat(r1.frequency,concat(' day(s). But you last entered on ',TO_CHAR(o1.ob_time) ) )
+                            concat(r1.frequency, ' day(s).' ) 
                         )
                     )
                 ) AS de, R1.r_id
@@ -41,7 +42,7 @@ BEGIN
                 o1.r_id = r1.r_id
             AND
             
-            o1.ob_time + to_number(r1.frequency) <= date_now
+            o1.ob_time + to_number(r1.frequency) <= sysdate
                 --( to_number(TO_CHAR(o1.ob_time,'DD') ) + to_number(r1.frequency) ) <= date_now
             AND
                 ( to_number(TO_CHAR(o1.ob_time,'DD') ) + to_number(r1.frequency) ) > ALL (
@@ -57,6 +58,15 @@ BEGIN
 
     BEGIN
         FOR item IN c1 LOOP
+          select count(*) into alert_exists from alert a where a.r_id = item.r_id and a.description like '%low frequency%';
+          --dbms_output.put_line( alert_exists);
+          --dbms_output.put_line(item.r_id);
+          if alert_exists <> 0
+            then
+             --dbms_output.put_line('update');
+              update alert set is_mandatory = 'T', is_viewed = 'F' where a_id = (select a.a_id from alert a where a.r_id = item.r_id and a.description like '%low frequency%');
+          else
+            --dbms_output.put_line('Put new');
             INSERT INTO alert VALUES (
                 alert_count + 1,
                 pt_id,
@@ -65,17 +75,12 @@ BEGIN
                 'T',
                 'F'
             );
+             alert_count := alert_count + 1;
+           end if;
 
-            alert_count := alert_count + 1;
         END LOOP;
 
     END;
 
 END;
 
---SET SERVEROUTPUT ON;
-
---BEGIN
---    check_freq('P1',sysdate);
---END;
---/
