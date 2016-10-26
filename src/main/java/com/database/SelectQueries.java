@@ -640,7 +640,9 @@ public class SelectQueries {
 	public static SickPersonDTO getSickPersonHealthSupporter(Connection connection, String patientId) throws PhmException {
 		SickPersonDTO sickPersonDTO = null;
 		try {
-			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.HP_SICK_PERSON_QUERY);
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.HP_SICK_PERSON_QUERY);
+			ps.setString(1, patientId);
+			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				sickPersonDTO = new SickPersonDTO(resultSet.getString("personId"),
 						resultSet.getString("healthSupporter1Id"), resultSet.getString("healthSupporter2Id"),
@@ -789,7 +791,9 @@ public class SelectQueries {
 	public static WellPersonDTO getWellPersonHealthSupporter(Connection connection, String patientId) throws PhmException {
 		WellPersonDTO wellPersonDTO = null;
 		try {
-			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.HP_WELL_PERSON_QUERY);
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.HP_WELL_PERSON_QUERY);
+			ps.setString(1, patientId);
+			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				wellPersonDTO = new WellPersonDTO(resultSet.getString("personId"),
 						resultSet.getString("healthSupporter1Id"), resultSet.getString("healthSupporter2Id"),
