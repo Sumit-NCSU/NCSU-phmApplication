@@ -4,6 +4,7 @@ exec TRIGGER_DELETE_WELL_PERSON.sql
 exec TRIGGER_RECORD_WELL_PERSON.sql
 exec TRIGGER_OBSERVATION_VIEWED.sql
 exec PROCEDURE_CHECK_FREQ.sql
+exec sequences.sql
 exec insertSampleData.sql
 
 commit;

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import com.exception.PhmException;
+import com.model.ObservationDTO;
 import com.model.PersonDTO;
 import com.model.RecordDiseaseDTO;
 import com.util.StringsUtil;
@@ -55,8 +56,24 @@ public class InsertQueries {
 			else
 				status = false;
 		} catch (SQLException e) {
-			throw new PhmException("Errror While inserting Person " + e.getMessage());
+			throw new PhmException("Errror While inserting record " + e.getMessage());
 		}
 		return status;
+	}
+	
+	public static boolean insertObservation(Connection connection, ObservationDTO observationDTO) throws PhmException, java.text.ParseException {
+		 
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_OBSERVATION);
+			ps.setString(1, observationDTO.getPersonId());
+			ps.setInt(2, observationDTO.getRecommendationId());
+			ps.setString(3, observationDTO.getObservationValue());
+			ps.setTimestamp(4, observationDTO.getObservationTime());
+			ps.executeUpdate();
+			System.out.println("Observation has been added.!");
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting observation " + e.getMessage());
+		}
+		return true;
 	}
 }

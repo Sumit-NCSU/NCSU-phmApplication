@@ -262,8 +262,8 @@ public class SelectQueries {
 			while (resultSet.next()) {
 				ObservationDTO observationDTO = new ObservationDTO(resultSet.getInt("observationId"),
 						resultSet.getString("personId"), resultSet.getInt("recommendationId"),
-						resultSet.getString("observationValue"), resultSet.getDate("recordTime"),
-						resultSet.getDate("observationTime"));
+						resultSet.getString("observationValue"), resultSet.getTimestamp("recordTime"),
+						resultSet.getTimestamp("observationTime"));
 				observationDTOs.add(observationDTO);
 			}
 		} catch (SQLException e) {
@@ -272,6 +272,10 @@ public class SelectQueries {
 		}
 		return observationDTOs;
 	}
+	
+	
+
+	
 	
 	/**
 	 * Method to fetch all rows from OBSERVATION table in database for a specific Person.
@@ -291,8 +295,8 @@ public class SelectQueries {
 			while (resultSet.next()) {
 				ObservationDTO observationDTO = new ObservationDTO(resultSet.getInt("observationId"),
 						resultSet.getString("personId"), resultSet.getInt("recommendationId"),
-						resultSet.getString("observationValue"), resultSet.getDate("recordTime"),
-						resultSet.getDate("observationTime"));
+						resultSet.getString("observationValue"), resultSet.getTimestamp("recordTime"),
+						resultSet.getTimestamp("observationTime"));
 				observationDTOs.add(observationDTO);
 			}
 		} catch (SQLException e) {
@@ -413,6 +417,68 @@ public class SelectQueries {
 		}
 		return recommendationDTOs;
 	}
+	
+	
+	
+	
+	/**
+	 * Method to fetch .
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of AlertDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<RecommendationDTO> getRecommendationByDId(Connection connection, int diseaseId) throws PhmException {
+		List<RecommendationDTO> recommendationDTOs = new ArrayList<RecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_RECOMMENDATION_BY_DID);
+			ps.setInt(1, diseaseId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
+						resultSet.getString("description"), resultSet.getString("frequency"),
+						resultSet.getString("lowerBound"), resultSet.getString("upperBound"),
+						resultSet.getString("metric"), resultSet.getString("value"));
+				recommendationDTOs.add(recommendationDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
+		}
+		return recommendationDTOs;
+	}
+	
+	/**
+	 * Method to fetch .
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of AlertDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static List<RecommendationDTO> getRecommendationByPId(Connection connection, String personId) throws PhmException {
+		List<RecommendationDTO> recommendationDTOs = new ArrayList<RecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_RECOMMENDATION_BY_PID);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
+						resultSet.getString("description"), resultSet.getString("frequency"),
+						resultSet.getString("lowerBound"), resultSet.getString("upperBound"),
+						resultSet.getString("metric"), resultSet.getString("value"));
+				recommendationDTOs.add(recommendationDTO);
+				}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
+		}
+		return recommendationDTOs;
+	}
+	
 	
 	/**
 	 * 
