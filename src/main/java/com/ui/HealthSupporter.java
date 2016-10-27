@@ -42,7 +42,8 @@ try{
 				System.out.println("1. View Health Supporter(s)");
 				System.out.println("2. Add Health Supporter(s)");
 				System.out.println("3. Edit Health Supporter(s)");
-				System.out.println("4. Go Back");
+				System.out.println("4. Delete Health Supporter(s)");
+				System.out.println("5. Go Back");
 			
 				input = Integer.valueOf(sc.nextLine());	
 				
@@ -58,6 +59,9 @@ try{
 						editHealthSupporters(patient,status);
 						break;
 					case 4:
+						deleteHealthSupporters(patient,status);
+						break;
+					case 5:
 						flag = false;
 						break;
 					default:
@@ -69,6 +73,123 @@ try{
 				System.out.println("ERROR" + pe.getMessage());
 				pe.printStackTrace();
 				}
+		
+	}
+
+
+	private static void deleteHealthSupporters(PersonDTO patient, String status) throws PhmException, SQLException {
+		// TODO Auto-generated method stub
+		if(status.equals("SICK"))
+		{
+			Connection con = new ConnectionManager().getConnection();		
+			SickPersonDTO sickPatient = SelectQueries.getSickPersonHealthSupporter(con, patient.getPersonId());
+			
+			Scanner sc = new Scanner(System.in);
+			
+			System.out.println("You cannot delete your primary HealthSupporter, but you can change your health supporter by choosing other option.");
+			if(null == sickPatient.getHealthSupporter2Id())
+			{
+				System.out.println("No details found for HealthSupporter 2.");
+				return;
+			}	
+			else
+			{
+				String h_sup_name = SelectQueries.getPersonName(con, sickPatient.getHealthSupporter2Id());
+				System.out.println("Your Health Supporter 2 is :" + h_sup_name);
+				System.out.println("Do you want to delete health supporter 2?\n 1. Yes 2. No");
+				int in = Integer.valueOf(sc.nextLine());
+				if(in == 1)
+				{
+					boolean status1 = UpdateQueries.deleteSickHealthSupporter2(con, patient.getPersonId());
+					if(status1)
+						System.out.println("Health Supporter 2 is deleted.");
+					else
+						System.out.println("Health Supporter 2 couldn't be deleted.");
+				}
+				else if(in == 2)
+				{
+					con.close();
+					return;
+				}
+				else
+				{
+					System.out.println("Invalid input. Thrown to previous menu.");
+					con.close();
+					return;
+				}
+			}
+			con.close();
+		}
+		else if(status.equals("WELL"))
+		{
+			Connection con = new ConnectionManager().getConnection();
+			
+			WellPersonDTO wellPatient = SelectQueries.getWellPersonHealthSupporter(con, patient.getPersonId());
+			Scanner sc = new Scanner(System.in);		
+			String input = null;
+		
+			if(null != wellPatient.getHealthSupporter1Id())
+			{
+				input = sc.nextLine();
+				String h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter1Id());
+				System.out.println("Your Health Supporter 1 is :" + h_sup_name);
+				System.out.println("Do you want to delete health supporter 1?\n 1. Yes 2. No");
+				int in = Integer.valueOf(sc.nextLine());
+				if(in == 1)
+				{
+					boolean status1 = UpdateQueries.deleteWellHealthSupporter1(con, patient.getPersonId());
+					if(status1)
+						System.out.println("Health Supporter 1 is deleted.");
+					else
+						System.out.println("Health Supporter 1 couldn't be deleted.");
+				}
+				else if(in == 2)
+				{
+					con.close();
+					return;
+				}
+				else
+				{
+					System.out.println("Invalid input. Thrown to previous menu.");
+					con.close();
+					return;
+				}
+			}
+			else if(null != wellPatient.getHealthSupporter2Id())
+			{
+				input = sc.nextLine();
+				String h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter2Id());
+				System.out.println("Your Health Supporter 2 is :" + h_sup_name);
+				System.out.println("Do you want to delete health supporter 1?\n 1. Yes 2. No");
+				int in = Integer.valueOf(sc.nextLine());
+				if(in == 1)
+				{
+					boolean status1 = UpdateQueries.deleteWellHealthSupporter2(con, patient.getPersonId());
+					if(status1)
+						System.out.println("Health Supporter 2 is deleted.");
+					else
+						System.out.println("Health Supporter 2 couldn't be deleted.");
+				}
+				else if(in == 2)
+				{
+					con.close();
+					return;
+				}
+				else
+				{
+					System.out.println("Invalid input. Thrown to previous menu.");
+					con.close();
+					return;
+				}
+			}
+			else
+			{
+				System.out.println("No details found for any HealthSupporter");
+				return;
+			}
+			con.close();
+		}
+	
 		
 	}
 
@@ -98,6 +219,10 @@ try{
 				}
 				System.out.println();
 			}
+			else
+			{
+				System.out.println("No details found for Health Supporters.");
+			}
 				
 			con.close();
 		}
@@ -124,6 +249,18 @@ try{
 					System.out.print("Authorized on: " + wellPatient.getHs2AuthDate());
 				}
 				System.out.println();
+			}
+			else if(null != wellPatient.getHealthSupporter1Id())
+			{
+				System.out.println();
+				System.out.println("Health Supporter 2: ");
+				h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter2Id());
+				System.out.print("\nFullName: " + h_sup_name + "\t");
+				System.out.print("Authorized on: " + wellPatient.getHs2AuthDate());
+			}
+			else
+			{
+				System.out.println("No details found for Health Supporters.");
 			}
 			con.close();
 		}
