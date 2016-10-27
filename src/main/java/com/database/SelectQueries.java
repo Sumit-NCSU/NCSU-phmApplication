@@ -390,7 +390,12 @@ public class SelectQueries {
 	public static List<PersonDTO> getMyPatients(Connection connection, String health_supporterId) throws PhmException {
 		List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
 		try {
-			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.GET_PATIENTS_OF_HEALTH_SUPPORTER);
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_PATIENTS_OF_HEALTH_SUPPORTER);
+			ps.setString(1, health_supporterId);
+			ps.setString(2, health_supporterId);
+			ps.setString(3, health_supporterId);
+			ps.setString(4, health_supporterId);
+			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				PersonDTO personDTO = new PersonDTO(resultSet.getString("personId"), resultSet.getString("personName"),
 						resultSet.getString("username"), resultSet.getString("password"),

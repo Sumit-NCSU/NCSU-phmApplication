@@ -17,6 +17,11 @@ import com.model.PersonDTO;
  */
 
 public class HealthSupporterScreen {
+	
+	public static void main(String[] args) throws PhmException, SQLException, ParseException
+	{
+		PatientAccount.showScreen("P1", "P2");
+	}
 
 	public static void showScreen(PersonDTO health_supporter) throws PhmException, SQLException, ParseException {
 		// TODO Auto-generated method stub
@@ -33,9 +38,9 @@ public class HealthSupporterScreen {
 			System.out.println("List of Your Patients");
 			for(PersonDTO patient: patients_list)
 			{
-				System.out.println(count++ + "Patient Id: " + patient.getPersonId() + "\t Patient Name: " + patient.getPersonName());
+				System.out.println(count++ + ". Patient Id: " + patient.getPersonId() + "\t Patient Name: " + patient.getPersonName());
 			}
-			
+			System.out.println();
 			System.out.println("1. Patient's Account");
 			System.out.println("2. Recommendations");
 			System.out.println("2. Go Back");
@@ -45,7 +50,12 @@ public class HealthSupporterScreen {
 			switch(input)
 			{
 			case 1:
-				System.out.println("Enter Patient ID: ");
+				System.out.println("Enter Patient ID: (from below List)");
+				for(PersonDTO patient: patients_list)
+				{
+					System.out.println("Patient Id: " + patient.getPersonId() + "\t Patient Name: " + patient.getPersonName());
+				}
+				
 				input1 = sc.nextLine();
 				PatientAccount.showScreen(input1, health_supporter.getPersonId());
 				break;

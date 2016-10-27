@@ -87,52 +87,12 @@ public class UserScreen {
 				default:
 					System.out.println("Invalid option. Try again.!");			
 					break;
-					
-				/*
-				System.out.println("1. View Observation");
-				System.out.println("2. Enter Observation");
-				
-				
-				System.out.println("6. Add/Update Health Supporters");
-				
-				case 0:
-					System.out.println("Bye " + person.getPersonName());
-					flag = false;
-					break;
-				case 1:
-					Observation view_observation = new Observation();
-					view_observation.showObservations(person);
-					break;
-				case 2:
-					Observation add_observation = new Observation();
-					add_observation.enterObservations(person.getPersonId(), null);
-					break;
-			
-				case 5:
-					//AlertScreen alert = new AlertScreen();
-					//alert.showScreen(person.getPersonId(),null);
-					break;
-				case 6:
-					HealthSupporter edit_HP = new HealthSupporter();
-					edit_HP.showScreen(person);
-					break;
-				*/
 				}
 			}
 		} catch (Exception pe) {
 			System.out.println("ERROR" + pe.getMessage());
 			pe.printStackTrace();
 		}
-		
-		
-		//view alerts
-		//add health supporter
-		//remove health supporter
-		//add disease
-		//record observation
-		//view recommendations
-		// --conditional (if person is a HS): add recommendation
-		// --conditional (if person is a HS): add recommendation
 	}
 
 	private void personalize(PersonDTO person) throws PhmException, SQLException {
@@ -172,6 +132,7 @@ public class UserScreen {
 	
 	public static void viewProfile(PersonDTO person) throws PhmException, SQLException
 	{
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Your Profile");
 		System.out.println("Name: \t\t" + person.getPersonName());
 		System.out.println("Username: \t" + person.getUsername());
@@ -180,8 +141,22 @@ public class UserScreen {
 		System.out.println("Gender: \t" + person.getGender());
 		Connection con = new ConnectionManager().getConnection();
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
-		System.out.println("You are in a " + status + " Patient category.");
+		System.out.println("Patient category:\t" + status);
 		System.out.println();
+		boolean flag = true;
+		System.out.println("1. Go Back");
+		while(flag)
+		{
+			
+			System.out.println("Enter Choice:");
+			int in = Integer.valueOf(sc.nextLine());
+			if(in == 1)
+			{
+				flag = false;
+			}
+			else
+				System.out.println("1. Go Back (Enter 1 to go back)");
+		}
 		con.close();
 	}
 	

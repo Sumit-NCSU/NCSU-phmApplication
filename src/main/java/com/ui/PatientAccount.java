@@ -54,6 +54,7 @@ public class PatientAccount {
 				Recommendation.addSpecificRecommendation(patientName);
 				break;
 			case 6:
+				AlertScreen.showScreen(patientName.getPersonId(), health_supporterId);
 				break;
 			case 7:
 				flag = false;
