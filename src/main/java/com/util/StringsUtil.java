@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.util;
 
 /**
@@ -25,7 +22,7 @@ public class StringsUtil {
 	/**
 	 * query for person table
 	 */
-	public static final String PERSON_QUERY = "SELECT P_ID as PersonId, PNAME as personName, USERNAME as username, PASSWORD as password, ADDRESS as address, DOB as dob, GENDER as gender FROM PERSON";
+	public static final String PERSON_QUERY = "SELECT P_ID as PersonId, PNAME as personName, USERNAME as username, PASSWORD as password, ADDRESS as address, DOB as dob, GENDER as gender, CONTACT as contactInfo FROM PERSON";
 	/**
 	 * query for recommendation table
 	 */
