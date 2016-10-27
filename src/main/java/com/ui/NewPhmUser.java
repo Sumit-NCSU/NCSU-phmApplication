@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ui;
 
 import java.sql.Connection;
@@ -52,19 +49,19 @@ public class NewPhmUser {
 			String dob = sc.nextLine();
 			System.out.println("Enter Gender: ");
 			String gender = sc.nextLine();
-			// TODO: auto-generate person ID?
-			PersonDTO person = new PersonDTO(null, name, username, password, address, dob, gender);
+			System.out.println("Enter Contact Information: ");
+			String contact = sc.nextLine();
+			PersonDTO person = new PersonDTO(null, name, username, password, address, dob, gender, contact);
 			boolean status = insertPerson(person);
 			if (status) {
 				System.out.println("Account Created Successfully");
 				flag = false;
 				break;
 			} else {
-				// TODO: implement error handling logic here.
 				System.out.println("Failed to create account");
 			}
 		}
-		//sc.close();
+		// sc.close();
 	}
 
 	private boolean insertPerson(PersonDTO person) throws PhmException, ParseException {

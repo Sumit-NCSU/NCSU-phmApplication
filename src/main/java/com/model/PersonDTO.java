@@ -1,16 +1,10 @@
 package com.model;
 
 /**
- * TABLE PERSON
-  (
-    P_ID     VARCHAR2(5) PRIMARY KEY,
-    PNAME    VARCHAR2(100),
-    USERNAME VARCHAR2(20) UNIQUE,
-    PASSWORD VARCHAR2(20),
-    ADDRESS  VARCHAR2(250),
-    DOB      DATE,
-    GENDER   CHAR(1)
-  );
+ * TABLE PERSON ( P_ID VARCHAR2(5) PRIMARY KEY, PNAME VARCHAR2(100), USERNAME
+ * VARCHAR2(20) UNIQUE, PASSWORD VARCHAR2(20), ADDRESS VARCHAR2(250), DOB DATE,
+ * GENDER CHAR(1) );
+ * 
  * @author Sumit
  *
  */
@@ -23,6 +17,7 @@ public class PersonDTO {
 	private String address;
 	private String dob;
 	private String gender;
+	private String contactInfo;
 
 	/**
 	 * default constructor
@@ -50,7 +45,7 @@ public class PersonDTO {
 	 *            the gender
 	 */
 	public PersonDTO(String personId, String personName, String username, String password, String address, String dob,
-			String gender) {
+			String gender, String contactInfo) {
 		this.personId = personId;
 		this.personName = personName;
 		this.username = username;
@@ -58,6 +53,7 @@ public class PersonDTO {
 		this.address = address;
 		this.dob = dob;
 		this.gender = gender;
+		this.contactInfo = contactInfo;
 	}
 
 	/**
@@ -163,5 +159,20 @@ public class PersonDTO {
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	/**
+	 * @return the contactInfo
+	 */
+	public String getContactInfo() {
+		return contactInfo;
+	}
+
+	/**
+	 * @param contactInfo
+	 *            the contactInfo to set
+	 */
+	public void setContactInfo(String contactInfo) {
+		this.contactInfo = contactInfo;
 	}
 }
