@@ -95,15 +95,16 @@ public class Observation {
 			System.out.println("No Observation found.");
 		}
 		
+		System.out.println("1. Go Back.");
 		while(flag)
 		{
-			System.out.println("\n1. Go Back");
+			System.out.println("");
 			input = Integer.valueOf(sc.nextLine());
 			
 			if(input == 1)
 				flag = false;
 			else
-				System.out.println("Type 1 to go back");
+				System.out.println("\nType '1' to Go Back");
 		}
 		con.close();
 	}
@@ -150,23 +151,34 @@ public class Observation {
 		{
 			System.out.println(record.getRecommendationId() + ". " + record.getDescription());		
 		}
+		
+		System.out.println("0. Go Back.");
+		
 		int recommendation_no = Integer.valueOf(sc.nextLine());
 		
-		System.out.println("Enter Observation Value: ");
-		String obv_value = sc.nextLine();
-		System.out.println("Enter Observation Time:  (MM/dd/yyyy)");
-		String ob_time = sc.nextLine();
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		Date date = formatter.parse(ob_time);
-		java.sql.Timestamp obv_time = new Timestamp(date.getTime());
-		 
-		ObservationDTO observation = new ObservationDTO(-1, patient.getPersonId(), recommendation_no, obv_value, null, obv_time);
-		boolean status = InsertQueries.insertObservation(con, observation);
-		if (status) {
-			System.out.println("Observation added Successfully");
-		} else {
-			// TODO: implement error handling logic here.
-			System.out.println("Failed to add an observation");
+		if(recommendation_no == 0)
+		{
+			con.close();
+			return;
+		}
+		else
+		{
+			System.out.println("Enter Observation Value: ");
+			String obv_value = sc.nextLine();
+			System.out.println("Enter Observation Time:  (MM/dd/yyyy)");
+			String ob_time = sc.nextLine();
+			DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+			Date date = formatter.parse(ob_time);
+			java.sql.Timestamp obv_time = new Timestamp(date.getTime());
+			 
+			ObservationDTO observation = new ObservationDTO(-1, patient.getPersonId(), recommendation_no, obv_value, null, obv_time);
+			boolean status = InsertQueries.insertObservation(con, observation);
+			if (status) {
+				System.out.println("Observation added Successfully");
+			} else {
+				// TODO: implement error handling logic here.
+				System.out.println("Failed to add an observation");
+			}
 		}
 		con.close();
 	}

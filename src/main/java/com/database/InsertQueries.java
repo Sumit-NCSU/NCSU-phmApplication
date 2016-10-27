@@ -13,6 +13,7 @@ import com.model.ObservationDTO;
 import com.model.PersonDTO;
 import com.model.RecommendationDTO;
 import com.model.RecordDiseaseDTO;
+import com.model.SickPersonDTO;
 import com.util.StringsUtil;
 
 /**
@@ -109,4 +110,19 @@ public static boolean insertSpecificRecommendation(Connection connection, String
 		}
 		return true;
 	}
+
+public static void insertSickPerson(Connection connection, SickPersonDTO sickPatient) throws PhmException, java.text.ParseException {
+	
+	try {
+		PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_SICK_PERSON);
+		ps.setString(1, sickPatient.getPersonId());
+		ps.setString(2, sickPatient.getHealthSupporter1Id());
+		ps.setString(3, sickPatient.getHealthSupporter2Id());
+		ps.setDate(4, sickPatient.getHs1AuthDate());
+		ps.setDate(5, sickPatient.getHs2AuthDate());
+		ps.executeUpdate();
+	} catch (SQLException e) {
+		throw new PhmException("Errror While inserting new category of patient " + e.getMessage());
+	}
+}
 }

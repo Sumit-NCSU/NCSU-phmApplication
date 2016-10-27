@@ -831,6 +831,33 @@ public class SelectQueries {
 		}
 		return wellPersonDTOs;
 	}
+	
+	/**
+	 * Method to fetch all rows from WELL_PERSON table in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of WellPersonDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static WellPersonDTO getWellPerson(Connection connection, String personId) throws PhmException {
+		WellPersonDTO wellPersonDTO = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.WELL_PERSON_QUERY_BY_ID);
+			ps.setString(1, personId);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				wellPersonDTO = new WellPersonDTO(resultSet.getString("personId"),
+						resultSet.getString("healthSupporter1Id"), resultSet.getString("healthSupporter2Id"),
+						resultSet.getDate("hs1AuthDate"), resultSet.getDate("hs2AuthDate"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch requested Well Person" + e.getMessage());
+			throw new PhmException("Failed to fetch requested Well Person" + e.getMessage());
+		}
+		return wellPersonDTO;
+	}
 
 	/**
 	 * 
