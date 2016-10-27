@@ -150,7 +150,7 @@ public class Recommendation {
 		
 		for(RecommendationDTO list: recommendations)
 		{
-			System.out.println(list.getRecommendationId() + "Observation Type: " + list.getDescription() + "\n");
+			System.out.print("\n" + list.getRecommendationId() + "Observation Type: " + list.getDescription() + "\n");
 			if(null != list.getLowerLimit())
 			{
 				System.out.print("Lower Bound: " + list.getLowerLimit() + "\t");
@@ -161,13 +161,12 @@ public class Recommendation {
 			}
 			if(null != list.getValue())
 			{
-				System.out.println();
-				System.out.print("Measured in " + list.getMetric() + "\tHaving value: " + list.getValue());
+				System.out.print("\nMeasured in " + list.getMetric() + "\tHaving value: " + list.getValue());
 				System.out.print("\t" + "To be checked in frequency of " + list.getFrequency() + " Day(s)");
 			}
 			else
 			{
-				System.out.print("Measured in " + list.getMetric());
+				System.out.print("\nMeasured in " + list.getMetric());
 				System.out.print("\t" + "To be checked in frequency of " + list.getFrequency() + " Day(s)");
 			}	
 		}
@@ -261,9 +260,25 @@ public class Recommendation {
 		
 		Connection con = new ConnectionManager().getConnection();
 	
-		System.out.println("You can add a Specfic Recommendation from the below List.");
+		
 		List<RecommendationDTO> recom_lists = SelectQueries.getRecommendations(con, patientName.getPersonId());
 		
+		if(recom_lists.isEmpty())
+		{
+			System.out.println("No Specific Recommedations available. If you want to add Recommendation? \n After Adding into Recommendation, you can give that recommendation to your patient."
+					+ " \n1. Go here (Enter char '1') or \nGo Back (Any char except 1)");
+			int in = Integer.valueOf(sc.nextLine());
+			con.close();
+			if(in == 1)
+			{
+				addNewRecommendation();
+				return;
+			}
+			else
+				return;
+		}
+		
+		System.out.println("You can add a Specfic Recommendation from the below List.");
 		for(RecommendationDTO record: recom_lists)
 		{
 			System.out.println(record.getRecommendationId() + ". Type: " + record.getDescription());
@@ -282,9 +297,15 @@ public class Recommendation {
 			System.out.println("\n");
 		}
 		
-		System.out.println("Enter Id of Recommendation, that you want to recommend");
+		System.out.println("Enter Id of Recommendation, that you want to recommend \n0. Go Back");
 		input = Integer.valueOf(sc.nextLine());
-	
+		
+		if(input == 0)
+		{
+			con.close();
+			return;
+		}
+		
 		boolean status = InsertQueries.insertSpecificRecommendation(con, patientName.getPersonId(),input);
 		if(status)
 			System.out.println("Recommendation added to patient's list.");

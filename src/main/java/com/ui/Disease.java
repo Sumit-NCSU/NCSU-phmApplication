@@ -1,6 +1,7 @@
 package com.ui;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -14,6 +15,8 @@ import com.exception.PhmException;
 import com.model.DiseaseDTO;
 import com.model.PersonDTO;
 import com.model.RecordDiseaseDTO;
+import com.model.SickPersonDTO;
+import com.model.WellPersonDTO;
 import com.util.StringsUtil;
 
 /*
@@ -102,28 +105,45 @@ public class Disease {
 			System.out.println(disease.getDiseaseId() + ". " + disease.getDiseaseName());
 		}
 		
-		while (flag) {
+		String original_type = SelectQueries.getPatientType(con, person.getPersonId());
+		while (flag) 
+		{
 			
 			System.out.println("Enter New Disease from above List.");
-
 			System.out.println("\nEnter Disease Number: ");
 			int diseaseId = Integer.valueOf(sc.nextLine());
 			
 			RecordDiseaseDTO new_disease = new RecordDiseaseDTO(person.getPersonId(),diseaseId, null);
-			
+		
 			boolean status = InsertQueries.recordDisease(con, new_disease);
-			con.close();
 			if (status) {
 				System.out.println("Disease recorded successfully.!");
 				flag = false;
+				if(original_type.equals("WELL"))
+				{
+					WellPersonDTO well_patient = SelectQueries.getWellPerson(con, person.getPersonId());
+					String sick_patient_id = well_patient.getPersonId();
+					String hs1_sick_id = well_patient.getHealthSupporter1Id();
+					String hs2_sick_id = well_patient.getHealthSupporter2Id();
+					Date hs1_auth = well_patient.getHs1AuthDate();
+					Date hs2_auth = well_patient.getHs2AuthDate();
+					
+					SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
+					
+InsertQueries.insertSickPerson(con, sick_patient);
+					
+				}
+				con.close();
 				break;
 			} else {
+				con.close();
 				System.out.println("Disease couldn't get recorded.");
 			}
 		}
 		con.close();
 	}
-	
+
+		
 	
 	private static void deleteDisease(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
