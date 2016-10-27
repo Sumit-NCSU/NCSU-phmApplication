@@ -85,7 +85,7 @@ public class Observation {
 				observation_type = SelectQueries.getObservationType(con, obs.getObservationId());
 				System.out.print("Observation Type: " + observation_type + "\t");
 				System.out.println();
-				System.out.print("Observation Time: (MM/dd/yyyy)" + obs.getObservationTime() + "\t");
+				System.out.print("Observation Time: " + obs.getObservationTime() + "\t");
 				System.out.print("Recorded Time: " + obs.getRecordTime());
 				System.out.println();
 			}
@@ -116,38 +116,34 @@ public class Observation {
 		List<RecordDiseaseDTO> recordDiseaseDTOs = SelectQueries.getPersonDiseases(con, patient.getPersonId());
 
 		List<RecommendationDTO> recommendation_list = new ArrayList<RecommendationDTO>();
-		HashSet<Integer> hs = new HashSet<Integer>();
+		HashSet<String> hs = new HashSet<String>();
 		
-		for(RecordDiseaseDTO record: recordDiseaseDTOs)
+
+		List<RecommendationDTO>recomDTO2s = SelectQueries.getRecommendationByPId(con, patient.getPersonId());
+		
+		for(RecommendationDTO record:recomDTO2s){
+			if(!hs.add(record.getDescription()))
+			{
+				
+			}
+			else{
+				hs.add(record.getDescription());
+				recommendation_list.add(record);
+			}
+		}
+		for(RecordDiseaseDTO record2: recordDiseaseDTOs)
 		{
-			List<RecommendationDTO>recomDTO1s = SelectQueries.getRecommendationByDId(con, record.getDiseaseId());
-			//recommendation_list.addAll(recomDTO1s);
+			List<RecommendationDTO>recomDTO1s = SelectQueries.getRecommendationByDId(con, record2.getDiseaseId());
 			
 			for(RecommendationDTO record1 :recomDTO1s){
-				if(!hs.add(record1.getRecommendationId())){
-					System.out.println("Duplicate" + record1.getValue());
+				if(!hs.add(record1.getDescription())){
 				}
 				else{
-					hs.add(record1.getRecommendationId());
+					hs.add(record1.getDescription());
 					recommendation_list.add(record1);
 				}
 			}
 		}
-		
-		List<RecommendationDTO>recomDTO2s = SelectQueries.getRecommendationByPId(con, patient.getPersonId());
-		//recommendation_list.addAll(recomDTO2s);
-		
-		for(RecommendationDTO record:recomDTO2s){
-			if(!hs.add(record.getRecommendationId())){
-				
-			}
-			else{
-				hs.add(record.getRecommendationId());
-				recommendation_list.add(record);
-			}
-		}
-		
-		//recommendation_list.addAll(hs);
 		
 		System.out.println("Enter Observation Type, for entering a new Observation");
 		for(RecommendationDTO record: recommendation_list)
@@ -158,7 +154,7 @@ public class Observation {
 		
 		System.out.println("Enter Observation Value: ");
 		String obv_value = sc.nextLine();
-		System.out.println("Enter Observation Time:  ");
+		System.out.println("Enter Observation Time:  (MM/dd/yyyy)");
 		String ob_time = sc.nextLine();
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date date = formatter.parse(ob_time);

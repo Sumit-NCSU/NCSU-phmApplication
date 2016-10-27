@@ -193,6 +193,32 @@ public class SelectQueries {
 		return person_name;
 	}
 	
+	/**
+	 * Method to fetch all rows from PERSON table in database.
+	 * 
+	 * @param connection
+	 *            the database connection to use
+	 * @return List of PersonDTO objects
+	 * @throws PhmException
+	 *             if some error occurs
+	 */
+	public static PersonDTO getPatientDetails(Connection connection, String patientId) throws PhmException {
+		PersonDTO personDTO = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_PERSON_BY_ID);
+			ps.setString(1, patientId);
+			ResultSet resultSet = ps.executeQuery();while (resultSet.next()) {
+				personDTO = new PersonDTO(resultSet.getString("personId"), resultSet.getString("personName"),
+						resultSet.getString("username"), resultSet.getString("password"),
+						resultSet.getString("address"), resultSet.getString("dob"), resultSet.getString("gender"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Persons." + e.getMessage());
+			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+		}
+		return personDTO;
+	}
+	
 
 	/* 
 	 * @param connection
@@ -364,7 +390,12 @@ public class SelectQueries {
 	public static List<PersonDTO> getMyPatients(Connection connection, String health_supporterId) throws PhmException {
 		List<PersonDTO> personDTOs = new ArrayList<PersonDTO>();
 		try {
-			ResultSet resultSet = connection.createStatement().executeQuery(StringsUtil.GET_PATIENTS_OF_HEALTH_SUPPORTER);
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_PATIENTS_OF_HEALTH_SUPPORTER);
+			ps.setString(1, health_supporterId);
+			ps.setString(2, health_supporterId);
+			ps.setString(3, health_supporterId);
+			ps.setString(4, health_supporterId);
+			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				PersonDTO personDTO = new PersonDTO(resultSet.getString("personId"), resultSet.getString("personName"),
 						resultSet.getString("username"), resultSet.getString("password"),
@@ -377,6 +408,7 @@ public class SelectQueries {
 		}
 		return personDTOs;
 	}
+	
 	
 
 	
@@ -471,7 +503,28 @@ public class SelectQueries {
 	}
 	
 	
-	
+	/**
+	 * 
+	 */
+	public static List<RecommendationDTO> getRecommendations(Connection connection, String patientName) throws PhmException {
+		List<RecommendationDTO> recommendationDTOs = new ArrayList<RecommendationDTO>();
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.GET_SUG_RECOMMENDATIONS);
+			ps.setString(1, patientName);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				RecommendationDTO recommendationDTO = new RecommendationDTO(resultSet.getInt("recommendationId"),
+						resultSet.getString("description"), resultSet.getString("frequency"),
+						resultSet.getString("lowerBound"), resultSet.getString("upperBound"),
+						resultSet.getString("metric"), resultSet.getString("value"));
+				recommendationDTOs.add(recommendationDTO);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
+		}
+		return recommendationDTOs;
+	}
 	
 	/**
 	 * Method to fetch .
@@ -549,8 +602,8 @@ public class SelectQueries {
 				recommendationDTOs.add(recommendationDTO);
 			}
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Recommendations." + e.getMessage());
-			throw new PhmException("Failed to fetch all Recommendations." + e.getMessage());
+			System.out.println("Failed to fetch Patient Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch Patient Recommendations." + e.getMessage());
 		}
 		return recommendationDTOs;
 	}

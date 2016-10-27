@@ -32,10 +32,10 @@ insert into STANDARD_RECOMMENDATION values(3, 9);
 
 
 --Person
-insert into Person values('P1', 'Sheldon Cooper', 'moon_pie', 'password', '2500 Sacramento, Apt 903, Santa Cruz, CA - 90021', to_date('19840526','YYYYMMDD'),'M');
-insert into Person values('P2', 'Leonard Hofstader', 'leo', 'password', '2500 Sacramento, Apt 904, Santa Cruz, CA - 90021', to_date('19890419','YYYYMMDD'),'M');
-insert into Person values('P3', 'Penny Hofstader', 'cheese_cake', 'password', '2500 Sacramento, Apt 904, Santa Cruz, CA - 90021', to_date('19901225','YYYYMMDD'),'F');
-insert into Person values('P4', 'Amy Farrahfowler', 'fowl', 'password', '2500 Sacramento, Apt 905, Santa Cruz, CA - 90021', to_date('19920615','YYYYMMDD'),'F');
+insert into Person values('P1', 'Sheldon Cooper', 'moon_pie', 'password', '2500 Sacramento, Apt 903, Santa Cruz, CA - 90021', to_date('19840526','YYYYMMDD'),'M',null);
+insert into Person values('P2', 'Leonard Hofstader', 'leo', 'password', '2500 Sacramento, Apt 904, Santa Cruz, CA - 90021', to_date('19890419','YYYYMMDD'),'M',null);
+insert into Person values('P3', 'Penny Hofstader', 'cheese_cake', 'password', '2500 Sacramento, Apt 904, Santa Cruz, CA - 90021', to_date('19901225','YYYYMMDD'),'F',null);
+insert into Person values('P4', 'Amy Farrahfowler', 'fowl', 'password', '2500 Sacramento, Apt 905, Santa Cruz, CA - 90021', to_date('19920615','YYYYMMDD'),'F',null);
 
 
 --Sick Person
