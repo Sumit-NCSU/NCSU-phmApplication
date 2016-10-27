@@ -40,11 +40,11 @@ public class PhmLogin {
 			System.out.println("Failed to Login!");
 		} else {
 			// login is successful, call the stored proc.
-			CallableStatement cStmt = con.prepareCall("{call check_freq(?)}");
+			/*CallableStatement cStmt = con.prepareCall("{call check_freq(?)}");
 			cStmt.setString(1, person.getPersonId());
 			cStmt.executeQuery();
 			ResultSet rs = cStmt.getResultSet();
-			cStmt.close();
+			cStmt.close();*/
 		}
 		con.close();
 		return person;

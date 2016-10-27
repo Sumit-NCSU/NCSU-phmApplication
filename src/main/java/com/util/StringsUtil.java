@@ -51,6 +51,8 @@ public class StringsUtil {
 	public static final String GET_RECOMMENDATION_BY_PID = "SELECT R.R_ID as recommendationId, R.DESCRIPTION as description, R.FREQUENCY as frequency, R.LOWER_BOUND as lowerBound, R.UPPER_BOUND as upperBound, R.METRIC as metric, R.STRING_VALUE as value FROM RECOMMENDATION R, SPECIFIC_RECOMMENDATION P WHERE R.R_ID = P.R_ID AND P.P_ID = ?";
 	
 	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID as recommendationId FROM STANDARD_RECOMMENDATION";
+	
+	public static final String GET_SUG_RECOMMENDATIONS = RECOMMENDATION_QUERY.concat(" WHERE R_ID IN (SELECT R_ID FROM SPECIFIC_RECOMMENDATION WHERE P_ID <> ?) AND R_ID NOT IN (SELECT R_ID FROM STANDARD_RECOMMENDATION)");
 	/**
 	 * query for well person table
 	 */
@@ -66,8 +68,10 @@ public class StringsUtil {
 	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (concat('P',phmseq.nextval), ?, ?, ?, ?, ?, ?)";
 
 	public static final String INSERT_OBSERVATION = "INSERT INTO OBSERVATION (OB_ID, P_ID, R_ID, OB_VALUE, RECORD_TIME, OB_TIME) VALUES (obvseq.nextval,?,?,?,SYSTIMESTAMP,?)";
+	
 	public static final String INSERT_RECOMMENDATION = "INSERT INTO RECOMMENDATION (R_ID, FREQUENCY, DESCRIPTION, METRIC, LOWER_BOUND, UPPER_BOUND, STRING_VALUE) VALUES (recseq.nextval,?,?,?,?,?,?)";
 	
+	public static final String INSERT_SPECIFIC_RECOMMENDATION = "INSERT INTO SPECIFIC_RECOMMENDATION (P_ID,R_ID) VALUES (?,?)";
 	
 	public static final String VIEW_EXISTING_HEALTH_SUPPORTERS = "SELECT HS1_ID AND HS2_ID FROM SICK_PERSON WHERE P_ID = ?"
 			+ "UNION" + "SELECT HS1_ID AND HS2_ID FROM WELL_PERSON WHERE P_ID = ?";
@@ -122,6 +126,8 @@ public class StringsUtil {
 	public static final String GET_PERSON_NAME = "SELECT PNAME as personName FROM PERSON WHERE P_ID = ?";
 	
 	public static final String GET_PERSON_ID = "SELECT P_ID as personId FROM PERSON WHERE USERNAME = ?";
+	
+	public static final String GET_PERSON_BY_ID = PERSON_QUERY.concat(" WHERE P_ID = ?");
 	
 	public static final String GET_RECORD_DISEASE_ID = RECRD_DISEASE_QUERY.concat(" WHERE P_ID = ?");
 	

@@ -95,4 +95,18 @@ public class InsertQueries {
 		}
 		return true;
 	}
+	
+public static boolean insertSpecificRecommendation(Connection connection, String patientId, int recommendationId) throws PhmException, java.text.ParseException {
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_SPECIFIC_RECOMMENDATION);
+			ps.setString(1, patientId);
+			ps.setInt(2,  recommendationId);
+			ps.executeUpdate();
+			System.out.println("Specific Recommendation has been added.!");
+		} catch (SQLException e) {
+			throw new PhmException("Errror While inserting observation " + e.getMessage());
+		}
+		return true;
+	}
 }

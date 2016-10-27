@@ -174,7 +174,7 @@ public class Recommendation {
 		con.close();
 	}
 
-	private static void viewStandardRecommendation(PersonDTO person) throws PhmException, SQLException {
+	public static void viewStandardRecommendation(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int count=1;
@@ -192,16 +192,30 @@ public class Recommendation {
 			
 				for(RecommendationDTO recommendation: recommendations)
 				{
-					System.out.println(count++ + ". " + "You are suppose to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
+					System.out.println(count++ + ". " + person.getPersonName() + " is suppose to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
 				}
 				
 			}
 			System.out.println("\n");
 		}
+		boolean flag = true;
+		System.out.println("a. Go Back");
+		while(flag)
+		{
+			
+			System.out.println("Enter Choice:");
+			String in = sc.nextLine();
+			if("a".equals(in))
+			{
+				flag = false;
+			}
+			else
+				System.out.println("a. Go Back (Enter letter 'a' to go back)");
+		}
 		con.close();
 	}
 	
-	private static void viewSpecificRecommendation(PersonDTO person) throws PhmException, SQLException {
+	public static void viewSpecificRecommendation(PersonDTO person) throws PhmException, SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int count=1;
@@ -217,13 +231,66 @@ public class Recommendation {
 			
 			for(RecommendationDTO recommendation: recommendations)
 			{
-				System.out.println(count++ + ". " + "You are specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
+				System.out.println(count++ + ". " + person.getPersonName() + " is specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
 			}	
 		}
 		System.out.println("\n");	
 			
+		boolean flag = true;
+		System.out.println("a. Go Back");
+		while(flag)
+		{
+			
+			System.out.println("Enter Choice:");
+			String in = sc.nextLine();
+			if("a".equals(in))
+			{
+				flag = false;
+			}
+			else
+				System.out.println("a. Go Back (Enter letter 'a' to go back)");
+		}
 		con.close();
 		
+	}
+
+	public static void addSpecificRecommendation(PersonDTO patientName) throws PhmException, ParseException, SQLException {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int input;
+		
+		Connection con = new ConnectionManager().getConnection();
+	
+		System.out.println("You can add a Specfic Recommendation from the below List.");
+		List<RecommendationDTO> recom_lists = SelectQueries.getRecommendations(con, patientName.getPersonId());
+		
+		for(RecommendationDTO record: recom_lists)
+		{
+			System.out.println(record.getRecommendationId() + ". Type: " + record.getDescription());
+			System.out.print("    Measured in " + record.getMetric() + " having frequency of " + record.getFrequency() + " Day(s).\t");
+			if(null != record.getLowerLimit())
+			{
+				System.out.print("Lower Limit is " + record.getLowerLimit() + "Upeer Limit is " + record.getUpperLimit());
+			}
+			else
+			{
+				if(null != record.getValue())
+				{
+					System.out.print("Expected Value is like " + record.getValue());
+				}
+			}
+			System.out.println("\n");
+		}
+		
+		System.out.println("Enter Id of Recommendation, that you want to recommend");
+		input = Integer.valueOf(sc.nextLine());
+	
+		boolean status = InsertQueries.insertSpecificRecommendation(con, patientName.getPersonId(),input);
+		if(status)
+			System.out.println("Recommendation added to patient's list.");
+		else
+			System.out.println("Recommendation couldn't be added.");
+		con.close();
 	}
 
 }
