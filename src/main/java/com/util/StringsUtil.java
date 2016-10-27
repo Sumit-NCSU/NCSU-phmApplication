@@ -35,7 +35,10 @@ public class StringsUtil {
 	 * query for sick person table
 	 */
 	public static final String SICK_PERSON_QUERY = "SELECT P_ID as PersonId, HS1_ID as HealthSupporter1Id, HS2_ID as HealthSupporter2Id, HS1_AUTH_DATE as hs1AuthDate, HS2_AUTH_DATE as hs2AuthDate FROM SICK_PERSON";
+	
+	public static final String INSERT_SICK_PERSON = "INSERT INTO SICK_PERSON (P_ID, HS1_ID, HS2_ID, HS1_AUTH_DATE, HS2_AUTH_DATE) VALUES (?,?,?,?,?)";
 	/**
+	 * 
 	 * query for specific recommendation table
 	 */
 	public static final String SPE_RECOMMENDATION_QUERY = "SELECT P_ID as PersonId, R_ID as recommendationId FROM SPECIFIC_RECOMMENDATION";
@@ -49,12 +52,14 @@ public class StringsUtil {
 	
 	public static final String STD_RECOMMENDATION_QUERY = "SELECT D_ID as diseaseId, R_ID as recommendationId FROM STANDARD_RECOMMENDATION";
 	
-	public static final String GET_SUG_RECOMMENDATIONS = RECOMMENDATION_QUERY.concat(" WHERE R_ID IN (SELECT R_ID FROM SPECIFIC_RECOMMENDATION WHERE P_ID <> ?) AND R_ID NOT IN (SELECT R_ID FROM STANDARD_RECOMMENDATION)");
+	public static final String GET_SUG_RECOMMENDATIONS = RECOMMENDATION_QUERY.concat(" WHERE R_ID NOT IN (SELECT R_ID FROM SPECIFIC_RECOMMENDATION WHERE P_ID = ?) AND R_ID NOT IN (SELECT R_ID FROM STANDARD_RECOMMENDATION)");
 	/**
 	 * query for well person table
 	 */
 	public static final String WELL_PERSON_QUERY = "SELECT P_ID as PersonId, HS1_ID as HealthSupporter1Id, HS2_ID as HealthSupporter2Id, HS1_AUTH_DATE as hs1AuthDate, HS2_AUTH_DATE as hs2AuthDate FROM WELL_PERSON";
 
+	public static final String WELL_PERSON_QUERY_BY_ID = WELL_PERSON_QUERY.concat(" WHERE P_ID = ?");
+	
 	/** Prepared Statements **/
 	public static final String LOGIN_QUERY = PERSON_QUERY.concat(" WHERE USERNAME = ? AND PASSWORD = ?");
 
@@ -81,13 +86,13 @@ public class StringsUtil {
 
 	public static final String VIEW_OBSERVATIONS = OBSERVATION_QUERY.concat(" WHERE P_ID = ? ORDER BY RECORD_TIME");
 
-	public static final String UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = ? WHERE P_ID = ?";
+	public static final String UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = SYSDATE WHERE P_ID = ?";
 
-	public static final String UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS2_ID = ? WHERE P_ID = ?";
+	public static final String UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
 
-	public static final String UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS1_ID = ? WHERE P_ID = ?";
+	public static final String UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
 
-	public static final String UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS2_ID = ? WHERE P_ID = ?";
+	public static final String UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
 
 	public static final String DELETE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = NULL WHERE P_ID = ?";
 
