@@ -40,11 +40,11 @@ public class PhmLogin {
 			System.out.println("Failed to Login!");
 		} else {
 			// login is successful, call the stored proc.
-			/*CallableStatement cStmt = con.prepareCall("{call check_freq(?)}");
+			CallableStatement cStmt = con.prepareCall("{call check_freq(?)}");
 			cStmt.setString(1, person.getPersonId());
 			cStmt.executeQuery();
 			ResultSet rs = cStmt.getResultSet();
-			cStmt.close();*/
+			cStmt.close();
 		}
 		con.close();
 		return person;
@@ -60,9 +60,9 @@ public class PhmLogin {
 			System.out.println("Username:");
 			String userName = sc.nextLine();
 			System.out.println("Password: ");
-//			Process p = Runtime.getRuntime().exec("stty -echo");
+			// Process p = Runtime.getRuntime().exec("stty -echo");
 			String password = sc.nextLine();
-//			p = Runtime.getRuntime().exec("stty echo");
+			// p = Runtime.getRuntime().exec("stty echo");
 			person = doLogin(userName, password);
 			if (person == null) {
 				System.out.println("Incorrect Login Credentials");
