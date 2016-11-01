@@ -9,6 +9,7 @@ import java.util.Scanner;
 import com.database.ConnectionManager;
 import com.database.InsertQueries;
 import com.database.SelectQueries;
+import com.database.UpdateQueries;
 import com.exception.PhmException;
 import com.model.PersonDTO;
 import com.model.RecommendationDTO;
@@ -220,7 +221,7 @@ public class Recommendation {
 		int count=1;
 		Connection con = new ConnectionManager().getConnection();
 		
-		System.out.println("Specific Recommendations for you ");
+		System.out.println("Specific Recommendations for the patient - ");
 		
 		List<SpecificRecommendationDTO> specific_indicators = SelectQueries.getPatientSpecificRecommendations(con, person.getPersonId());
 		
@@ -272,7 +273,7 @@ public class Recommendation {
 		
 		if(recom_lists.isEmpty())
 		{
-			System.out.println("No Specific Recommedations available. If you want to add Recommendation? \n After Adding into Recommendation, you can give that recommendation to your patient."
+			System.out.println("No Specific Recommedations available for this patient. If you want to add Recommendation? \n After Adding into Recommendation, you can give that recommendation to your patient."
 					+ " \n1. Go here (Enter char '1') or \nGo Back (Any char except 1)");
 			int in = Integer.valueOf(sc.nextLine());
 			con.close();
@@ -321,4 +322,68 @@ public class Recommendation {
 		con.close();
 	}
 
+	public static void editSpecificRecommendation(PersonDTO patientName) throws PhmException, SQLException {
+		// TODO Auto-generated method stub
+		int count=1;
+		Scanner sc = new Scanner(System.in);
+		Connection con = new ConnectionManager().getConnection();
+		
+		System.out.println("Specific Recommendations for the patient - ");
+		
+		List<SpecificRecommendationDTO> specific_indicators = SelectQueries.getPatientSpecificRecommendations(con, patientName.getPersonId());
+		
+		if(null != specific_indicators)
+		{
+			for(SpecificRecommendationDTO specific: specific_indicators)
+			{
+				List<RecommendationDTO> recommendations = SelectQueries.getPatientRecommendations(con, specific.getRecommendationId());
+				
+				for(RecommendationDTO recommendation: recommendations)
+				{
+					System.out.println("Recommendation Id: " + recommendation.getRecommendationId() + "\tDescription: " + recommendation.getDescription());
+				}	
+			}
+			
+			System.out.println("Enter Recommendation ID you want to edit.");
+			int input = Integer.valueOf(sc.nextLine());
+			
+			List<RecommendationDTO> recom_lists = SelectQueries.getRecommendations(con, patientName.getPersonId());
+			
+			System.out.println("You can edit a Specfic Recommendation from the below List.");
+			for(RecommendationDTO record: recom_lists)
+			{
+				System.out.println(record.getRecommendationId() + ". Type: " + record.getDescription());
+				System.out.print("    Measured in " + record.getMetric() + " having frequency of " + record.getFrequency() + " Day(s).\t");
+				if(null != record.getLowerLimit())
+				{
+					System.out.print("Lower Limit is " + record.getLowerLimit() + "Upeer Limit is " + record.getUpperLimit());
+				}
+				else
+				{
+					if(null != record.getValue())
+					{
+						System.out.print("Expected Value is like " + record.getValue());
+					}
+				}
+				System.out.println("\n");
+			}
+			
+			System.out.println("Enter Id of Recommendation, that you want to recommend \n0. Go Back");
+			int input1 = Integer.valueOf(sc.nextLine());
+			
+			if(input1 == 0)
+			{
+				con.close();
+				return;
+			}
+			
+			SpecificRecommendationDTO selectedSpecificRecom = SelectQueries.getSpecificRecommendationById(con, input);
+			
+			UpdateQueries.updateRecommendation(con, input, input1, patientName.getPersonId());
+		}
+		else
+		{
+			System.out.println("No Specific Recommendations found.");
+		}
+	}
 }

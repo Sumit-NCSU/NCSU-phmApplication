@@ -31,8 +31,9 @@ public class PatientAccount {
 			System.out.println("3. View Standard Recommendations");
 			System.out.println("4. View Specific Recommendations");
 			System.out.println("5. Add Specific Recommendations");
-			System.out.println("6. View Alerts");
-			System.out.println("7. Go Back To My Homepage.");
+			System.out.println("6. Edit Specific Recommendation");
+			System.out.println("7. View Alerts");
+			System.out.println("8. Go Back To My Homepage.");
 			
 			input = Integer.valueOf(sc.nextLine());
 			
@@ -54,9 +55,12 @@ public class PatientAccount {
 				Recommendation.addSpecificRecommendation(patientName);
 				break;
 			case 6:
-				AlertScreen.showScreen(patientName.getPersonId(), health_supporterId);
-				break;
+				Recommendation.editSpecificRecommendation(patientName);
+				break;	
 			case 7:
+				AlertScreen.showScreen(health_supporterId, patientName.getPersonId());
+				break;
+			case 8:
 				flag = false;
 				break;
 			default:

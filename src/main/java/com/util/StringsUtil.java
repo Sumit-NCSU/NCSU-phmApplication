@@ -115,7 +115,7 @@ public class StringsUtil {
 
 	public static final String IS_PERSON_SICK_PATIENT = "SELECT COUNT(*) AS VALUE FROM SICK_PERSON S WHERE S.P_ID = ?";
 	
-	public static final String UPDATE_PERSON_PROFILE = "UPDATE PERSON SET PNAME = ?, PASSWORD = ?, ADDRESS = ?, CONTACT = ? WHERE P_ID = ?";
+	public static final String UPDATE_PERSON_PROFILE = "UPDATE PERSON SET PNAME = ?, PASSWORD = ?, ADDRESS = ?, GENDER = ?, CONTACT = ? WHERE P_ID = ?";
 	
 	public static final String IS_PERSON_HEALTH_SUPPORTER = "SELECT COUNT(*) AS VALUE FROM PERSON P WHERE P_ID IN ( SELECT P_ID FROM WELL_PERSON WHERE HS1_ID=? OR HS2_ID=? UNION SELECT P_ID FROM SICK_PERSON WHERE HS1_ID=? OR HS2_ID=? )";
 	
@@ -150,4 +150,8 @@ public class StringsUtil {
 	public static final String CLEAR_ALERT_BY_HS = "update ALERT set IS_VIEWED = 'T' where P_ID = ? and A_ID = ?";
 	
 	public static final String CLEAR_ALERT_BY_PATIENT = "update ALERT set IS_VIEWED = 'T' where P_ID = ? and A_ID = ? and IS_MANDATORY != 'T'";
+	
+	public static final String SPECIFIC_RECOMMENDATIONS = SPE_RECOMMENDATION_QUERY.concat(" WHERE R_ID = ?");
+	
+	public static final String UPDATE_SPECIFIC_RECOMMENDATION = "UPDATE SPECIFIC_RECOMMENDATION SET R_ID = ? WHERE R_ID = ? AND P_ID = ?";
 }

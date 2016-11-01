@@ -140,7 +140,18 @@ public class UserScreen {
 		System.out.println("Username: \t" + person.getUsername());
 		System.out.println("Date of Birth: \t" + person.getDob());
 		System.out.println("Address: \t" + person.getAddress());
-		System.out.println("Gender: \t" + person.getGender());
+		if("M".equalsIgnoreCase(person.getGender()))
+		{
+			System.out.println("Gender: \tMale");
+		}
+		else if("F".equalsIgnoreCase(person.getGender()))
+		{
+			System.out.println("Gender: \tFemale");
+		}
+		else
+		{
+			System.out.println("Gender: \t" + person.getGender());
+		}
 		System.out.println("Contant Info: \t" + person.getContactInfo());
 		
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
@@ -176,8 +187,10 @@ public class UserScreen {
 		String address = sc.nextLine();
 		System.out.println("Enter Contact Info: ");
 		String contact = sc.nextLine();
+		System.out.println("Enter Gender: ");
+		String gender = sc.nextLine();
 		Connection con = new ConnectionManager().getConnection();
-		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address, contact);
+		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address, contact, gender);
 		if(status)
 			System.out.println("Profile Update Successfully.");
 		con.close();
