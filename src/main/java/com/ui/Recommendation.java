@@ -223,15 +223,22 @@ public class Recommendation {
 		System.out.println("Specific Recommendations for you ");
 		
 		List<SpecificRecommendationDTO> specific_indicators = SelectQueries.getPatientSpecificRecommendations(con, person.getPersonId());
-			
-		for(SpecificRecommendationDTO specific: specific_indicators)
+		
+		if(null != specific_indicators)
 		{
-			List<RecommendationDTO> recommendations = SelectQueries.getPatientRecommendations(con, specific.getRecommendationId());
-			
-			for(RecommendationDTO recommendation: recommendations)
+			for(SpecificRecommendationDTO specific: specific_indicators)
 			{
-				System.out.println(count++ + ". " + person.getPersonName() + " is specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
-			}	
+				List<RecommendationDTO> recommendations = SelectQueries.getPatientRecommendations(con, specific.getRecommendationId());
+				
+				for(RecommendationDTO recommendation: recommendations)
+				{
+					System.out.println(count++ + ". " + person.getPersonName() + " is specifically recommended to take an obersvation for " + recommendation.getDescription() + ", record it on the frequency of " + recommendation.getFrequency() + " Day(s).");
+				}	
+			}
+		}
+		else
+		{
+			System.out.println("No Specific Recommendations found.");
 		}
 		System.out.println("\n");	
 			

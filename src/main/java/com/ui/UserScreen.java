@@ -130,17 +130,19 @@ public class UserScreen {
 		
 	}
 	
-	public static void viewProfile(PersonDTO person) throws PhmException, SQLException
+	public static void viewProfile(PersonDTO person1) throws PhmException, SQLException
 	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Your Profile");
+		Connection con = new ConnectionManager().getConnection();
+		PersonDTO person = SelectQueries.getPatientDetails(con, person1.getPersonId());
+	
+		Scanner sc = new Scanner(System.in);System.out.println("Your Profile");
 		System.out.println("Name: \t\t" + person.getPersonName());
 		System.out.println("Username: \t" + person.getUsername());
 		System.out.println("Date of Birth: \t" + person.getDob());
 		System.out.println("Address: \t" + person.getAddress());
 		System.out.println("Gender: \t" + person.getGender());
 		System.out.println("Contant Info: \t" + person.getContactInfo());
-		Connection con = new ConnectionManager().getConnection();
+		
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
 		System.out.println("Patient category:\t" + status);
 		System.out.println();

@@ -128,10 +128,19 @@ public class Disease {
 					Date hs1_auth = well_patient.getHs1AuthDate();
 					Date hs2_auth = well_patient.getHs2AuthDate();
 					
-					SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
-					
-InsertQueries.insertSickPerson(con, sick_patient);
-					
+					if(null == hs1_sick_id)
+					{
+						System.out.println("You have to have at least 1 health supporter.");
+						System.out.println("Kindly give ID (String) value for your health supporter.");
+						hs1_sick_id = sc.nextLine();
+						SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
+						InsertQueries.insertSickPerson(con, sick_patient);
+					}
+					else
+					{
+						SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
+						InsertQueries.insertSickPerson(con, sick_patient);
+					}
 				}
 				con.close();
 				break;
