@@ -905,4 +905,22 @@ public class SelectQueries {
 		}
 		return wellPersonDTO;
 	}
+
+	public static SpecificRecommendationDTO getSpecificRecommendationById(Connection connection, int recomID) throws PhmException {
+		// TODO Auto-generated method stub
+		SpecificRecommendationDTO specificRecommendationDTO = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.SPECIFIC_RECOMMENDATIONS);
+			ps.setInt(1, recomID);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				specificRecommendationDTO = new SpecificRecommendationDTO(
+						resultSet.getInt("recommendationId"), resultSet.getString("personId"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all Specific Recommendations." + e.getMessage());
+			throw new PhmException("Failed to fetch all Specific Recommendations." + e.getMessage());
+		}
+		return specificRecommendationDTO;
+	}
 }
