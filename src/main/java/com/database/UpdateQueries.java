@@ -59,15 +59,16 @@ public class UpdateQueries {
 	 *             if some error occurs
 	 */
 	public static boolean updatePersonProfile(Connection connection, String personId, String fullname, String password,
-			String address, String contact) throws PhmException {
+			String address, String contact, String gender) throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_PERSON_PROFILE);
 			ps.setString(1, fullname);
 			ps.setString(2, password);
 			ps.setString(3, address);
-			ps.setString(4, contact);
-			ps.setString(5, personId);
+			ps.setString(4, gender);
+			ps.setString(5, contact);
+			ps.setString(6, personId);
 			int rows = ps.executeUpdate();
 
 			if (rows > 0)
@@ -318,6 +319,29 @@ public class UpdateQueries {
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.DELETE_WELL_PERSON_SECOND_HEALTH_SUPPORTER);
 			ps.setString(1, personId);
+			int rows = ps.executeUpdate();
+			if (rows > 0)
+				status = true;
+			else
+				status = false;
+
+		} catch (SQLException e) {
+			System.out.println("Failed to delete Well Patient HP1." + e.getMessage());
+			throw new PhmException("Failed to delete Well Patient HP1." + e.getMessage());
+		}
+		return status;
+	}
+	
+	
+	public static boolean updateRecommendation(Connection connection, int new1, int old1,String personId)
+			throws PhmException {
+		boolean status = false;
+		try {
+			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_SPECIFIC_RECOMMENDATION);
+			ps.setInt(1, new1);
+			ps.setInt(2, old1);
+			ps.setString(3, personId);
+			
 			int rows = ps.executeUpdate();
 			if (rows > 0)
 				status = true;
