@@ -139,7 +139,11 @@ public class Disease {
 						java.util.Date utilDate = formatter.parse(auth_date);
 						hs1_auth =  new java.sql.Date(utilDate.getTime());
 						SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
-						InsertQueries.insertSickPerson(con, sick_patient);
+						if(InsertQueries.insertSickPerson(con, sick_patient))
+							System.out.println("Patient added in Sick Category");
+						else
+							System.out.println("Patient couldn't be added.");
+						
 					}
 					else
 					{
