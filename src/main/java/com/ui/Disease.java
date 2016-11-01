@@ -132,8 +132,9 @@ public class Disease {
 					if(null == hs1_sick_id)
 					{
 						System.out.println("You have to have at least 1 health supporter.");
-						System.out.println("Kindly give ID (String) value for your health supporter.");
-						hs1_sick_id = sc.nextLine();
+						System.out.println("Kindly give Health supporter's username:");
+						String username = sc.nextLine();
+						hs1_sick_id = SelectQueries.getPersonId(con, username);
 						System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
 						String auth_date = sc.nextLine();
 						java.util.Date utilDate = formatter.parse(auth_date);
@@ -142,7 +143,7 @@ public class Disease {
 						if(InsertQueries.insertSickPerson(con, sick_patient))
 							System.out.println("Patient added in Sick Category");
 						else
-							System.out.println("Patient couldn't be added.");
+							System.out.println("Patient couldn't be added. Confirm your health supporter's username.");
 						
 					}
 					else
