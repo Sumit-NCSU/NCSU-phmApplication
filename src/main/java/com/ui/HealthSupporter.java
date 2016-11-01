@@ -2,6 +2,7 @@ package com.ui;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -202,12 +203,17 @@ try{
 			Connection con = new ConnectionManager().getConnection();
 			SickPersonDTO sickPatient = SelectQueries.getSickPersonHealthSupporter(con, patient.getPersonId());
 		
-			String h_sup_name = null;
+			String h_sup_name = null, h_contact_info = null;
 			if(null != sickPatient.getHealthSupporter1Id())
 			{
 				System.out.println("Health Supporter 1 - ");
 				h_sup_name = SelectQueries.getPersonName(con, sickPatient.getHealthSupporter1Id());
 				System.out.print("\nFullName: " + h_sup_name + "\t");
+				h_contact_info = SelectQueries.getContactInfo(con, sickPatient.getHealthSupporter1Id());
+				if( null != h_contact_info)
+				{
+					System.out.println("Contact Info: " + h_contact_info + "\t");					
+				}
 				System.out.print("Authorized on: " + sickPatient.getHs1AuthDate());
 				if(null != sickPatient.getHealthSupporter2Id())
 				{
@@ -215,6 +221,11 @@ try{
 					System.out.println("Health Supporter 2 - ");
 					h_sup_name = SelectQueries.getPersonName(con, sickPatient.getHealthSupporter2Id());
 					System.out.print("\nFullName: " + h_sup_name + "\t");
+					h_contact_info = SelectQueries.getContactInfo(con, sickPatient.getHealthSupporter2Id());
+					if( null != h_contact_info)
+					{
+						System.out.println("Contact Info: " + h_contact_info + "\t");					
+					}
 					System.out.print("Authorized on: " + sickPatient.getHs2AuthDate());
 				}
 				System.out.println();
@@ -232,13 +243,18 @@ try{
 			
 			WellPersonDTO wellPatient = SelectQueries.getWellPersonHealthSupporter(con, patient.getPersonId());
 		
-			String h_sup_name = null;
+			String h_sup_name = null, h_contact_info = null;
 			
 			if(null != wellPatient.getHealthSupporter1Id())
 			{
 				System.out.println("Health Supporter 1 - ");
 				h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter1Id());
 				System.out.print("\nFullName: " + h_sup_name + "\t");
+				h_contact_info = SelectQueries.getContactInfo(con, wellPatient.getHealthSupporter1Id());
+				if( null != h_contact_info)
+				{
+					System.out.println("Contact Info: " + h_contact_info + "\t");					
+				}
 				System.out.print("Authorized on: " + wellPatient.getHs1AuthDate());
 				if(null != wellPatient.getHealthSupporter2Id())
 				{
@@ -246,16 +262,26 @@ try{
 					System.out.println("Health Supporter 2: ");
 					h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter2Id());
 					System.out.print("\nFullName: " + h_sup_name + "\t");
+					h_contact_info = SelectQueries.getContactInfo(con, wellPatient.getHealthSupporter2Id());
+					if( null != h_contact_info)
+					{
+						System.out.println("Contact Info: " + h_contact_info + "\t");					
+					}
 					System.out.print("Authorized on: " + wellPatient.getHs2AuthDate());
 				}
 				System.out.println();
 			}
-			else if(null != wellPatient.getHealthSupporter1Id())
+			else if(null != wellPatient.getHealthSupporter2Id())
 			{
 				System.out.println();
 				System.out.println("Health Supporter 2: ");
 				h_sup_name = SelectQueries.getPersonName(con, wellPatient.getHealthSupporter2Id());
 				System.out.print("\nFullName: " + h_sup_name + "\t");
+				h_contact_info = SelectQueries.getContactInfo(con, wellPatient.getHealthSupporter2Id());
+				if( null != h_contact_info)
+				{
+					System.out.println("Contact Info: " + h_contact_info + "\t");					
+				}
 				System.out.print("Authorized on: " + wellPatient.getHs2AuthDate());
 			}
 			else
@@ -267,7 +293,7 @@ try{
 	}
 	
 	
-	private static void addHealthSupporters(PersonDTO patient, String status) throws PhmException, SQLException {
+	private static void addHealthSupporters(PersonDTO patient, String status) throws PhmException, SQLException, ParseException {
 		// TODO Auto-generated method stub
 		if(status.equals("SICK"))
 		{
@@ -281,8 +307,10 @@ try{
 			{
 				System.out.println("Enter Health Supporter 2 (using username only)");
 				input = sc.nextLine();
+				System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+				String auth_date = sc.nextLine();
 				h_sup_id = SelectQueries.getPersonId(con, input);
-				boolean flag = UpdateQueries.updateSickPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id);
+				boolean flag = UpdateQueries.updateSickPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id, auth_date);
 				
 				if(flag)
 					System.out.println("Health Supporter 2 added successfully.");
@@ -307,8 +335,10 @@ try{
 			{
 				System.out.println("Enter Health Supporter 1 (using username only)");
 				input = sc.nextLine();
+				System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+				String auth_date = sc.nextLine();
 				h_sup_id = SelectQueries.getPersonId(con, input);
-				boolean flag = UpdateQueries.updateWellPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id);
+				boolean flag = UpdateQueries.updateWellPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id, auth_date);
 				if(flag)
 				{
 					System.out.println("Health Supporter 1 successfully added.");
@@ -321,8 +351,10 @@ try{
 						{
 							System.out.println("Enter Health Supporter 2 (using username only)");
 							input = sc.nextLine();
+							System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+							String auth_date1 = sc.nextLine();
 							h_sup_id = SelectQueries.getPersonId(con, input);
-							boolean flag1 = UpdateQueries.updateWellPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id);
+							boolean flag1 = UpdateQueries.updateWellPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id, auth_date1);
 							if(flag1)
 								System.out.println("Health Supporter 2 successfully added.");
 							else
@@ -344,7 +376,7 @@ try{
 		}
 	}
 	
-	private static void editHealthSupporters(PersonDTO patient, String status) throws PhmException, SQLException {
+	private static void editHealthSupporters(PersonDTO patient, String status) throws PhmException, SQLException, ParseException {
 		// TODO Auto-generated method stub
 		if(status.equals("SICK"))
 		{
@@ -375,8 +407,10 @@ try{
 							System.out.println("Editing Health Supporter 1");
 							System.out.println("Enter new Health Supporter 1 (using username only)");
 							input1 = sc.nextLine();
+							System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+							String auth_date = sc.nextLine();
 							h_sup_id = SelectQueries.getPersonId(con, input1);
-							boolean flag1 = UpdateQueries.updateSickPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id);
+							boolean flag1 = UpdateQueries.updateSickPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id, auth_date);
 							if(flag1)
 								System.out.println("Health Supporter 1 successfully edited.");
 							else
@@ -389,8 +423,10 @@ try{
 								System.out.println("Editing Health Supporter 2");
 								System.out.println("Enter new Health Supporter 2 (using username only)");
 								input1 = sc.nextLine();
+								System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+								String auth_date1 = sc.nextLine();
 								h_sup_id = SelectQueries.getPersonId(con, input1);
-								boolean flag2 = UpdateQueries.updateSickPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id);
+								boolean flag2 = UpdateQueries.updateSickPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id, auth_date1);
 								if(flag2)
 									System.out.println("Health Supporter 2 successfully edited.");
 								else
@@ -444,8 +480,10 @@ try{
 							System.out.println("Editing Health Supporter 1");
 							System.out.println("Enter new Health Supporter 1 (using username only)");
 							input1 = sc.nextLine();
+							System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+							String auth_date = sc.nextLine();
 							h_sup_id = SelectQueries.getPersonId(con, input1);
-							boolean flag1 = UpdateQueries.updateWellPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id);
+							boolean flag1 = UpdateQueries.updateWellPersonHealthSupporter1(con, patient.getPersonId(), h_sup_id, auth_date);
 							if(flag1)
 								System.out.println("Health Supporter 1 successfully edited.");
 							else
@@ -459,7 +497,9 @@ try{
 								System.out.println("Enter new Health Supporter 2 (using username only)");
 								input1 = sc.nextLine();
 								h_sup_id = SelectQueries.getPersonId(con, input1);
-								boolean flag2 = UpdateQueries.updateWellPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id);
+								System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+								String auth_date1 = sc.nextLine();
+								boolean flag2 = UpdateQueries.updateWellPersonHealthSupporter2(con, patient.getPersonId(), h_sup_id, auth_date1);
 								if(flag2)
 									System.out.println("Health Supporter 2 successfully edited.");
 								else
