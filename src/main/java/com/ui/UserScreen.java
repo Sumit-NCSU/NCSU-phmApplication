@@ -139,6 +139,7 @@ public class UserScreen {
 		System.out.println("Date of Birth: \t" + person.getDob());
 		System.out.println("Address: \t" + person.getAddress());
 		System.out.println("Gender: \t" + person.getGender());
+		System.out.println("Contant Info: \t" + person.getContactInfo());
 		Connection con = new ConnectionManager().getConnection();
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
 		System.out.println("Patient category:\t" + status);
@@ -171,9 +172,10 @@ public class UserScreen {
 		String password = sc.nextLine();
 		System.out.println("Enter Address: ");
 		String address = sc.nextLine();
-		
+		System.out.println("Enter Contact Info: ");
+		String contact = sc.nextLine();
 		Connection con = new ConnectionManager().getConnection();
-		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address);
+		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address, contact);
 		if(status)
 			System.out.println("Profile Update Successfully.");
 		con.close();

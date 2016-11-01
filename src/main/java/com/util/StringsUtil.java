@@ -67,7 +67,7 @@ public class StringsUtil {
 
 	public static final String LOGIN_MESSAGE = "Welcome to Patient Health Management Application!";
 
-	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER) VALUES (concat('P',phmseq.nextval), ?, ?, ?, ?, ?, ?)";
+	public static final String INSERT_PERSON = "INSERT INTO Person (P_ID, PNAME, USERNAME, PASSWORD, ADDRESS, DOB, GENDER, CONTACT) VALUES (concat('P',phmseq.nextval), ?, ?, ?, ?, ?, ?, ?)";
 
 	public static final String INSERT_OBSERVATION = "INSERT INTO OBSERVATION (OB_ID, P_ID, R_ID, OB_VALUE, RECORD_TIME, OB_TIME) VALUES (obvseq.nextval,?,?,?,SYSTIMESTAMP,?)";
 	
@@ -86,13 +86,13 @@ public class StringsUtil {
 
 	public static final String VIEW_OBSERVATIONS = OBSERVATION_QUERY.concat(" WHERE P_ID = ? ORDER BY RECORD_TIME");
 
-	public static final String UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = SYSDATE WHERE P_ID = ?";
+	public static final String UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = ? WHERE P_ID = ?";
 
-	public static final String UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
+	public static final String UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = ? WHERE P_ID = ?";
 
-	public static final String UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
+	public static final String UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS1_ID = ?,HS1_AUTH_DATE = ? WHERE P_ID = ?";
 
-	public static final String UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = SYSDATE WHERE WHERE P_ID = ?";
+	public static final String UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER = "UPDATE WELL_PERSON SET HS2_ID = ?,HS2_AUTH_DATE = ? WHERE P_ID = ?";
 
 	public static final String DELETE_SICK_PERSON_FIRST_HEALTH_SUPPORTER = "UPDATE SICK_PERSON SET HS1_ID = NULL, HS1_AUTH_DATE=NULL WHERE P_ID = ?";
 
@@ -115,7 +115,7 @@ public class StringsUtil {
 
 	public static final String IS_PERSON_SICK_PATIENT = "SELECT COUNT(*) AS VALUE FROM SICK_PERSON S WHERE S.P_ID = ?";
 	
-	public static final String UPDATE_PERSON_PROFILE = "UPDATE PERSON SET PNAME = ?, PASSWORD = ?, ADDRESS = ? WHERE P_ID = ?";
+	public static final String UPDATE_PERSON_PROFILE = "UPDATE PERSON SET PNAME = ?, PASSWORD = ?, ADDRESS = ?, CONTACT = ? WHERE P_ID = ?";
 	
 	public static final String IS_PERSON_HEALTH_SUPPORTER = "SELECT COUNT(*) AS VALUE FROM PERSON P WHERE P_ID IN ( SELECT P_ID FROM WELL_PERSON WHERE HS1_ID=? OR HS2_ID=? UNION SELECT P_ID FROM SICK_PERSON WHERE HS1_ID=? OR HS2_ID=? )";
 	
@@ -126,6 +126,8 @@ public class StringsUtil {
 	public static final String GET_DISEASE_NAME = "SELECT DNAME as diseaseName FROM DISEASE WHERE D_ID = ?";
 	
 	public static final String GET_PERSON_NAME = "SELECT PNAME as personName FROM PERSON WHERE P_ID = ?";
+	
+	public static final String GET_CONTACT_INFO = "SELECT CONTACT as contactInfo FROM PERSON WHERE P_ID = ?";
 	
 	public static final String GET_PERSON_ID = "SELECT P_ID as personId FROM PERSON WHERE USERNAME = ?";
 	
