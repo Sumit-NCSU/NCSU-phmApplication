@@ -32,11 +32,11 @@ public class InsertQueries {
 			ps.setString(2, personDTO.getUsername());
 			ps.setString(3, personDTO.getPassword());
 			ps.setString(4, personDTO.getAddress());
-			ps.setString(5, personDTO.getContactInfo());
 			java.util.Date utilDate = formatter.parse(personDTO.getDob());
 			java.sql.Date dob_date =  new java.sql.Date(utilDate.getTime());
 			ps.setDate(5, dob_date);
 			ps.setString(6, personDTO.getGender());
+			ps.setString(7, personDTO.getContactInfo());
 			
 			ps.executeUpdate();
 			System.out.println("User has been added.!");

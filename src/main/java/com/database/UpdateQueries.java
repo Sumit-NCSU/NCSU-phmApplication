@@ -66,8 +66,8 @@ public class UpdateQueries {
 			ps.setString(1, fullname);
 			ps.setString(2, password);
 			ps.setString(3, address);
-			ps.setString(4, personId);
-			ps.setString(5, contact);
+			ps.setString(4, contact);
+			ps.setString(5, personId);
 			int rows = ps.executeUpdate();
 
 			if (rows > 0)
