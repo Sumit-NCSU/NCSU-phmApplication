@@ -112,7 +112,7 @@ public static boolean insertSpecificRecommendation(Connection connection, String
 		return true;
 	}
 
-public static void insertSickPerson(Connection connection, SickPersonDTO sickPatient) throws PhmException, java.text.ParseException {
+public static boolean insertSickPerson(Connection connection, SickPersonDTO sickPatient) throws PhmException, java.text.ParseException {
 	
 	try {
 		PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_SICK_PERSON);
@@ -122,6 +122,7 @@ public static void insertSickPerson(Connection connection, SickPersonDTO sickPat
 		ps.setDate(4, sickPatient.getHs1AuthDate());
 		ps.setDate(5, sickPatient.getHs2AuthDate());
 		ps.executeUpdate();
+		return true;
 	} catch (SQLException e) {
 		throw new PhmException("Errror While inserting new category of patient " + e.getMessage());
 	}
