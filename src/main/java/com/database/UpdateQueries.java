@@ -3,6 +3,8 @@ package com.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.exception.PhmException;
 import com.util.StringsUtil;
@@ -57,14 +59,15 @@ public class UpdateQueries {
 	 *             if some error occurs
 	 */
 	public static boolean updatePersonProfile(Connection connection, String personId, String fullname, String password,
-			String address) throws PhmException {
+			String address, String contact) throws PhmException {
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_PERSON_PROFILE);
 			ps.setString(1, fullname);
 			ps.setString(2, password);
 			ps.setString(3, address);
-			ps.setString(4, personId);
+			ps.setString(4, contact);
+			ps.setString(5, personId);
 			int rows = ps.executeUpdate();
 
 			if (rows > 0)
@@ -73,8 +76,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to update profile" + e.getMessage());
+			throw new PhmException("Failed to update profile" + e.getMessage());
 		}
 		return status;
 	}
@@ -102,8 +105,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to delete patient." + e.getMessage());
+			throw new PhmException("Failed to delete patient." + e.getMessage());
 		}
 		return status;
 	}
@@ -116,14 +119,19 @@ public class UpdateQueries {
 	 * @return
 	 * @throws PhmException
 	 *             if some error occurs
+	 * @throws ParseException 
 	 */
-	public static boolean updateSickPersonHealthSupporter1(Connection connection, String personId, String hp1)
-			throws PhmException {
+	public static boolean updateSickPersonHealthSupporter1(Connection connection, String personId, String hp1, String auth_date)
+			throws PhmException, ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_SICK_PERSON_FIRST_HEALTH_SUPPORTER);
 			ps.setString(1, hp1);
-			ps.setString(2, personId);
+			java.util.Date utilDate = formatter.parse(auth_date);
+			java.sql.Date hp_auth_date =  new java.sql.Date(utilDate.getTime());
+			ps.setDate(2, hp_auth_date);
+			ps.setString(3, personId);
 			int rows = ps.executeUpdate();
 			if (rows > 0)
 				status = true;
@@ -131,8 +139,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to update Sick Person's HP1." + e.getMessage());
+			throw new PhmException("Failed to update Sick Person's HP1." + e.getMessage());
 		}
 		return status;
 	}
@@ -145,14 +153,19 @@ public class UpdateQueries {
 	 * @return
 	 * @throws PhmException
 	 *             if some error occurs
+	 * @throws ParseException 
 	 */
-	public static boolean updateWellPersonHealthSupporter1(Connection connection, String personId, String hp1)
-			throws PhmException {
+	public static boolean updateWellPersonHealthSupporter1(Connection connection, String personId, String hp1, String auth_date)
+			throws PhmException, ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_WELL_PERSON_FIRST_HEALTH_SUPPORTER);
 			ps.setString(1, hp1);
-			ps.setString(2, personId);
+			java.util.Date utilDate = formatter.parse(auth_date);
+			java.sql.Date hp_auth_date =  new java.sql.Date(utilDate.getTime());
+			ps.setDate(2, hp_auth_date);
+			ps.setString(3, personId);
 			int rows = ps.executeUpdate();
 			if (rows > 0)
 				status = true;
@@ -160,8 +173,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to update Well Person's HP1." + e.getMessage());
+			throw new PhmException("Failed to update Well Person's HP1." + e.getMessage());
 		}
 		return status;
 	}
@@ -174,13 +187,18 @@ public class UpdateQueries {
 	 * @return
 	 * @throws PhmException
 	 *             if some error occurs
+	 * @throws ParseException 
 	 */
-	public static boolean updateSickPersonHealthSupporter2(Connection connection, String personId, String hp2)
-			throws PhmException {
+	public static boolean updateSickPersonHealthSupporter2(Connection connection, String personId, String hp2, String auth_date)
+			throws PhmException, ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_SICK_PERSON_SECOND_HEALTH_SUPPORTER);
 			ps.setString(1, hp2);
+			java.util.Date utilDate = formatter.parse(auth_date);
+			java.sql.Date hp_auth_date =  new java.sql.Date(utilDate.getTime());
+			ps.setDate(2, hp_auth_date);
 			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
 			if (rows > 0)
@@ -189,8 +207,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to update Sick Person's HP2." + e.getMessage());
+			throw new PhmException("Failed to update Sick Person's HP2." + e.getMessage());
 		}
 		return status;
 	}
@@ -203,13 +221,18 @@ public class UpdateQueries {
 	 * @return
 	 * @throws PhmException
 	 *             if some error occurs
+	 * @throws ParseException 
 	 */
-	public static boolean updateWellPersonHealthSupporter2(Connection connection, String personId, String hp2)
-			throws PhmException {
+	public static boolean updateWellPersonHealthSupporter2(Connection connection, String personId, String hp2, String auth_date)
+			throws PhmException, ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		boolean status = false;
 		try {
 			PreparedStatement ps = connection.prepareStatement(StringsUtil.UPDATE_WELL_PERSON_SECOND_HEALTH_SUPPORTER);
 			ps.setString(1, hp2);
+			java.util.Date utilDate = formatter.parse(auth_date);
+			java.sql.Date hp_auth_date =  new java.sql.Date(utilDate.getTime());
+			ps.setDate(2, hp_auth_date);
 			ps.setString(2, personId);
 			int rows = ps.executeUpdate();
 			if (rows > 0)
@@ -218,8 +241,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to update Well Person's HP2." + e.getMessage());
+			throw new PhmException("Failed to update Well Person's HP2." + e.getMessage());
 		}
 		return status;
 	}
@@ -246,8 +269,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to delete Sick Patient HP2." + e.getMessage());
+			throw new PhmException("Failed to delete Sick Patient HP2." + e.getMessage());
 		}
 		return status;
 	}
@@ -274,8 +297,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to delete Well Patient HP1." + e.getMessage());
+			throw new PhmException("Failed to delete Well Patient HP1." + e.getMessage());
 		}
 		return status;
 	}
@@ -302,8 +325,8 @@ public class UpdateQueries {
 				status = false;
 
 		} catch (SQLException e) {
-			System.out.println("Failed to fetch all Persons." + e.getMessage());
-			throw new PhmException("Failed to fetch all Persons." + e.getMessage());
+			System.out.println("Failed to delete Well Patient HP1." + e.getMessage());
+			throw new PhmException("Failed to delete Well Patient HP1." + e.getMessage());
 		}
 		return status;
 	}

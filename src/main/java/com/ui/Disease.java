@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,8 +41,8 @@ public class Disease {
 				System.out.println("Select an option ");
 				System.out.println("1. View Diseases");
 				System.out.println("2. Add New Disease");
-				System.out.println("3. Delete Disease");
-				System.out.println("4. Go Back");
+				//System.out.println("3. Delete Disease");
+				System.out.println("3. Go Back");
 			
 				input = Integer.valueOf(sc.nextLine());	
 				
@@ -53,10 +54,10 @@ public class Disease {
 					case 2:
 						enterDiseases(person);
 						break;
-					case 3:
+					/*case 3:
 						deleteDisease(person);
-						break;
-					case 4:
+						break;*/
+					case 3:
 						flag = false;
 						break;
 					default:
@@ -127,11 +128,28 @@ public class Disease {
 					String hs2_sick_id = well_patient.getHealthSupporter2Id();
 					Date hs1_auth = well_patient.getHs1AuthDate();
 					Date hs2_auth = well_patient.getHs2AuthDate();
-					
-					SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
-					
-InsertQueries.insertSickPerson(con, sick_patient);
-					
+					SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+					if(null == hs1_sick_id)
+					{
+						System.out.println("You have to have at least 1 health supporter.");
+						System.out.println("Kindly give ID (String) value for your health supporter.");
+						hs1_sick_id = sc.nextLine();
+						System.out.println("Enter Authorization Date (MM/dd/yyyy): ");
+						String auth_date = sc.nextLine();
+						java.util.Date utilDate = formatter.parse(auth_date);
+						hs1_auth =  new java.sql.Date(utilDate.getTime());
+						SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
+						if(InsertQueries.insertSickPerson(con, sick_patient))
+							System.out.println("Patient added in Sick Category");
+						else
+							System.out.println("Patient couldn't be added.");
+						
+					}
+					else
+					{
+						SickPersonDTO sick_patient = new SickPersonDTO(sick_patient_id, hs1_sick_id, hs2_sick_id, hs1_auth, hs2_auth);
+						InsertQueries.insertSickPerson(con, sick_patient);
+					}
 				}
 				con.close();
 				break;

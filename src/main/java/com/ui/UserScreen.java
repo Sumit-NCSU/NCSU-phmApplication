@@ -130,16 +130,19 @@ public class UserScreen {
 		
 	}
 	
-	public static void viewProfile(PersonDTO person) throws PhmException, SQLException
+	public static void viewProfile(PersonDTO person1) throws PhmException, SQLException
 	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Your Profile");
+		Connection con = new ConnectionManager().getConnection();
+		PersonDTO person = SelectQueries.getPatientDetails(con, person1.getPersonId());
+	
+		Scanner sc = new Scanner(System.in);System.out.println("Your Profile");
 		System.out.println("Name: \t\t" + person.getPersonName());
 		System.out.println("Username: \t" + person.getUsername());
 		System.out.println("Date of Birth: \t" + person.getDob());
 		System.out.println("Address: \t" + person.getAddress());
 		System.out.println("Gender: \t" + person.getGender());
-		Connection con = new ConnectionManager().getConnection();
+		System.out.println("Contant Info: \t" + person.getContactInfo());
+		
 		String status = SelectQueries.getPatientType(con, person.getPersonId());
 		System.out.println("Patient category:\t" + status);
 		System.out.println();
@@ -171,9 +174,10 @@ public class UserScreen {
 		String password = sc.nextLine();
 		System.out.println("Enter Address: ");
 		String address = sc.nextLine();
-		
+		System.out.println("Enter Contact Info: ");
+		String contact = sc.nextLine();
 		Connection con = new ConnectionManager().getConnection();
-		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address);
+		boolean status = UpdateQueries.updatePersonProfile(con, person.getPersonId(),fullname,password,address, contact);
 		if(status)
 			System.out.println("Profile Update Successfully.");
 		con.close();

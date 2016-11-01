@@ -36,6 +36,7 @@ public class InsertQueries {
 			java.sql.Date dob_date =  new java.sql.Date(utilDate.getTime());
 			ps.setDate(5, dob_date);
 			ps.setString(6, personDTO.getGender());
+			ps.setString(7, personDTO.getContactInfo());
 			
 			ps.executeUpdate();
 			System.out.println("User has been added.!");
@@ -90,9 +91,9 @@ public class InsertQueries {
 			ps.setString(5, recommendationDTO.getUpperLimit());
 			ps.setString(6, recommendationDTO.getValue());
 			ps.executeUpdate();
-			System.out.println("Observation has been added.!");
+			System.out.println("Recommendation has been added.!");
 		} catch (SQLException e) {
-			throw new PhmException("Errror While inserting observation " + e.getMessage());
+			throw new PhmException("Errror While inserting recommendation " + e.getMessage());
 		}
 		return true;
 	}
@@ -106,12 +107,12 @@ public static boolean insertSpecificRecommendation(Connection connection, String
 			ps.executeUpdate();
 			System.out.println("Specific Recommendation has been added.!");
 		} catch (SQLException e) {
-			throw new PhmException("Errror While inserting observation " + e.getMessage());
+			throw new PhmException("Errror While inserting specific recommendation " + e.getMessage());
 		}
 		return true;
 	}
 
-public static void insertSickPerson(Connection connection, SickPersonDTO sickPatient) throws PhmException, java.text.ParseException {
+public static boolean insertSickPerson(Connection connection, SickPersonDTO sickPatient) throws PhmException, java.text.ParseException {
 	
 	try {
 		PreparedStatement ps = connection.prepareStatement(StringsUtil.INSERT_SICK_PERSON);
@@ -121,6 +122,7 @@ public static void insertSickPerson(Connection connection, SickPersonDTO sickPat
 		ps.setDate(4, sickPatient.getHs1AuthDate());
 		ps.setDate(5, sickPatient.getHs2AuthDate());
 		ps.executeUpdate();
+		return true;
 	} catch (SQLException e) {
 		throw new PhmException("Errror While inserting new category of patient " + e.getMessage());
 	}
