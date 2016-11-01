@@ -32,7 +32,7 @@ public class PatientAccount {
 			System.out.println("4. View Specific Recommendations");
 			System.out.println("5. Add Specific Recommendations");
 			System.out.println("6. View Alerts");
-			System.out.println("7. Go Back My Homepage.");
+			System.out.println("7. Go Back To My Homepage.");
 			
 			input = Integer.valueOf(sc.nextLine());
 			
