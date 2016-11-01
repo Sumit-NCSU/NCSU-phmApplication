@@ -40,8 +40,8 @@ public class Disease {
 				System.out.println("Select an option ");
 				System.out.println("1. View Diseases");
 				System.out.println("2. Add New Disease");
-				System.out.println("3. Delete Disease");
-				System.out.println("4. Go Back");
+				//System.out.println("3. Delete Disease");
+				System.out.println("3. Go Back");
 			
 				input = Integer.valueOf(sc.nextLine());	
 				
@@ -53,10 +53,10 @@ public class Disease {
 					case 2:
 						enterDiseases(person);
 						break;
-					case 3:
+					/*case 3:
 						deleteDisease(person);
-						break;
-					case 4:
+						break;*/
+					case 3:
 						flag = false;
 						break;
 					default:
